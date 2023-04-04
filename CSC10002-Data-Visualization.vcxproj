@@ -41,6 +41,29 @@
     <ClCompile Include="sources\TitleState.cpp" />
     <ClCompile Include="sources\World.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Aircraft.hpp" />
+    <ClInclude Include="include\Application.hpp" />
+    <ClInclude Include="include\Button.hpp" />
+    <ClInclude Include="include\Command.hpp" />
+    <ClInclude Include="include\CommandQueue.hpp" />
+    <ClInclude Include="include\Component.hpp" />
+    <ClInclude Include="include\Container.hpp" />
+    <ClInclude Include="include\Entity.hpp" />
+    <ClInclude Include="include\GameState.hpp" />
+    <ClInclude Include="include\Label.hpp" />
+    <ClInclude Include="include\MenuState.hpp" />
+    <ClInclude Include="include\PauseState.hpp" />
+    <ClInclude Include="include\Player.hpp" />
+    <ClInclude Include="include\ResourceHolder.hpp" />
+    <ClInclude Include="include\SceneNode.hpp" />
+    <ClInclude Include="include\SettingsState.hpp" />
+    <ClInclude Include="include\SpriteNode.hpp" />
+    <ClInclude Include="include\State.hpp" />
+    <ClInclude Include="include\StateStack.hpp" />
+    <ClInclude Include="include\TitleState.hpp" />
+    <ClInclude Include="include\World.hpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

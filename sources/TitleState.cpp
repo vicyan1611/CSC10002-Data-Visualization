@@ -9,7 +9,7 @@ TitleState::TitleState(StateStack& stack, Context context)
 	mBackgroundSprite.setTexture(context.textures->get(Textures::TitleScreen));
 
 	mText.setFont(context.fonts->get(Fonts::Main));
-	mText.setString("Press any key to start");
+	mText.setString("Press Space to start");
 
 	sf::FloatRect bounds = mText.getLocalBounds();
 	mText.setOrigin(std::floor(bounds.left + bounds.width/2.f), std::floor(bounds.top + bounds.height / 2.f));
@@ -33,7 +33,7 @@ bool TitleState::update(sf::Time dt) {
 }
 
 bool TitleState::handleEvent(const sf::Event& event) {
-	if (event.type == sf::Event::KeyPressed) {
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
 		requestStackPop();
 		requestStackPush(States::Menu);
 	}

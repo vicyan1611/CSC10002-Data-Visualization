@@ -6,7 +6,7 @@
 #include <SettingsState.hpp>
 
 Application::Application()
-	:mWindow(sf::VideoMode(1280, 720), "Data Visualization - ver2", sf::Style::Close)
+	:mWindow(sf::VideoMode(1280, 720), "Data Visualization", sf::Style::Close)
 	,mPlayer()
 	,mTextures()
 	,mFonts()
