@@ -1,6 +1,7 @@
 #pragma once
 
 #include <State.hpp>
+#include <StaticArrayWorld.hpp>
 
 class StaticArrayState : public State {
 public:
@@ -9,5 +10,5 @@ public:
 	virtual bool update(sf::Time dt);
 	virtual bool handleEvent(const sf::Event& event);
 private:
-	sf::Sprite mBackgroundSprite;
+	StaticArrayWorld mWorld;
 };

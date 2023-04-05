@@ -7,7 +7,7 @@
 #include <StaticArrayState.hpp>
 
 Application::Application()
-	:mWindow(sf::VideoMode(1280, 720), "Data Visualization", sf::Style::Close)
+	:mWindow(sf::VideoMode(1280, 720), "Data Visualization - Test ver", sf::Style::Close)
 	,mPlayer()
 	,mTextures()
 	,mFonts()
@@ -29,7 +29,7 @@ void Application::registerStates() {
 	mStateStack.registerState<GameState>(States::Game);
 	mStateStack.registerState<PauseState>(States::Pause);
 	mStateStack.registerState<SettingsState>(States::Settings);
-	//mStateStack.registerState<StaticArrayState>(States::StaticArray);
+	mStateStack.registerState<StaticArrayState>(States::StaticArray);
 }
 
 void Application::run() {

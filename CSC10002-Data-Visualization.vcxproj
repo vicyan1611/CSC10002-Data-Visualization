@@ -39,6 +39,7 @@
     <ClCompile Include="sources\State.cpp" />
     <ClCompile Include="sources\StateStack.cpp" />
     <ClCompile Include="sources\StaticArrayState.cpp" />
+    <ClCompile Include="sources\StaticArrayWorld.cpp" />
     <ClCompile Include="sources\TitleState.cpp" />
     <ClCompile Include="sources\World.cpp" />
   </ItemGroup>
@@ -63,6 +64,7 @@
     <ClInclude Include="include\State.hpp" />
     <ClInclude Include="include\StateStack.hpp" />
     <ClInclude Include="include\StaticArrayState.hpp" />
+    <ClInclude Include="include\StaticArrayWorld.hpp" />
     <ClInclude Include="include\TitleState.hpp" />
     <ClInclude Include="include\World.hpp" />
   </ItemGroup>
