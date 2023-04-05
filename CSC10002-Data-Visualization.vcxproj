@@ -38,6 +38,7 @@
     <ClCompile Include="sources\SpriteNode.cpp" />
     <ClCompile Include="sources\State.cpp" />
     <ClCompile Include="sources\StateStack.cpp" />
+    <ClCompile Include="sources\StaticArrayState.cpp" />
     <ClCompile Include="sources\TitleState.cpp" />
     <ClCompile Include="sources\World.cpp" />
   </ItemGroup>
@@ -61,6 +62,7 @@
     <ClInclude Include="include\SpriteNode.hpp" />
     <ClInclude Include="include\State.hpp" />
     <ClInclude Include="include\StateStack.hpp" />
+    <ClInclude Include="include\StaticArrayState.hpp" />
     <ClInclude Include="include\TitleState.hpp" />
     <ClInclude Include="include\World.hpp" />
   </ItemGroup>
@@ -139,7 +141,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\cpp_libraries\SFML-2.5.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\cpp_libraries\SFML-2.5.1\include; D:\SFML_Project\CSC10002-Data-Visualization\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -173,7 +175,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\cpp_libraries\SFML-2.5.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\cpp_libraries\SFML-2.5.1\include; D:\SFML_Project\CSC10002-Data-Visualization\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

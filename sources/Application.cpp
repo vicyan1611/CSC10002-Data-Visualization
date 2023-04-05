@@ -4,6 +4,7 @@
 #include <GameState.hpp>
 #include <PauseState.hpp>
 #include <SettingsState.hpp>
+#include <StaticArrayState.hpp>
 
 Application::Application()
 	:mWindow(sf::VideoMode(1280, 720), "Data Visualization", sf::Style::Close)
@@ -28,6 +29,7 @@ void Application::registerStates() {
 	mStateStack.registerState<GameState>(States::Game);
 	mStateStack.registerState<PauseState>(States::Pause);
 	mStateStack.registerState<SettingsState>(States::Settings);
+	//mStateStack.registerState<StaticArrayState>(States::StaticArray);
 }
 
 void Application::run() {

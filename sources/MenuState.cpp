@@ -34,6 +34,14 @@ MenuState::MenuState(StateStack& stack, Context context)
 			requestStackPop();
 		});
 		mGUIContainer.pack(exitButton);
+
+		auto saButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+		saButton->setPosition(100, 400);
+		saButton->setText("Static Array");
+		saButton->setCallback([this]() {
+			requestStackPush(States::StaticArray);
+		});
+		mGUIContainer.pack(saButton);
 	}
 
 void MenuState::draw() {

@@ -15,6 +15,7 @@ namespace States {
 		Menu,
 		Game,
 		Pause,
+		StaticArray,
 	};
 }
 
