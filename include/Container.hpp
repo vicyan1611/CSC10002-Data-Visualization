@@ -3,6 +3,7 @@
 #include <Component.hpp>
 #include <vector>
 #include <memory>
+#include <InputBox.hpp>
 
 namespace GUI {
 	class Container : public Component
@@ -23,7 +24,6 @@ namespace GUI {
 	private:
 		std::vector<Component::Ptr> mChildren;
 		long long mSelectedChild;
-		std::vector <int> data;
 	};
 
 }

@@ -1,5 +1,5 @@
 #include <StaticArrayState.hpp>
-#include <InputBox.hpp>
+
 StaticArrayState::StaticArrayState(StateStack& stack, Context context)
 	:State(stack, context)
 	, mSAWorld(*context.window)
@@ -7,10 +7,11 @@ StaticArrayState::StaticArrayState(StateStack& stack, Context context)
 {
 	mBackgroundSprite = sf::Sprite(context.textures->get(Textures::TitleScreen));
 
-	auto userInput = std::make_shared<GUI::InputBox>(*context.fonts);
-	userInput->setPosition(100, 450);
-	userInput->setText("");
-	mGUIContainer.pack(userInput);
+    mInputBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mInputBox->setPosition(100, 450);
+	mInputBox->setText("");
+	mGUIContainer.pack(mInputBox);
+	
 }
 
 void StaticArrayState::draw() {
@@ -23,6 +24,10 @@ void StaticArrayState::draw() {
 bool StaticArrayState::update(sf::Time dt) {
 	//mWorld.update(dt);
 	//CommandQueue& commands = mWorld.getCommandQueue();
+	std::string temp = mInputBox->getFinalText();
+	if (temp != "") {
+		std::cout << temp << std::endl;
+	}
 	return true;
 }
 

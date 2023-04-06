@@ -19,11 +19,13 @@ namespace GUI {
 
 		void setText(const std::string& text);
 		std::string getText() const;
+		std::string getFinalText();
 	private:
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	private:
 		sf::RectangleShape mBox;
 		sf::Text mText;
 		bool mIsSelected;
+		sf::Text mFinalText;
 	};
 }

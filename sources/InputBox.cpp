@@ -48,8 +48,11 @@ void GUI::InputBox::handleEvent(const sf::Event& event) {
 			mText.setOrigin(std::floor(bounds.left + bounds.width / 2.f), std::floor(bounds.top + bounds.height / 2.f));
 		}
 		else {
-			//std::cout << event.text.unicode << std::endl;
-			if (event.text.unicode == 9) deactivate(); else {
+			if (event.text.unicode == 9) {
+				deactivate();
+				mFinalText.setString(mText.getString());
+			}
+			else {
 				mText.setString(mText.getString() + static_cast<char>(event.text.unicode));
 				//centerOrigin
 				sf::FloatRect bounds = mText.getLocalBounds();
@@ -68,6 +71,12 @@ void GUI::InputBox::setText(const std::string& text) {
 
 std::string GUI::InputBox::getText() const {
 	return mText.getString();
+}
+
+std::string GUI::InputBox::getFinalText() {
+	std::string temp = mFinalText.getString();
+	mFinalText.setString("");
+	return temp;
 }
 
 void GUI::InputBox::draw(sf::RenderTarget& target, sf::RenderStates states) const {
