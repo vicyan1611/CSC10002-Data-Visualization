@@ -23,6 +23,7 @@ namespace GUI {
 	private:
 		std::vector<Component::Ptr> mChildren;
 		long long mSelectedChild;
+		std::vector <int> data;
 	};
 
 }

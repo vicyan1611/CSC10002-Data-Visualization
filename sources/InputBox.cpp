@@ -48,7 +48,8 @@ void GUI::InputBox::handleEvent(const sf::Event& event) {
 			mText.setOrigin(std::floor(bounds.left + bounds.width / 2.f), std::floor(bounds.top + bounds.height / 2.f));
 		}
 		else {
-			if (event.text.unicode == 13 ) deactivate(); {
+			//std::cout << event.text.unicode << std::endl;
+			if (event.text.unicode == 9) deactivate(); else {
 				mText.setString(mText.getString() + static_cast<char>(event.text.unicode));
 				//centerOrigin
 				sf::FloatRect bounds = mText.getLocalBounds();

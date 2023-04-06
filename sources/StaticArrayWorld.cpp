@@ -28,6 +28,7 @@ void StaticArrayWorld::buildScene() {
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
 	backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
 	mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
+
 }
 
 void StaticArrayWorld::draw() {

@@ -2,7 +2,7 @@
 
 #include <State.hpp>
 #include <StaticArrayWorld.hpp>
-
+#include <Container.hpp>
 class StaticArrayState : public State {
 public:
 	StaticArrayState(StateStack& stack, Context context);
@@ -10,5 +10,7 @@ public:
 	virtual bool update(sf::Time dt);
 	virtual bool handleEvent(const sf::Event& event);
 private:
-	StaticArrayWorld mWorld;
+	StaticArrayWorld mSAWorld;
+	GUI::Container mGUIContainer;
+	sf::Sprite mBackgroundSprite;
 };
