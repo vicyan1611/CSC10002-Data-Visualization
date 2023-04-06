@@ -28,6 +28,7 @@
     <ClCompile Include="sources\Container.cpp" />
     <ClCompile Include="sources\Entity.cpp" />
     <ClCompile Include="sources\GameState.cpp" />
+    <ClCompile Include="sources\InputBox.cpp" />
     <ClCompile Include="sources\Label.cpp" />
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\MenuState.cpp" />
@@ -53,6 +54,7 @@
     <ClInclude Include="include\Container.hpp" />
     <ClInclude Include="include\Entity.hpp" />
     <ClInclude Include="include\GameState.hpp" />
+    <ClInclude Include="include\InputBox.hpp" />
     <ClInclude Include="include\Label.hpp" />
     <ClInclude Include="include\MenuState.hpp" />
     <ClInclude Include="include\PauseState.hpp" />

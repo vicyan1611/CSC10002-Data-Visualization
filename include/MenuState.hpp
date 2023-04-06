@@ -11,11 +11,7 @@ public:
 	virtual bool update(sf::Time dt);
 	virtual bool handleEvent(const sf::Event& event);
 private:
-	enum OptionNames {
-		Play,
-		Exit,
-	};
-	private:
-		sf::Sprite mBackgroundSprite;
-		GUI::Container mGUIContainer;
+private:
+	sf::Sprite mBackgroundSprite;
+	GUI::Container mGUIContainer;
 };
