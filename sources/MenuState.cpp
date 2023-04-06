@@ -44,10 +44,10 @@ MenuState::MenuState(StateStack& stack, Context context)
 		});
 	mGUIContainer.pack(saButton);
 
-	auto userInput = std::make_shared<GUI::InputBox>(*context.fonts);
+	/*auto userInput = std::make_shared<GUI::InputBox>(*context.fonts);
 	userInput->setPosition(100, 450);
 	userInput->setText("Enter your name");
-	mGUIContainer.pack(userInput);
+	mGUIContainer.pack(userInput);*/
 }
 
 void MenuState::draw() {

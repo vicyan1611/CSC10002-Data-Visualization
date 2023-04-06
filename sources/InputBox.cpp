@@ -1,4 +1,5 @@
 #include <InputBox.hpp>
+#include <iostream>
 
 GUI::InputBox::InputBox(const FontHolder& fonts)
 	: mBox(sf::Vector2f(200.f, 30.f))
@@ -6,7 +7,7 @@ GUI::InputBox::InputBox(const FontHolder& fonts)
 	, mIsSelected(false)
 {
 	mBox.setFillColor(sf::Color(255, 255, 255, 100));
-	mBox.setOutlineColor(sf::Color::White);
+	mBox.setOutlineColor(sf::Color::Black);
 	mBox.setOutlineThickness(1.f);
 	sf::FloatRect bounds = mBox.getLocalBounds();
 	mText.setPosition(bounds.width / 2.f, bounds.height / 2.f);
@@ -19,13 +20,23 @@ bool GUI::InputBox::isSelectable() const {
 void GUI::InputBox::select() {
 	Component::select();
 	mIsSelected = true;
-	mBox.setOutlineColor(sf::Color::Black);
+	mBox.setOutlineColor(sf::Color::White);
 }
 
 void GUI::InputBox::deselect() {
 	Component::deselect();
 	mIsSelected = false;
-	mBox.setOutlineColor(sf::Color::White);
+	mBox.setOutlineColor(sf::Color::Black);
+}
+
+void GUI::InputBox::activate() {
+	Component::activate();
+	mBox.setOutlineColor(sf::Color::Red);
+}
+
+void GUI::InputBox::deactivate() {
+	Component::deactivate();
+	mBox.setOutlineColor(sf::Color::Black);
 }
 
 void GUI::InputBox::handleEvent(const sf::Event& event) {
@@ -37,10 +48,12 @@ void GUI::InputBox::handleEvent(const sf::Event& event) {
 			mText.setOrigin(std::floor(bounds.left + bounds.width / 2.f), std::floor(bounds.top + bounds.height / 2.f));
 		}
 		else {
-			mText.setString(mText.getString() + static_cast<char>(event.text.unicode));
-			//centerOrigin
-			sf::FloatRect bounds = mText.getLocalBounds();
-			mText.setOrigin(std::floor(bounds.left + bounds.width / 2.f), std::floor(bounds.top + bounds.height / 2.f));
+			if (event.text.unicode == 13 ) deactivate(); {
+				mText.setString(mText.getString() + static_cast<char>(event.text.unicode));
+				//centerOrigin
+				sf::FloatRect bounds = mText.getLocalBounds();
+				mText.setOrigin(std::floor(bounds.left + bounds.width / 2.f), std::floor(bounds.top + bounds.height / 2.f));
+			}
 		}
 	}
 }

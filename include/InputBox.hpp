@@ -12,8 +12,8 @@ namespace GUI {
 		virtual void select();
 		virtual void deselect();
 
-	//	virtual void activate();
-	//	virtual void deactivate();
+		virtual void activate();
+		virtual void deactivate();
 
 		virtual void handleEvent(const sf::Event& event);
 
@@ -24,7 +24,6 @@ namespace GUI {
 	private:
 		sf::RectangleShape mBox;
 		sf::Text mText;
-		bool mIsToggle;
 		bool mIsSelected;
 	};
 }
