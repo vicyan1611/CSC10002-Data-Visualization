@@ -1,14 +1,5 @@
 #include <Aircraft.hpp>
 
-Textures::ID toTexture(Aircraft::Type type) {
-	if (type == Aircraft::Eagle) {
-		return Textures::Eagle;
-	}
-	else if (type == Aircraft::Raptor) {
-		return Textures::Raptor;
-	}
-}
-
 Aircraft::Aircraft(int value, const FontHolder& fonts): mText()
 {
 	mText.setString(std::to_string(value));

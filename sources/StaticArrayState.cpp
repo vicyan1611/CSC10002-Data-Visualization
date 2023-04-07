@@ -5,7 +5,6 @@ StaticArrayState::StaticArrayState(StateStack& stack, Context context)
 	, mSAWorld(*context.window)
 	, mGUIContainer()
 {
-	mBackgroundSprite = sf::Sprite(context.textures->get(Textures::TitleScreen));
     mInitBox = std::make_shared<GUI::InputBox>(*context.fonts);
 	mInitBox->setPosition(100, 650);
 	mInitBox->setText("");
@@ -22,18 +21,23 @@ StaticArrayState::StaticArrayState(StateStack& stack, Context context)
 	});
 	mGUIContainer.pack(mRandomButton);
 
+	mUpdateBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mUpdateBox->setPosition(700, 650);
+	mUpdateBox->setText("");
+	mGUIContainer.pack(mUpdateBox);
+	GUI::Label::Ptr mUpdateLabel = std::make_shared<GUI::Label>("Update Box", *context.fonts);
+	mUpdateLabel->setPosition(700, 620);
+	mGUIContainer.pack(mUpdateLabel);
+
 }
 
 void StaticArrayState::draw() {
 	mSAWorld.draw();
 	sf::RenderWindow& window = *getContext().window;
-	//window.draw(mBackgroundSprite);
 	window.draw(mGUIContainer);
 }
 
-bool StaticArrayState::update(sf::Time dt) {
-	mSAWorld.update(dt);
-	//CommandQueue& commands = mWorld.getCommandQueue();
+void StaticArrayState::handleInitBox() {
 	std::string temp = mInitBox->getFinalText();
 	if (temp != "") {
 		int x = std::stoi(temp);
@@ -48,6 +52,26 @@ bool StaticArrayState::update(sf::Time dt) {
 			nData = 0;
 		}
 	}
+}
+
+void StaticArrayState::handleUpdateBox() {
+	std::string temp = mUpdateBox->getFinalText();
+	if (temp != "") {
+		int x = std::stoi(temp);
+		if (id == -1) id = x; else {
+			value = x;
+			mSAWorld.updateArray(id, value);
+			id = -1;
+		}
+
+	}
+}
+
+bool StaticArrayState::update(sf::Time dt) {
+	mSAWorld.update(dt);
+	//CommandQueue& commands = mWorld.getCommandQueue();
+	handleInitBox();
+	handleUpdateBox();
 	return true;
 }
 

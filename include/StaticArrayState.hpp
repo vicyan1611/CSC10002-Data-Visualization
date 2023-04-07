@@ -15,11 +15,13 @@ public:
 	virtual bool update(sf::Time dt);
 	virtual bool handleEvent(const sf::Event& event);
 private:
+	void handleInitBox();
+	void handleUpdateBox();	
+private:
 	StaticArrayWorld mSAWorld;
 	GUI::Container mGUIContainer;
-	sf::Sprite mBackgroundSprite;
-	GUI::InputBox::Ptr mInitBox;
+	GUI::InputBox::Ptr mInitBox, mUpdateBox;
 	GUI::Button::Ptr mRandomButton;
-	int nData = 0;
+	int nData = 0, id = -1, value = 0;
 	std::vector <int> mData;
 };

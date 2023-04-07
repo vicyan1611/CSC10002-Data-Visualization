@@ -13,7 +13,7 @@ PauseState::PauseState(StateStack& stack, Context context)
 	sf::Vector2f windowSize(context.window->getSize());
 
 	mPausedText.setFont(font);
-	mPausedText.setString("Game Paused");
+	mPausedText.setString("App Paused");
 	mPausedText.setCharacterSize(70);
 	//centerOrigin
 	sf::FloatRect bounds = mPausedText.getLocalBounds();

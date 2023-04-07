@@ -44,7 +44,7 @@ void StaticArrayWorld::setArray(std::vector<int> data) {
 	mPlayerAircraftar.clear();
 	for (int i = 0; i < data.size(); i++) {
 		std::unique_ptr<Aircraft> player(new Aircraft(data[i], mFonts));
-		player->setPosition(100.f + i * 40.f, 100.f);
+		player->setPosition(100.f + (i + 1) * 100.f, 100.f);
 		player->setVelocity(0.f, 0.f);
 		mPlayerAircraftar.push_back(player.get());
 		mSceneLayers[Air]->attachChild(std::move(player));
@@ -65,6 +65,19 @@ void StaticArrayWorld::setRandomArray() {
 		mPlayerAircraftar.push_back(player.get());
 		mSceneLayers[Air]->attachChild(std::move(player));
 	}
+}
+
+void StaticArrayWorld::updateArray(int id, int value) {
+	id--;
+	if (id < 0 || id >= mPlayerAircraftar.size()) {
+		return;
+	}
+	mSceneLayers[Air]->detachChild(*mPlayerAircraftar[id]);
+	std::unique_ptr<Aircraft> player(new Aircraft(value, mFonts));
+	player->setPosition(100.f + (id + 1) * 100.f, 100.f);
+	player->setVelocity(0.f, 0.f);
+	mPlayerAircraftar[id] = player.get();
+	mSceneLayers[Air]->attachChild(std::move(player));
 }
 
 void StaticArrayWorld::draw() {
