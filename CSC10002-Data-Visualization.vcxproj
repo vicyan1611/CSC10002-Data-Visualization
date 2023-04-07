@@ -26,6 +26,8 @@
     <ClCompile Include="sources\CommandQueue.cpp" />
     <ClCompile Include="sources\Component.cpp" />
     <ClCompile Include="sources\Container.cpp" />
+    <ClCompile Include="sources\DynamicArrayState.cpp" />
+    <ClCompile Include="sources\DynamicArrayWorld.cpp" />
     <ClCompile Include="sources\Entity.cpp" />
     <ClCompile Include="sources\GameState.cpp" />
     <ClCompile Include="sources\InputBox.cpp" />
@@ -53,6 +55,8 @@
     <ClInclude Include="include\CommandQueue.hpp" />
     <ClInclude Include="include\Component.hpp" />
     <ClInclude Include="include\Container.hpp" />
+    <ClInclude Include="include\DynamicArrayState.hpp" />
+    <ClInclude Include="include\DynamicArrayWorld.hpp" />
     <ClInclude Include="include\Entity.hpp" />
     <ClInclude Include="include\GameState.hpp" />
     <ClInclude Include="include\InputBox.hpp" />

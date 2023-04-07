@@ -44,6 +44,14 @@ MenuState::MenuState(StateStack& stack, Context context)
 		});
 	mGUIContainer.pack(saButton);
 
+	auto daButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	daButton->setPosition(100, 450);
+	daButton->setText("Dynamic Array");
+	daButton->setCallback([this]() {
+		requestStackPush(States::DynamicArray);
+		});
+	mGUIContainer.pack(daButton);
+
 	/*auto userInput = std::make_shared<GUI::InputBox>(*context.fonts);
 	userInput->setPosition(100, 450);
 	userInput->setText("Enter your name");

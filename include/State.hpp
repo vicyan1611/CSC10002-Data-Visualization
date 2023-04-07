@@ -16,6 +16,7 @@ namespace States {
 		Game,
 		Pause,
 		StaticArray,
+		DynamicArray,
 	};
 }
 
