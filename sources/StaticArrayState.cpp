@@ -63,7 +63,6 @@ void StaticArrayState::handleUpdateBox() {
 			mSAWorld.updateArray(id, value);
 			id = -1;
 		}
-
 	}
 }
 

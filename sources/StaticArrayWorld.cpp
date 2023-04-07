@@ -72,12 +72,7 @@ void StaticArrayWorld::updateArray(int id, int value) {
 	if (id < 0 || id >= mPlayerAircraftar.size()) {
 		return;
 	}
-	mSceneLayers[Air]->detachChild(*mPlayerAircraftar[id]);
-	std::unique_ptr<Aircraft> player(new Aircraft(value, mFonts));
-	player->setPosition(100.f + (id + 1) * 100.f, 100.f);
-	player->setVelocity(0.f, 0.f);
-	mPlayerAircraftar[id] = player.get();
-	mSceneLayers[Air]->attachChild(std::move(player));
+	mPlayerAircraftar[id]->setValue(value);
 }
 
 void StaticArrayWorld::draw() {

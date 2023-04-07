@@ -13,6 +13,9 @@ public:
 	explicit Aircraft(int value, const FontHolder& fonts);
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 	unsigned int getCategory() const;
+	unsigned int getValue() const;
+	void changeColor();
+	void setValue(int value);
 private:
 	sf::Text mText;
 };
