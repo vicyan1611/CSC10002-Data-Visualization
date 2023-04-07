@@ -15,6 +15,8 @@ public:
 	void update(sf::Time dt);
 	void draw();
 	CommandQueue& getCommandQueue();
+	void setArray(std::vector<int> data);
+	void setRandomArray();
 private:
 	void loadTextures();
 	void buildScene();
@@ -28,10 +30,11 @@ private:
 	sf::RenderWindow& mWindow;
 	sf::View mWorldView;
 	TextureHolder mTextures;
+	FontHolder mFonts;
 	SceneNode mSceneGraph;
 	std::array<SceneNode*, LayerCount> mSceneLayers;
 
 	sf::FloatRect mWorldBounds;
-	std::vector<Aircraft*> mPlayerAircraft;
+	std::vector<Aircraft*> mPlayerAircraftar;
 	CommandQueue mCommandQueue;
 };

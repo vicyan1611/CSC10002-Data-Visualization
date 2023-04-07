@@ -5,6 +5,9 @@
 #include <Container.hpp>
 #include <InputBox.hpp>
 #include <vector>
+#include <Label.hpp>
+#include <Button.hpp>
+
 class StaticArrayState : public State {
 public:
 	StaticArrayState(StateStack& stack, Context context);
@@ -15,7 +18,8 @@ private:
 	StaticArrayWorld mSAWorld;
 	GUI::Container mGUIContainer;
 	sf::Sprite mBackgroundSprite;
-	GUI::InputBox::Ptr mInputBox;
-	int nData;
-	std::vector <int> Data;
+	GUI::InputBox::Ptr mInitBox;
+	GUI::Button::Ptr mRandomButton;
+	int nData = 0;
+	std::vector <int> mData;
 };

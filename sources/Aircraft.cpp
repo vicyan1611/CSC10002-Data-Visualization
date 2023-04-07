@@ -9,22 +9,18 @@ Textures::ID toTexture(Aircraft::Type type) {
 	}
 }
 
-Aircraft::Aircraft(Type type, const TextureHolder& textures): mType(type), mSprite(textures.get(toTexture(type)))
+Aircraft::Aircraft(int value, const FontHolder& fonts): mText()
 {
-	sf::FloatRect bounds = mSprite.getLocalBounds();
-	mSprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+	mText.setString(std::to_string(value));
+	mText.setFont(fonts.get(Fonts::Main));
+	sf::FloatRect bounds = mText.getLocalBounds();
+	mText.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 }
 
 void Aircraft::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
-	target.draw(mSprite, states);
+	target.draw(mText, states);
 }
 
 unsigned int Aircraft::getCategory() const {
-	switch (mType)
-	{
-	case Eagle:
-		return Category::PlayerAircraft;
-	default:
-		return Category::EnemyAircraft;
-	}
+	return Category::PlayerAircraft;
 }

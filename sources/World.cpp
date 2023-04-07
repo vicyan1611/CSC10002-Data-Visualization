@@ -42,11 +42,11 @@ void World::buildScene() {
 	mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 	
 	//Add player's aircraft
-	std::unique_ptr<Aircraft> leader(new Aircraft(Aircraft::Eagle, mTextures));
+	/*std::unique_ptr<Aircraft> leader(new Aircraft(Aircraft::Eagle, mTextures));
 	mPlayerAircraft = leader.get();
 	mPlayerAircraft->setPosition(mSpawnPosition);
 	mPlayerAircraft->setVelocity(40.f, mScrollSpeed);
-	mSceneLayers[Air]->attachChild(std::move(leader));
+	mSceneLayers[Air]->attachChild(std::move(leader));*/
 }
 
 void World::draw() {

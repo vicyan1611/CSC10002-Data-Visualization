@@ -51,6 +51,7 @@ void GUI::InputBox::handleEvent(const sf::Event& event) {
 			if (event.text.unicode == 9) {
 				deactivate();
 				mFinalText.setString(mText.getString());
+				mText.setString("");
 			}
 			else {
 				mText.setString(mText.getString() + static_cast<char>(event.text.unicode));
