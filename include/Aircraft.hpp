@@ -14,7 +14,7 @@ public:
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 	unsigned int getCategory() const;
 	unsigned int getValue() const;
-	void changeColor();
+	void setColor(sf::Color color);
 	void setValue(int value);
 private:
 	sf::Text mText;

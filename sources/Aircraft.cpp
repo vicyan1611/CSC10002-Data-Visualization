@@ -22,13 +22,8 @@ unsigned int Aircraft::getValue() const {
 	return std::stoi(temp);
 }
 
-void Aircraft::changeColor() {
-	if (mText.getFillColor() == sf::Color::White) {
-		mText.setFillColor(sf::Color::Red);
-	}
-	else {
-		mText.setFillColor(sf::Color::White);
-	}
+void Aircraft::setColor(sf::Color color) {
+	mText.setFillColor(color);
 }
 
 void Aircraft::setValue(int value) {

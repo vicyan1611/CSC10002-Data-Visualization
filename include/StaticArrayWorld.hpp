@@ -18,6 +18,9 @@ public:
 	void setArray(std::vector<int> data);
 	void setRandomArray();
 	void updateArray(int id, int value);
+	void searchArray(int value);
+	void next();
+	void previous();
 private:
 	void loadTextures();
 	void buildScene();
@@ -38,4 +41,5 @@ private:
 	sf::FloatRect mWorldBounds;
 	std::vector<Aircraft*> mPlayerAircraftar;
 	CommandQueue mCommandQueue;
+	int totalSearchStep = 0, step = -1;
 };

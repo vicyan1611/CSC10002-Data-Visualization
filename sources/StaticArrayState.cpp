@@ -29,6 +29,29 @@ StaticArrayState::StaticArrayState(StateStack& stack, Context context)
 	mUpdateLabel->setPosition(700, 620);
 	mGUIContainer.pack(mUpdateLabel);
 
+	mSearchBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mSearchBox->setPosition(1000, 650);
+	mSearchBox->setText("");
+	mGUIContainer.pack(mSearchBox);
+	GUI::Label::Ptr mSearchLabel = std::make_shared<GUI::Label>("Search Box", *context.fonts);
+	mSearchLabel->setPosition(1000, 620);
+	mGUIContainer.pack(mSearchLabel);
+
+	mPreviousButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mPreviousButton->setPosition(1000, 720);
+	mPreviousButton->setText("Previous");
+	mPreviousButton->setCallback([this]() {
+		mSAWorld.previous();
+		});
+	mGUIContainer.pack(mPreviousButton);
+
+	mNextButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mNextButton->setPosition(1000, 800);
+	mNextButton->setText("Next");
+	mNextButton->setCallback([this]() {
+		mSAWorld.next();
+	});
+	mGUIContainer.pack(mNextButton);
 }
 
 void StaticArrayState::draw() {
@@ -37,7 +60,7 @@ void StaticArrayState::draw() {
 	window.draw(mGUIContainer);
 }
 
-void StaticArrayState::handleInitBox() {
+void StaticArrayState::updateInitBox() {
 	std::string temp = mInitBox->getFinalText();
 	if (temp != "") {
 		int x = std::stoi(temp);
@@ -54,7 +77,7 @@ void StaticArrayState::handleInitBox() {
 	}
 }
 
-void StaticArrayState::handleUpdateBox() {
+void StaticArrayState::updateUpdateBox() {
 	std::string temp = mUpdateBox->getFinalText();
 	if (temp != "") {
 		int x = std::stoi(temp);
@@ -66,11 +89,21 @@ void StaticArrayState::handleUpdateBox() {
 	}
 }
 
+void StaticArrayState::updateSearchBox() {
+	std::string temp = mSearchBox->getFinalText();
+	if (temp != "") {
+		int x = std::stoi(temp);
+		std::cout << x << std::endl;
+		mSAWorld.searchArray(x);
+	}
+}
+
 bool StaticArrayState::update(sf::Time dt) {
 	mSAWorld.update(dt);
 	//CommandQueue& commands = mWorld.getCommandQueue();
-	handleInitBox();
-	handleUpdateBox();
+	updateInitBox();
+	updateUpdateBox();
+	updateSearchBox();
 	return true;
 }
 

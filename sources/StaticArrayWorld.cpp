@@ -75,6 +75,35 @@ void StaticArrayWorld::updateArray(int id, int value) {
 	mPlayerAircraftar[id]->setValue(value);
 }
 
+void StaticArrayWorld::searchArray(int value) {
+	totalSearchStep = 0;
+	for (int i = 0; i < mPlayerAircraftar.size(); i++) {
+		if (mPlayerAircraftar[i]->getValue() == value) {
+			mPlayerAircraftar[i]->setColor(sf::Color::Cyan);
+			break;
+		}
+		totalSearchStep++;
+	}
+}
+
+void StaticArrayWorld::next() {
+	if (step == totalSearchStep) {
+		mPlayerAircraftar[step]->setColor(sf::Color::White);
+		return;
+	}
+	step++;
+	step = std::min(step, totalSearchStep);
+	if (step > 0) mPlayerAircraftar[step - 1]->setColor(sf::Color::White);
+	mPlayerAircraftar[step]->setColor(sf::Color::Red);	
+}
+
+void StaticArrayWorld::previous() {
+	step--;
+	step = std::max(step, 0);
+	if (step < totalSearchStep) mPlayerAircraftar[step + 1]->setColor(sf::Color::White);
+	mPlayerAircraftar[step]->setColor(sf::Color::Red);
+}
+
 void StaticArrayWorld::draw() {
 	mWindow.setView(mWorldView);
 	mWindow.draw(mSceneGraph);

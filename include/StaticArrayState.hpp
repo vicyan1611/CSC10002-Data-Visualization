@@ -15,13 +15,14 @@ public:
 	virtual bool update(sf::Time dt);
 	virtual bool handleEvent(const sf::Event& event);
 private:
-	void handleInitBox();
-	void handleUpdateBox();	
+	void updateInitBox();
+	void updateUpdateBox();	
+	void updateSearchBox();
 private:
 	StaticArrayWorld mSAWorld;
 	GUI::Container mGUIContainer;
-	GUI::InputBox::Ptr mInitBox, mUpdateBox;
-	GUI::Button::Ptr mRandomButton;
+	GUI::InputBox::Ptr mInitBox, mUpdateBox, mSearchBox;
+	GUI::Button::Ptr mRandomButton, mNextButton, mPreviousButton;
 	int nData = 0, id = -1, value = 0;
 	std::vector <int> mData;
 };
