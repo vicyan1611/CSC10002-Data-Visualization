@@ -17,6 +17,7 @@ public:
 private:
 	void handleInitBox();
 	void handleAddBox();
+	void handleDeleteBox();
 	void handleUpdateBox();
 	void handleSearchBox();
 private:

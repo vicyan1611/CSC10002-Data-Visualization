@@ -18,6 +18,7 @@ public:
 	void setRandomArray();
 	void setArray(std::vector<int> data);
 	void addToArray(int id, int value);
+	void deleteFromArray(int id);
 	void next();
 	void previous();
 
