@@ -15,6 +15,9 @@ public:
 	void update(sf::Time dt);
 	void draw();
 	CommandQueue& getCommandQueue();
+	void setRandomArray();
+	void setArray(std::vector<int> data);
+
 private:
 	void loadTextures();
 	void buildScene();

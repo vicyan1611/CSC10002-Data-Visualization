@@ -3,6 +3,7 @@
 
 int main()
 {
+    srand(time(NULL));
     Application application;
     application.run();
     return 0;

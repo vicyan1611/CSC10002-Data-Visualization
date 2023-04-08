@@ -60,7 +60,7 @@ void StaticArrayState::draw() {
 	window.draw(mGUIContainer);
 }
 
-void StaticArrayState::updateInitBox() {
+void StaticArrayState::handleInitBox() {
 	std::string temp = mInitBox->getFinalText();
 	if (temp != "") {
 		int x = std::stoi(temp);
@@ -77,7 +77,7 @@ void StaticArrayState::updateInitBox() {
 	}
 }
 
-void StaticArrayState::updateUpdateBox() {
+void StaticArrayState::handleUpdateBox() {
 	std::string temp = mUpdateBox->getFinalText();
 	if (temp != "") {
 		int x = std::stoi(temp);
@@ -89,7 +89,7 @@ void StaticArrayState::updateUpdateBox() {
 	}
 }
 
-void StaticArrayState::updateSearchBox() {
+void StaticArrayState::handleSearchBox() {
 	std::string temp = mSearchBox->getFinalText();
 	if (temp != "") {
 		int x = std::stoi(temp);
@@ -101,15 +101,15 @@ void StaticArrayState::updateSearchBox() {
 bool StaticArrayState::update(sf::Time dt) {
 	mSAWorld.update(dt);
 	//CommandQueue& commands = mWorld.getCommandQueue();
-	updateInitBox();
-	updateUpdateBox();
-	updateSearchBox();
 	return true;
 }
 
 bool StaticArrayState::handleEvent(const sf::Event& event) {
 	//CommandQueue& commands = mWorld.getCommandQueue();
 	mGUIContainer.handleEvent(event);
+	handleInitBox();
+	handleUpdateBox();
+	handleSearchBox();
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
 		requestStackPush(States::Pause);
 	}

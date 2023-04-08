@@ -15,9 +15,9 @@ public:
 	virtual bool update(sf::Time dt);
 	virtual bool handleEvent(const sf::Event& event);
 private:
-	void updateInitBox();
-	void updateUpdateBox();	
-	void updateSearchBox();
+	void handleInitBox();
+	void handleUpdateBox();	
+	void handleSearchBox();
 private:
 	StaticArrayWorld mSAWorld;
 	GUI::Container mGUIContainer;

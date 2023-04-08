@@ -15,12 +15,14 @@ public:
 	virtual bool update(sf::Time dt);
 	virtual bool handleEvent(const sf::Event& event);
 private:
-	void updateInitBox();
-	void updateUpdateBox();
-	void updateSearchBox();
+	void handleInitBox();
+	void handleUpdateBox();
+	void handleSearchBox();
 private:
     DynamicArrayWorld mDAWorld;
 	GUI::Container mGUIContainer;
 	GUI::InputBox::Ptr mInitBox, mUpdateBox, mSearchBox;
 	GUI::Button::Ptr mRandomButton, mNextButton, mPreviousButton;
+	std::vector <int> mData;
+	int nData = 0, id = -1, value = 0;
 };
