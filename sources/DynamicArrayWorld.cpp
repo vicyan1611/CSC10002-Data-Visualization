@@ -50,7 +50,7 @@ void DynamicArrayWorld::addToArray(int id, int value) {
 		return;
 	}
 	operationType = 1;
-	totalSearchStep = 1 + (mPlayerAircraftar.size() - id + 1) + 1 + 1;
+	totalSearchStep = 1 + (int(mPlayerAircraftar.size()) - id + 1) + 1 + 1;
 	step = 0;
 	operation = {id-1, value};
 	std::cout << id << " " << value << std::endl;
@@ -61,7 +61,7 @@ void DynamicArrayWorld::deleteFromArray(int id) {
 		return;
 	}
 	operationType = 2;
-	totalSearchStep = 1 + (mPlayerAircraftar.size() - 1) + 1;
+	totalSearchStep = 1 + (int(mPlayerAircraftar.size()) - 1) + 1;
 	step = 0;
 	operation = { id - 1, 0 };
 	std::cout << id << std::endl;
@@ -93,10 +93,10 @@ void DynamicArrayWorld::addToArrayStep() {
 
 	tmp_step--;
 	if (tmp_step == 0) return;
-	int tmpID = tmp_mPlayerAircraftar.size() - 1;
+	int tmpID = int(tmp_mPlayerAircraftar.size()) - 1;
 	mSceneLayers[Air]->detachChild(*tmp_mPlayerAircraftar[tmpID]);
 	tmp_mPlayerAircraftar.pop_back();
-	for (int i = tmp_mPlayerAircraftar.size() - 1; i >= operation.first; --i) {
+	for (int i = int(tmp_mPlayerAircraftar.size()) - 1; i >= operation.first; --i) {
 		tmp_mPlayerAircraftar[i]->setPosition(100.f + (i + 2) * 100.f, 200.f);
 		tmp_step--;
 		if (tmp_step == 0) return;
@@ -152,9 +152,9 @@ void DynamicArrayWorld::deleteFromArrayStep() {
 			tmp_mPlayerAircraftar[i]->setValue(mPlayerAircraftar[i]->getValue());
 		}
 		else {
-
-			tmp_mPlayerAircraftar[i-1]->setPosition(100.f + i * 100.f, 200.f);
-			tmp_mPlayerAircraftar[i-1]->setValue(mPlayerAircraftar[i]->getValue());
+			int tmpID = i - 1;
+			tmp_mPlayerAircraftar[tmpID]->setPosition(100.f + i * 100.f, 200.f);
+			tmp_mPlayerAircraftar[tmpID]->setValue(mPlayerAircraftar[i]->getValue());
 		}
 		tmp_step--;
 		if (tmp_step == 0) return;
