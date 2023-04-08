@@ -1,4 +1,5 @@
 #include <DynamicArrayState.hpp>
+#include <iostream>
 
 DynamicArrayState::DynamicArrayState(StateStack& stack, Context context)
 	:State(stack, context)
@@ -20,6 +21,30 @@ DynamicArrayState::DynamicArrayState(StateStack& stack, Context context)
 		mDAWorld.setRandomArray();
 		});
 	mGUIContainer.pack(mRandomButton);
+
+	mAddBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mAddBox->setPosition(700, 650);
+	mAddBox->setText("");
+	mGUIContainer.pack(mAddBox);
+	GUI::Label::Ptr mAddLabel = std::make_shared<GUI::Label>("Add Box", *context.fonts);
+	mAddLabel->setPosition(700, 620);
+	mGUIContainer.pack(mAddLabel);
+
+   /* mPreviousButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mPreviousButton->setPosition(1000, 720);
+	mPreviousButton->setText("Previous");
+	mPreviousButton->setCallback([this]() {
+		mDAWorld.previous();
+		});
+	mGUIContainer.pack(mPreviousButton);*/
+
+	mNextButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mNextButton->setPosition(1000, 800);
+	mNextButton->setText("Next");
+	mNextButton->setCallback([this]() {
+		mDAWorld.next();
+		});
+	mGUIContainer.pack(mNextButton);
 }
 
 void DynamicArrayState::draw() {
@@ -49,9 +74,23 @@ void DynamicArrayState::handleInitBox() {
 	}
 }
 
+void DynamicArrayState::handleAddBox() {
+	std::string temp = mAddBox->getFinalText();
+	if (temp != "") {
+		int x = std::stoi(temp);
+		std::cout << x << std::endl;
+		if (id == -1) id = x; else {
+			value = x;
+			mDAWorld.addToArray(id, value);
+			id = -1;
+		}
+	}
+}
+
 bool DynamicArrayState::handleEvent(const sf::Event& event) {
 	mGUIContainer.handleEvent(event);
 	handleInitBox();
+	handleAddBox();
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
 		requestStackPush(States::Pause);
 	}

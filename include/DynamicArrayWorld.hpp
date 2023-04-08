@@ -17,10 +17,14 @@ public:
 	CommandQueue& getCommandQueue();
 	void setRandomArray();
 	void setArray(std::vector<int> data);
+	void addToArray(int id, int value);
+	void next();
+	void previous();
 
 private:
 	void loadTextures();
 	void buildScene();
+	void addToArrayNext();
 private:
 	enum Layer {
 		Background,
@@ -36,6 +40,8 @@ private:
 	std::array<SceneNode*, LayerCount> mSceneLayers;
 
 	sf::FloatRect mWorldBounds;
-    std::vector<Aircraft*> mPlayerAircraftar;
+    std::vector<Aircraft*> mPlayerAircraftar, tmp_mPlayerAircraftar;
 	CommandQueue mCommandQueue;
+	int operationType = 0, totalSearchStep = 0, step = -1;
+	std::pair <int, int> operation = {-1, -1};
 };

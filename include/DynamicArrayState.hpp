@@ -16,12 +16,13 @@ public:
 	virtual bool handleEvent(const sf::Event& event);
 private:
 	void handleInitBox();
+	void handleAddBox();
 	void handleUpdateBox();
 	void handleSearchBox();
 private:
     DynamicArrayWorld mDAWorld;
 	GUI::Container mGUIContainer;
-	GUI::InputBox::Ptr mInitBox, mUpdateBox, mSearchBox;
+	GUI::InputBox::Ptr mInitBox, mUpdateBox, mSearchBox, mAddBox, mDeleteBox;
 	GUI::Button::Ptr mRandomButton, mNextButton, mPreviousButton;
 	std::vector <int> mData;
 	int nData = 0, id = -1, value = 0;

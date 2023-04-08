@@ -84,6 +84,7 @@ void StaticArrayWorld::searchArray(int value) {
 		}
 		totalSearchStep++;
 	}
+	step = 0;
 }
 
 void StaticArrayWorld::next() {
