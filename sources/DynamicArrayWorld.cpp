@@ -56,7 +56,7 @@ void DynamicArrayWorld::addToArray(int id, int value) {
 	std::cout << id << " " << value << std::endl;
 }
 
-void DynamicArrayWorld::addToArrayNext() {
+void DynamicArrayWorld::addToArrayStep() {
 	if (!tmp_mPlayerAircraftar.empty()) {
 		for (auto player : tmp_mPlayerAircraftar) {
 			mSceneLayers[Air]->detachChild(*player);
@@ -91,7 +91,7 @@ void DynamicArrayWorld::next() {
 	if (operationType == 1) {
 		step++;
 		step = std::min(step, totalSearchStep);
-		addToArrayNext();
+		addToArrayStep();
 		if (step >= totalSearchStep) {
 			operationType = 0;
 			step = 0;
@@ -107,6 +107,14 @@ void DynamicArrayWorld::next() {
 			tmp_mPlayerAircraftar.clear();
 			operation = { -1, -1 };
 		}
+	}
+}
+
+void DynamicArrayWorld::previous() {
+	if (operationType == 1) {
+		step--;
+		step = std::max(step, 0);
+		if (step != 0) addToArrayStep();
 	}
 }
 

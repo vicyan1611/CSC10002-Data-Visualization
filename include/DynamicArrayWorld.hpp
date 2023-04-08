@@ -24,7 +24,7 @@ public:
 private:
 	void loadTextures();
 	void buildScene();
-	void addToArrayNext();
+	void addToArrayStep();
 private:
 	enum Layer {
 		Background,

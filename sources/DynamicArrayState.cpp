@@ -30,13 +30,13 @@ DynamicArrayState::DynamicArrayState(StateStack& stack, Context context)
 	mAddLabel->setPosition(700, 620);
 	mGUIContainer.pack(mAddLabel);
 
-   /* mPreviousButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+    mPreviousButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	mPreviousButton->setPosition(1000, 720);
 	mPreviousButton->setText("Previous");
 	mPreviousButton->setCallback([this]() {
 		mDAWorld.previous();
 		});
-	mGUIContainer.pack(mPreviousButton);*/
+	mGUIContainer.pack(mPreviousButton);
 
 	mNextButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	mNextButton->setPosition(1000, 800);
