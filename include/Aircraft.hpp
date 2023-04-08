@@ -16,6 +16,8 @@ public:
 	unsigned int getValue() const;
 	void setColor(sf::Color color);
 	void setValue(int value);
+	void setString(std::string str);
 private:
 	sf::Text mText;
+	sf::RectangleShape mSquare;
 };

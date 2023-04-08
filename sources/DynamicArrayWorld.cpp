@@ -61,6 +61,10 @@ void DynamicArrayWorld::deleteFromArray(int id) {
 		return;
 	}
 	operationType = 2;
+	totalSearchStep = 1 + (mPlayerAircraftar.size() - 1) + 1;
+	step = 0;
+	operation = { id - 1, 0 };
+	std::cout << id << std::endl;
 }
 
 void DynamicArrayWorld::addToArrayStep() {
@@ -105,25 +109,29 @@ void DynamicArrayWorld::addToArrayStep() {
 	if (tmp_step == 0) return;
 }
 
+void DynamicArrayWorld::reUpdate() {
+	operationType = 0;
+	step = 0;
+	totalSearchStep = 0;
+	for (auto player : mPlayerAircraftar) {
+		mSceneLayers[Air]->detachChild(*player);
+	}
+	mPlayerAircraftar.clear();
+	for (int i = 0; i < tmp_mPlayerAircraftar.size(); ++i) {
+		mPlayerAircraftar.push_back(tmp_mPlayerAircraftar[i]);
+		mPlayerAircraftar[i]->setPosition(100.f + (i + 1) * 100.f, 100.f);
+	}
+	tmp_mPlayerAircraftar.clear();
+	operation = { -1, -1 };
+}
+
 void DynamicArrayWorld::next() {
 	if (operationType == 1) {
 		step++;
 		step = std::min(step, totalSearchStep);
 		addToArrayStep();
 		if (step >= totalSearchStep) {
-			operationType = 0;
-			step = 0;
-			totalSearchStep = 0;
-			for (auto player : mPlayerAircraftar) {
-				mSceneLayers[Air]->detachChild(*player);
-			}
-			mPlayerAircraftar.clear();
-			for (int i = 0; i < tmp_mPlayerAircraftar.size(); ++i) {
-				mPlayerAircraftar.push_back(tmp_mPlayerAircraftar[i]);
-				mPlayerAircraftar[i]->setPosition(100.f + (i + 1) * 100.f, 100.f);
-			}
-			tmp_mPlayerAircraftar.clear();
-			operation = { -1, -1 };
+			reUpdate();
 		}
 	}
 }
