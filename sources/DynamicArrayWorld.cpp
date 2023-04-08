@@ -74,6 +74,7 @@ void DynamicArrayWorld::addToArrayStep() {
 		}
 		tmp_mPlayerAircraftar.clear();
 	}
+	if (step == 0) return;
 	int tmp_step = step;
 	for (int i = 0; i < mPlayerAircraftar.size(); ++i) {
 		std::unique_ptr<Aircraft> player(new Aircraft(mPlayerAircraftar[i]->getValue(), mFonts));
@@ -125,23 +126,59 @@ void DynamicArrayWorld::reUpdate() {
 	operation = { -1, -1 };
 }
 
-void DynamicArrayWorld::next() {
-	if (operationType == 1) {
-		step++;
-		step = std::min(step, totalSearchStep);
-		addToArrayStep();
-		if (step >= totalSearchStep) {
-			reUpdate();
+void DynamicArrayWorld::deleteFromArrayStep() {
+	if (!tmp_mPlayerAircraftar.empty()) {
+		for (auto player : tmp_mPlayerAircraftar) {
+			mSceneLayers[Air]->detachChild(*player);
 		}
+		tmp_mPlayerAircraftar.clear();
+	}
+	if (step == 0) return;
+	int tmp_step = step;
+	for (int i = 0; i < mPlayerAircraftar.size()-1; ++i) {
+		std::unique_ptr<Aircraft> player(new Aircraft(mPlayerAircraftar[i]->getValue(), mFonts));
+		player->setString("");
+		player->setPosition(100.f + (i + 1) * 100.f, 200.f);
+		player->setVelocity(0.f, 0.f);
+		tmp_mPlayerAircraftar.push_back(player.get());
+		mSceneLayers[Air]->attachChild(std::move(player));
+	}
+	tmp_step--;
+	if (tmp_step == 0) return;
+	for (int i = 0; i < mPlayerAircraftar.size(); ++i) {
+		if (i == operation.first) continue;
+		if (i < operation.first) {
+			tmp_mPlayerAircraftar[i]->setPosition(100.f + (i+1) * 100.f, 200.f);
+			tmp_mPlayerAircraftar[i]->setValue(mPlayerAircraftar[i]->getValue());
+		}
+		else {
+
+			tmp_mPlayerAircraftar[i-1]->setPosition(100.f + i * 100.f, 200.f);
+			tmp_mPlayerAircraftar[i-1]->setValue(mPlayerAircraftar[i]->getValue());
+		}
+		tmp_step--;
+		if (tmp_step == 0) return;
 	}
 }
 
+void DynamicArrayWorld::next() {
+	if (operationType == 0) return;
+
+	step++;
+	step = std::min(step, totalSearchStep);
+
+	if (operationType == 1) addToArrayStep();
+	else if (operationType == 2) deleteFromArrayStep();
+
+	if (step >= totalSearchStep)  reUpdate();
+}
+
 void DynamicArrayWorld::previous() {
-	if (operationType == 1) {
-		step--;
-		step = std::max(step, 0);
-		if (step != 0) addToArrayStep();
-	}
+	if (operationType == 0) return;
+	step--;
+	step = std::max(step, 0);
+	if (operationType == 1) addToArrayStep();
+	else if (operationType == 2) deleteFromArrayStep();
 }
 
 void DynamicArrayWorld::buildScene() {

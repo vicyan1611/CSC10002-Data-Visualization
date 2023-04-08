@@ -99,6 +99,8 @@ void DynamicArrayState::handleDeleteBox() {
 	std::string temp = mDeleteBox->getFinalText();
 	if (temp != "") {
 		int x = std::stoi(temp);
+		std::cout << x << std::endl;
+		mDAWorld.deleteFromArray(x);
 	}
 }
 
@@ -106,6 +108,7 @@ bool DynamicArrayState::handleEvent(const sf::Event& event) {
 	mGUIContainer.handleEvent(event);
 	handleInitBox();
 	handleAddBox();
+	handleDeleteBox();
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
 		requestStackPush(States::Pause);
 	}

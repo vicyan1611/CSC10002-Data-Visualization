@@ -26,6 +26,7 @@ private:
 	void loadTextures();
 	void buildScene();
 	void addToArrayStep();
+	void deleteFromArrayStep();
 	void reUpdate();
 private:
 	enum Layer {
