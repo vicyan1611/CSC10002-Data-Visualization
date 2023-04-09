@@ -18,7 +18,9 @@ public:
 	void setRandomArray();
 	void setArray(std::vector<int> data);
 	void addToArray(int id, int value);
+	void updateArray(int id, int value);
 	void deleteFromArray(int id);
+	void searchArray(int value);
 	void next();
 	void previous();
 
@@ -27,6 +29,7 @@ private:
 	void buildScene();
 	void addToArrayStep();
 	void deleteFromArrayStep();
+	void searchArrayStep();
 	void reUpdate();
 private:
 	enum Layer {

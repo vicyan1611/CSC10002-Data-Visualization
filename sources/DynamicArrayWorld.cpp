@@ -111,19 +111,29 @@ void DynamicArrayWorld::addToArrayStep() {
 }
 
 void DynamicArrayWorld::reUpdate() {
-	operationType = 0;
-	step = 0;
-	totalSearchStep = 0;
-	for (auto player : mPlayerAircraftar) {
-		mSceneLayers[Air]->detachChild(*player);
+	if (operationType == 3) {
+		operationType = 0;
+		step = 0;
+		totalSearchStep = 0;
+		for (auto player : mPlayerAircraftar) {
+			player->setColor(sf::Color::White);
+		}
 	}
-	mPlayerAircraftar.clear();
-	for (int i = 0; i < tmp_mPlayerAircraftar.size(); ++i) {
-		mPlayerAircraftar.push_back(tmp_mPlayerAircraftar[i]);
-		mPlayerAircraftar[i]->setPosition(100.f + (i + 1) * 100.f, 100.f);
+	else {
+		operationType = 0;
+		step = 0;
+		totalSearchStep = 0;
+		for (auto player : mPlayerAircraftar) {
+			mSceneLayers[Air]->detachChild(*player);
+		}
+		mPlayerAircraftar.clear();
+		for (int i = 0; i < tmp_mPlayerAircraftar.size(); ++i) {
+			mPlayerAircraftar.push_back(tmp_mPlayerAircraftar[i]);
+			mPlayerAircraftar[i]->setPosition(100.f + (i + 1) * 100.f, 100.f);
+		}
+		tmp_mPlayerAircraftar.clear();
+		operation = { -1, -1 };
 	}
-	tmp_mPlayerAircraftar.clear();
-	operation = { -1, -1 };
 }
 
 void DynamicArrayWorld::deleteFromArrayStep() {
@@ -161,6 +171,34 @@ void DynamicArrayWorld::deleteFromArrayStep() {
 	}
 }
 
+void DynamicArrayWorld::updateArray(int id, int value) {
+	id--;
+	if (id < 0 || id >= mPlayerAircraftar.size()) return;
+	mPlayerAircraftar[id]->setValue(value);
+}
+
+void DynamicArrayWorld::searchArray(int value) {
+	operationType = 3;
+	step = 0;
+	totalSearchStep = mPlayerAircraftar.size() + 1;
+	operation = { -1, value };
+}
+
+void DynamicArrayWorld::searchArrayStep()
+{
+	for (auto player : mPlayerAircraftar) {
+		player->setColor(sf::Color::White);
+	}
+	if (step == 0 || step > mPlayerAircraftar.size()) return;
+	for (int i = 0; i < step; ++i) {
+		if (mPlayerAircraftar[i]->getValue() == operation.second) {
+			mPlayerAircraftar[i]->setColor(sf::Color::Red);
+		}
+	}
+	int tmpID = step - 1;
+	mPlayerAircraftar[tmpID]->setColor(sf::Color::Green);
+}
+
 void DynamicArrayWorld::next() {
 	if (operationType == 0) return;
 
@@ -169,6 +207,7 @@ void DynamicArrayWorld::next() {
 
 	if (operationType == 1) addToArrayStep();
 	else if (operationType == 2) deleteFromArrayStep();
+	else if (operationType == 3) searchArrayStep();
 
 	if (step >= totalSearchStep)  reUpdate();
 }
@@ -179,6 +218,7 @@ void DynamicArrayWorld::previous() {
 	step = std::max(step, 0);
 	if (operationType == 1) addToArrayStep();
 	else if (operationType == 2) deleteFromArrayStep();
+	else if (operationType == 3) searchArrayStep();
 }
 
 void DynamicArrayWorld::buildScene() {

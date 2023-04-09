@@ -15,6 +15,7 @@ public:
 	unsigned int getCategory() const;
 	unsigned int getValue() const;
 	void setColor(sf::Color color);
+	sf::Color getColor() const;
 	void setValue(int value);
 	void setString(std::string str);
 private:

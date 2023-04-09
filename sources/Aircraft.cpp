@@ -41,3 +41,7 @@ void Aircraft::setValue(int value) {
 void Aircraft::setString(std::string str) {
 	mText.setString(str);
 }
+
+sf::Color Aircraft::getColor() const {
+	return mText.getFillColor();
+}

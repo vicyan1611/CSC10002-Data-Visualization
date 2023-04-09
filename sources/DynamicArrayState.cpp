@@ -53,6 +53,22 @@ DynamicArrayState::DynamicArrayState(StateStack& stack, Context context)
 		mDAWorld.next();
 		});
 	mGUIContainer.pack(mNextButton);
+
+	mUpdateBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mUpdateBox->setPosition(1300, 650);
+	mUpdateBox->setText("");
+	mGUIContainer.pack(mUpdateBox);
+	GUI::Label::Ptr mUpdateLabel = std::make_shared<GUI::Label>("Update Box", *context.fonts);
+	mUpdateLabel->setPosition(1300, 620);
+	mGUIContainer.pack(mUpdateLabel);
+
+	mSearchBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mSearchBox->setPosition(1300, 800);
+	mSearchBox->setText("");
+	mGUIContainer.pack(mSearchBox);
+	GUI::Label::Ptr mSearchLabel = std::make_shared<GUI::Label>("Search Box", *context.fonts);
+	mSearchLabel->setPosition(1300, 770);
+	mGUIContainer.pack(mSearchLabel);
 }
 
 void DynamicArrayState::draw() {
@@ -104,11 +120,35 @@ void DynamicArrayState::handleDeleteBox() {
 	}
 }
 
+void DynamicArrayState::handleUpdateBox() {
+	std::string temp = mUpdateBox->getFinalText();
+	if (temp != "") {
+		int x = std::stoi(temp);
+		std::cout << x << std::endl;
+		if (id == -1) id = x; else {
+			value = x;
+			mDAWorld.updateArray(id, value);
+			id = -1;
+		}
+	}
+}
+
+void DynamicArrayState::handleSearchBox() {
+	std::string temp = mSearchBox->getFinalText();
+	if (temp != "") {
+		int x = std::stoi(temp);
+		std::cout << x << std::endl;
+		mDAWorld.searchArray(x);
+	}
+}
+
 bool DynamicArrayState::handleEvent(const sf::Event& event) {
 	mGUIContainer.handleEvent(event);
 	handleInitBox();
 	handleAddBox();
 	handleDeleteBox();
+	handleUpdateBox();
+	handleSearchBox();
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
 		requestStackPush(States::Pause);
 	}
