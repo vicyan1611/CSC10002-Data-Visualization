@@ -6,6 +6,7 @@
 #include <SettingsState.hpp>
 #include <StaticArrayState.hpp>
 #include <DynamicArrayState.hpp>
+#include <SllState.hpp>
 
 Application::Application()
 	:mWindow(sf::VideoMode(1600, 900), "Data Visualization - Test ver", sf::Style::Close)
@@ -32,6 +33,7 @@ void Application::registerStates() {
 	mStateStack.registerState<SettingsState>(States::Settings);
 	mStateStack.registerState<StaticArrayState>(States::StaticArray);
 	mStateStack.registerState<DynamicArrayState>(States::DynamicArray);
+	mStateStack.registerState<SllState>(States::Sll);
 }
 
 void Application::run() {

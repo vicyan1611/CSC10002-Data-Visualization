@@ -38,6 +38,8 @@
     <ClCompile Include="sources\Player.cpp" />
     <ClCompile Include="sources\SceneNode.cpp" />
     <ClCompile Include="sources\SettingsState.cpp" />
+    <ClCompile Include="sources\SllState.cpp" />
+    <ClCompile Include="sources\SllWorld.cpp" />
     <ClCompile Include="sources\SpriteNode.cpp" />
     <ClCompile Include="sources\State.cpp" />
     <ClCompile Include="sources\StateStack.cpp" />
@@ -67,6 +69,8 @@
     <ClInclude Include="include\ResourceHolder.hpp" />
     <ClInclude Include="include\SceneNode.hpp" />
     <ClInclude Include="include\SettingsState.hpp" />
+    <ClInclude Include="include\SllState.hpp" />
+    <ClInclude Include="include\SllWorld.hpp" />
     <ClInclude Include="include\SpriteNode.hpp" />
     <ClInclude Include="include\State.hpp" />
     <ClInclude Include="include\StateStack.hpp" />

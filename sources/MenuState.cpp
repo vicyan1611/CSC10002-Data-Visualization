@@ -52,6 +52,13 @@ MenuState::MenuState(StateStack& stack, Context context)
 		});
 	mGUIContainer.pack(daButton);
 
+	auto sllButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	sllButton->setPosition(100, 500);
+	sllButton->setText("Singly Linked List");
+	sllButton->setCallback([this]() {
+		requestStackPush(States::Sll);
+		});
+	mGUIContainer.pack(sllButton);
 	/*auto userInput = std::make_shared<GUI::InputBox>(*context.fonts);
 	userInput->setPosition(100, 450);
 	userInput->setText("Enter your name");
