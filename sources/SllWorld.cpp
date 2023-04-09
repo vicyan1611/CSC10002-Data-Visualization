@@ -16,6 +16,10 @@ void SllWorld::loadTextures() {
 	mTextures.load(Textures::Desert, "assets/GameState.jpg");
 }
 
+void SllWorld::setArray(std::vector<int> data) {
+
+}
+
 void SllWorld::buildScene() {
 	for (std::size_t i = 0; i < LayerCount; ++i) {
 		SceneNode::Ptr layer(new SceneNode());
@@ -30,6 +34,12 @@ void SllWorld::buildScene() {
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
 	backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
 	mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
+
+    //test Node
+	std::unique_ptr<LLNode> sllNode(new LLNode(1, mFonts, 2));
+	sllNode->setPosition(700.f, 200.f);
+	sllNode->setVelocity(0.f, 0.f);
+	mSceneLayers[Air]->attachChild(std::move(sllNode));
 }
 
 void SllWorld::draw() {

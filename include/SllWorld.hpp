@@ -7,6 +7,7 @@
 #include <SpriteNode.hpp>
 #include <CommandQueue.hpp>
 #include <vector>
+#include <LLNode.hpp>
 
 class SllWorld: private sf::NonCopyable {
 public:
@@ -14,6 +15,7 @@ public:
 	void update(sf::Time dt);
 	void draw();
 	CommandQueue& getCommandQueue();
+	void setArray(std::vector<int> data);
 private:
 	void loadTextures();
 	void buildScene();

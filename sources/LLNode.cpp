@@ -23,12 +23,24 @@ LLNode::LLNode(int value, const FontHolder& fonts, int num) : mText()
 }
 
 void LLNode::setArrows() {
-
+	mArrowRight.setSize(sf::Vector2f(90, 2));
+	mArrowRight.setFillColor(sf::Color::Cyan); 
+	sf::FloatRect bounds = mArrowRight.getLocalBounds();
+	mArrowRight.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+	mArrowRight.setPosition(mSquare.getPosition().x + 82.5, mSquare.getPosition().y - 10);
+	
+	mArrowLeft.setSize(sf::Vector2f(90, 2));
+	mArrowLeft.setFillColor(sf::Color::Magenta);
+	bounds = mArrowLeft.getLocalBounds();
+	mArrowLeft.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+	mArrowLeft.setPosition(mSquare.getPosition().x - 82.5, mSquare.getPosition().y + 10);
 }
 
 void LLNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
 	target.draw(mSquare, states);
 	target.draw(mText, states);
+	if (mHasRight) target.draw(mArrowRight, states);
+	if (mHasLeft) target.draw(mArrowLeft, states);
 }
 
 unsigned int LLNode::getValue() const {
