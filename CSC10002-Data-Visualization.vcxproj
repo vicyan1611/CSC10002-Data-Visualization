@@ -32,6 +32,7 @@
     <ClCompile Include="sources\GameState.cpp" />
     <ClCompile Include="sources\InputBox.cpp" />
     <ClCompile Include="sources\Label.cpp" />
+    <ClCompile Include="sources\LLNode.cpp" />
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\MenuState.cpp" />
     <ClCompile Include="sources\PauseState.cpp" />
@@ -63,6 +64,7 @@
     <ClInclude Include="include\GameState.hpp" />
     <ClInclude Include="include\InputBox.hpp" />
     <ClInclude Include="include\Label.hpp" />
+    <ClInclude Include="include\LLNode.hpp" />
     <ClInclude Include="include\MenuState.hpp" />
     <ClInclude Include="include\PauseState.hpp" />
     <ClInclude Include="include\Player.hpp" />
