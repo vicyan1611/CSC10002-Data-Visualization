@@ -180,7 +180,7 @@ void DynamicArrayWorld::updateArray(int id, int value) {
 void DynamicArrayWorld::searchArray(int value) {
 	operationType = 3;
 	step = 0;
-	totalSearchStep = mPlayerAircraftar.size() + 1;
+	totalSearchStep = int(mPlayerAircraftar.size()) + 1;
 	operation = { -1, value };
 }
 

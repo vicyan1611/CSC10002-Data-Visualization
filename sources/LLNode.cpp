@@ -1,6 +1,6 @@
 #include <LLNode.hpp>
 
-LLNode::LLNode(int value, const FontHolder& fonts) : mText()
+LLNode::LLNode(int value, const FontHolder& fonts, int num) : mText()
 {
 	mText.setString(std::to_string(value));
 	mText.setFont(fonts.get(Fonts::Main));
@@ -14,6 +14,16 @@ LLNode::LLNode(int value, const FontHolder& fonts) : mText()
 	mSquare.setOutlineThickness(1.f);
 	bounds = mSquare.getLocalBounds();
 	mSquare.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+
+	mHasRight = true;
+	if (num == 2) mHasLeft = true;
+	else mHasLeft = false;
+	
+	setArrows();
+}
+
+void LLNode::setArrows() {
+
 }
 
 void LLNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
