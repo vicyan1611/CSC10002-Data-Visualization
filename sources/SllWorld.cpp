@@ -47,6 +47,16 @@ void SllWorld::setArray(std::vector<int> data) {
 	mSceneLayers[Air]->attachChild(std::move(pNull));
 }
 
+void SllWorld::setRandomArray() {
+	std::vector<int> data;
+	int n = rand() % 8 + 1;
+	for (int i = 0; i < n; ++i) {
+		data.push_back(rand() % 100);
+	}
+	setArray(data);
+}
+
+
 void SllWorld::buildScene() {
 	for (std::size_t i = 0; i < LayerCount; ++i) {
 		SceneNode::Ptr layer(new SceneNode());

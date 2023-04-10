@@ -9,7 +9,7 @@
 #include <SllState.hpp>
 
 Application::Application()
-	:mWindow(sf::VideoMode(1600, 900), "Data Visualization - Test ver", sf::Style::Close)
+	:mWindow(sf::VideoMode(1900, 1000), "Data Visualization - Test ver", sf::Style::Close)
 	,mPlayer()
 	,mTextures()
 	,mFonts()
