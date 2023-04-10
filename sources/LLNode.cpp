@@ -4,6 +4,7 @@ LLNode::LLNode(int value, const FontHolder& fonts, int num) : mText()
 {
 	mText.setString(std::to_string(value));
 	mText.setFont(fonts.get(Fonts::Main));
+	mText.setCharacterSize(19);
 	mText.setFillColor(sf::Color::White);
 	sf::FloatRect bounds = mText.getLocalBounds();
 	mText.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
@@ -15,7 +16,7 @@ LLNode::LLNode(int value, const FontHolder& fonts, int num) : mText()
 	bounds = mSquare.getLocalBounds();
 	mSquare.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 
-	mHasRight = true;
+	if (num > 0) mHasRight = true; else mHasRight = false;
 	if (num == 2) mHasLeft = true;
 	else mHasLeft = false;
 	
@@ -37,7 +38,7 @@ void LLNode::setArrows() {
 }
 
 void LLNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
-	target.draw(mSquare, states);
+	if (mText.getString() != "nullptr") target.draw(mSquare, states);
 	target.draw(mText, states);
 	if (mHasRight) target.draw(mArrowRight, states);
 	if (mHasLeft) target.draw(mArrowLeft, states);
@@ -58,6 +59,9 @@ void LLNode::setValue(int value) {
 
 void LLNode::setString(std::string str) {
 	mText.setString(str);
+	sf::FloatRect bounds = mText.getLocalBounds();
+	mText.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+	mText.setPosition(mSquare.getPosition().x, mSquare.getPosition().y);
 }
 
 sf::Color LLNode::getColor() const {

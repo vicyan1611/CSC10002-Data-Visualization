@@ -33,6 +33,10 @@ private:
 		SceneNode mSceneGraph;
 		std::array<SceneNode*, LayerCount> mSceneLayers;
 
+		std::vector<LLNode*> mSllNodes;
 		sf::FloatRect mWorldBounds;
 		CommandQueue mCommandQueue;
+
+		int totalStep = 0, step = -1, operatTionType = 0;
+		std::pair <int, int> operation = {-1, -1};
 };

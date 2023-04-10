@@ -44,7 +44,7 @@ void SllState::handleInitBox() {
 
 bool SllState::handleEvent(const sf::Event& event) {
 	 mGUIContainer.handleEvent(event);
-	// handleInitBox();
+	 handleInitBox();
 	 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
 		 requestStackPush(States::Pause);
 	 }
