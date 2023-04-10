@@ -18,6 +18,8 @@ public:
 	void setArray(std::vector<int> data);
 	void setRandomArray();
 	void addToArray(int id, int value);
+	void next();
+	void previous();
 private:
 	void loadTextures();
 	void buildScene();
