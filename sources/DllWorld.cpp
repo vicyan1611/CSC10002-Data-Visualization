@@ -32,10 +32,10 @@ void DllWorld::buildScene() {
 	mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
 	//test Node
-	std::unique_ptr<LLNode> dllNode(new LLNode(1, mFonts, 15));
+	/*std::unique_ptr<LLNode> dllNode(new LLNode(1, mFonts, 15));
 	dllNode->setPosition(700.f, 200.f);
 	dllNode->setVelocity(0.f, 0.f);
-	mSceneLayers[Air]->attachChild(std::move(dllNode));
+	mSceneLayers[Air]->attachChild(std::move(dllNode));*/
 
 }
 
@@ -53,4 +53,30 @@ void DllWorld::draw() {
 
 CommandQueue& DllWorld::getCommandQueue() {
 	return mCommandQueue;
+}
+
+void DllWorld::setArray(std::vector<int> data	) {
+	if (!mDllNodes.empty()) {
+		for (auto& node : mDllNodes) {
+			mSceneLayers[Air]->detachChild(*node);
+		}
+		mDllNodes.clear();
+	}
+	
+	//create first nullptr
+	std::unique_ptr<LLNode> fNull(new LLNode(0, mFonts, 0));
+	fNull->setPosition(100.f, 100.f);
+	fNull->setVelocity(0.f, 0.f);
+	fNull->setString("nullptr");
+	mDllNodes.push_back(fNull.get());
+	mSceneLayers[Air]->attachChild(std::move(fNull));
+
+	for (int i = 0; i < data.size(); ++i) {
+		std::unique_ptr <LLNode> dllNode(new LLNode(data[i], mFonts, 3));
+		dllNode->setPosition(100.f + (i + 1) * 180.f, 100.f);
+		dllNode->setVelocity(0.f, 0.f);
+		if (i == 0) dllNode->setColorSquare(sf::Color::Red);//not red, just an trash value
+		mDllNodes.push_back(dllNode.get());
+		mSceneLayers[Air]->attachChild(std::move(dllNode));
+	}
 }

@@ -82,3 +82,7 @@ void LLNode::setString(std::string str) {
 sf::Color LLNode::getColor() const {
 	return mText.getFillColor();
 }
+
+void LLNode::setColorSquare(sf::Color color) {
+	mSquare.setOutlineColor(sf::Color::Color(245, 158, 20, 255));
+}

@@ -11,6 +11,7 @@ public:
 	sf::Color getColor() const;
 	void setValue(int value);
 	void setString(std::string str);
+	void setColorSquare(sf::Color color);
 private:
 	void setArrows();
 private:

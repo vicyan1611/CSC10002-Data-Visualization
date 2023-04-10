@@ -10,7 +10,7 @@
 #include <LLNode.hpp>
 
 class DllWorld : private sf::NonCopyable {
-	public:
+public:
 	explicit DllWorld(sf::RenderWindow& window);
 	void update(sf::Time dt);
 	void draw();
