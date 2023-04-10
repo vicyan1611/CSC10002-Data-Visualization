@@ -20,10 +20,12 @@ public:
 	void addToArray(int id, int value);
 	void next();
 	void previous();
+	void deleteFromArray(int id);
 private:
 	void loadTextures();
 	void buildScene();
 	void addToArrayStep();
+	void deleteFromArrayStep();
 	void reUpdate();
 private:
 	enum Layer {

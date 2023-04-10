@@ -132,6 +132,72 @@ void SllWorld::addToArrayStep() {
 	}
 }
 
+void SllWorld::deleteFromArray(int id) {
+	if (id < 1 || id > int(mSllNodes.size()) - 2) return;
+	operationType = 2;
+	totalStep = id + 1;
+	operation = { id, -1 };
+	step = 0;
+	mValue.clear();
+	for (int i = 0; i < mSllNodes.size(); ++i) {
+		std::unique_ptr<LLNode> node(new LLNode(1, mFonts, (i == mSllNodes.size() - 1) ? 0 : 1));
+		node->setPosition(mSllNodes[i]->getPosition());
+		node->setVelocity(0.f, 0.f);
+		if (i == 0) {
+			node->setString("pHead");
+		}
+		else if (i == mSllNodes.size() - 1) {
+			node->setString("nullptr");
+		}
+		else {
+			node->setString(std::to_string(mSllNodes[i]->getValue()));
+			mValue.push_back(mSllNodes[i]->getValue());
+		}
+		tmpSllNodes.push_back(node.get());
+		mSceneLayers[Air]->attachChild(std::move(node));
+		mSceneLayers[Air]->detachChild(*mSllNodes[i]);
+	}
+	std::cout << id << "\n";
+}
+
+void SllWorld::deleteFromArrayStep() {
+	if (step == 0) return;
+	if (!tmpSllNodes.empty()) {
+		for (auto node : tmpSllNodes) {
+			mSceneLayers[Air]->detachChild(*node);
+		}
+		tmpSllNodes.clear();
+	}
+	for (int i = 0; i < mSllNodes.size(); ++i) {
+		std::unique_ptr<LLNode> node(new LLNode(1, mFonts, (i == mSllNodes.size() - 1) ? 0 : 1));
+		node->setPosition(100.f + i * 180.f, 100.f);
+		node->setVelocity(0.f, 0.f);
+		if (i == 0) {
+			node->setString("pHead");
+		}
+		else if (i == mSllNodes.size() - 1) {
+			node->setString("nullptr");
+		}
+		else {
+			int tmpID = i - 1;
+			node->setValue(mValue[tmpID]);
+		}
+		tmpSllNodes.push_back(node.get());
+		mSceneLayers[Air]->attachChild(std::move(node));
+	}
+	if (step <= operation.first) {
+		tmpSllNodes[step]->setColor(sf::Color::Cyan);
+	}
+	else {
+		mSceneLayers[Air]->detachChild(*tmpSllNodes[operation.first]);
+		tmpSllNodes.erase(tmpSllNodes.begin() + operation.first);
+		for (int i = 0; i < tmpSllNodes.size(); ++i) {
+			tmpSllNodes[i]->setPosition(100.f + i * 180.f, 100.f);
+			tmpSllNodes[i]->setColor(sf::Color::White);
+		}
+	}
+}
+
 void SllWorld::reUpdate() {
 	operationType = 0;
 	step = totalStep = 0;
