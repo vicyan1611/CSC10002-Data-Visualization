@@ -56,6 +56,17 @@ void SllWorld::setRandomArray() {
 	setArray(data);
 }
 
+void SllWorld::addToArray(int id, int value) {
+	if (id < 1 || id > int(mSllNodes.size()) - 2) {
+		std::cout << "Invalid id" << std::endl;
+		return;
+	}
+	operationType = 1;
+	totalStep = (id - 1) + 1 + 1;
+	step = 0;
+	operation = {id, value};
+	std::cout << id << " " << value << std::endl;
+}
 
 void SllWorld::buildScene() {
 	for (std::size_t i = 0; i < LayerCount; ++i) {

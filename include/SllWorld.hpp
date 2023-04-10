@@ -17,6 +17,7 @@ public:
 	CommandQueue& getCommandQueue();
 	void setArray(std::vector<int> data);
 	void setRandomArray();
+	void addToArray(int id, int value);
 private:
 	void loadTextures();
 	void buildScene();
@@ -38,6 +39,6 @@ private:
 		sf::FloatRect mWorldBounds;
 		CommandQueue mCommandQueue;
 
-		int totalStep = 0, step = -1, operatTionType = 0;
+		int totalStep = 0, step = -1, operationType = 0;
 		std::pair <int, int> operation = {-1, -1};
 };

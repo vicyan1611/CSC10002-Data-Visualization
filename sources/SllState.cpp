@@ -22,13 +22,13 @@ SllState::SllState(StateStack& stack, Context context)
 		});
 	mGUIContainer.pack(mRandomButton);
 
-	/*mAddBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mAddBox = std::make_shared<GUI::InputBox>(*context.fonts);
 	mAddBox->setPosition(700, 650);
 	mAddBox->setText("");
 	mGUIContainer.pack(mAddBox);
 	GUI::Label::Ptr mAddLabel = std::make_shared<GUI::Label>("Add Box", *context.fonts);
 	mAddLabel->setPosition(700, 620);
-	mGUIContainer.pack(mAddLabel);*/
+	mGUIContainer.pack(mAddLabel);
 }
 
 void SllState::draw() {
@@ -54,6 +54,17 @@ void SllState::handleInitBox() {
 			nData = 0;
 			mSllWorld.setArray(mData);
 			mData.clear();
+		}
+	}
+}
+
+void SllState::handleAddBox() {
+	std::string temp = mAddBox->getFinalText();
+	if (temp != "") {
+		int x = std::stoi(temp);
+		if (id == -1) id = x; else {
+			mSllWorld.addToArray(id, x);
+			id = -1;
 		}
 	}
 }

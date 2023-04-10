@@ -26,5 +26,5 @@ private:
 	GUI::InputBox::Ptr mInitBox, mUpdateBox, mSearchBox, mAddBox, mDeleteBox;
 	GUI::Button::Ptr mRandomButton, mNextButton, mPreviousButton;
 	std::vector <int> mData;
-	int nData = 0, id = -1, value = 0;
+	int nData = 0, id = -1;
 };
