@@ -30,6 +30,13 @@ void DllWorld::buildScene() {
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
 	backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
 	mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
+
+	//test Node
+	std::unique_ptr<LLNode> dllNode(new LLNode(1, mFonts, 15));
+	dllNode->setPosition(700.f, 200.f);
+	dllNode->setVelocity(0.f, 0.f);
+	mSceneLayers[Air]->attachChild(std::move(dllNode));
+
 }
 
 void DllWorld::update(sf::Time dt) {

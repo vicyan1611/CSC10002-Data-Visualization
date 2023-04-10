@@ -6,7 +6,6 @@ DllState::DllState(StateStack& stack, Context context)
 	, mDllWorld(*context.window)
 	, mGUIContainer()
 {
-
 }
 
 void DllState::draw() {
@@ -25,5 +24,4 @@ bool DllState::handleEvent(const sf::Event& event) {
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 		requestStackPush(States::Pause);
 	return false;
-
 }

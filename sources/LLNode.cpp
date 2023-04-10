@@ -1,4 +1,5 @@
 #include <LLNode.hpp>
+#include <iostream>
 
 LLNode::LLNode(int value, const FontHolder& fonts, int num) : mText()
 {
@@ -16,10 +17,10 @@ LLNode::LLNode(int value, const FontHolder& fonts, int num) : mText()
 	bounds = mSquare.getLocalBounds();
 	mSquare.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 
-	if (num > 0) mHasRight = true; else mHasRight = false;
-	if (num == 2) mHasLeft = true;
-	else mHasLeft = false;
-	
+	if (num & 1) mHasRight = true; else mHasRight = false;
+	if ((num >> 1) & 1) mHasLeft = true; else mHasLeft = false;
+	if ((num >> 2) & 1) mHasUp = true; else mHasUp = false;
+	if ((num >> 3) & 1) mHasDown = true; else mHasDown = false;
 	setArrows();
 }
 
@@ -28,13 +29,25 @@ void LLNode::setArrows() {
 	mArrowRight.setFillColor(sf::Color::Cyan); 
 	sf::FloatRect bounds = mArrowRight.getLocalBounds();
 	mArrowRight.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
-	mArrowRight.setPosition(mSquare.getPosition().x + 82.5, mSquare.getPosition().y - 10);
+	mArrowRight.setPosition(mSquare.getPosition().x + float(82.5), mSquare.getPosition().y - 10);
 	
 	mArrowLeft.setSize(sf::Vector2f(90, 2));
 	mArrowLeft.setFillColor(sf::Color::Magenta);
 	bounds = mArrowLeft.getLocalBounds();
 	mArrowLeft.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
-	mArrowLeft.setPosition(mSquare.getPosition().x - 82.5, mSquare.getPosition().y + 10);
+	mArrowLeft.setPosition(mSquare.getPosition().x - float(82.5), mSquare.getPosition().y + 10);
+
+	mArrowUp.setSize(sf::Vector2f(2, 45));
+	mArrowUp.setFillColor(sf::Color::Yellow);
+	bounds = mArrowUp.getLocalBounds();
+	mArrowUp.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+	mArrowUp.setPosition(mSquare.getPosition().x, mSquare.getPosition().y - 62.f);
+
+	mArrowDown.setSize(sf::Vector2f(2, 45));
+	mArrowDown.setFillColor(sf::Color::Red);
+	bounds = mArrowDown.getLocalBounds();
+	mArrowDown.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+	mArrowDown.setPosition(mSquare.getPosition().x, mSquare.getPosition().y + 62.f);
 }
 
 void LLNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -42,6 +55,8 @@ void LLNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) cons
 	target.draw(mText, states);
 	if (mHasRight) target.draw(mArrowRight, states);
 	if (mHasLeft) target.draw(mArrowLeft, states);
+	if (mHasUp) target.draw(mArrowUp, states);
+	if (mHasDown) target.draw(mArrowDown, states);
 }
 
 unsigned int LLNode::getValue() const {

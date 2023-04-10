@@ -10,6 +10,7 @@
 #include <LLNode.hpp>
 
 class DllWorld : private sf::NonCopyable {
+	public:
 	explicit DllWorld(sf::RenderWindow& window);
 	void update(sf::Time dt);
 	void draw();
@@ -46,7 +47,8 @@ private:
 	SceneNode mSceneGraph;
 	std::array<SceneNode*, LayerCount> mSceneLayers;
 
-	std::vector<LLNode*> mSllNodes, tmpSllNodes;
+	std::vector<LLNode*> mDllNodes, tmpDllNodes;
+	LLNode* tmp;
 	sf::FloatRect mWorldBounds;
 	CommandQueue mCommandQueue;
 

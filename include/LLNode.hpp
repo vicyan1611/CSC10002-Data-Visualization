@@ -15,6 +15,6 @@ private:
 	void setArrows();
 private:
 	sf::Text mText;
-	sf::RectangleShape mSquare, mArrowLeft, mArrowRight;
-	bool mHasLeft, mHasRight;
+	sf::RectangleShape mSquare, mArrowLeft, mArrowRight, mArrowUp, mArrowDown;
+	bool mHasLeft, mHasRight, mHasUp, mHasDown;
 };

@@ -6,7 +6,7 @@
 #include <Label.hpp>
 #include <Button.hpp>
 #include <vector>
-#include <SllWorld.hpp>
+#include <DllWorld.hpp>
 
 class DllState: public State {
 public:
@@ -21,7 +21,7 @@ private:
 	void handleUpdateBox();
 	void handleSearchBox();
 private:
-	SllWorld mDllWorld;
+	DllWorld mDllWorld;
 	GUI::Container mGUIContainer;
 	GUI::InputBox::Ptr mInitBox, mUpdateBox, mSearchBox, mAddBox, mDeleteBox;
 	GUI::Button::Ptr mRandomButton, mNextButton, mPreviousButton;
