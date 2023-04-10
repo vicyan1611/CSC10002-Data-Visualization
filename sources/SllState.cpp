@@ -53,6 +53,14 @@ SllState::SllState(StateStack& stack, Context context)
 		mSllWorld.next();
 		});
 	mGUIContainer.pack(mNextButton);
+
+	mUpdateBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mUpdateBox->setPosition(1300, 650);
+	mUpdateBox->setText("");
+	mGUIContainer.pack(mUpdateBox);
+	GUI::Label::Ptr mUpdateLabel = std::make_shared<GUI::Label>("Update Box", *context.fonts);
+	mUpdateLabel->setPosition(1300, 620);
+	mGUIContainer.pack(mUpdateLabel);
 }
 
 void SllState::draw() {
@@ -101,11 +109,24 @@ void SllState::handleDeleteBox() {
 	}
 }
 
+void SllState::handleUpdateBox() {
+	std::string temp = mUpdateBox->getFinalText();
+	if (temp != "") {
+		int x = std::stoi(temp);
+		std::cout << x << std::endl;
+		if (id == -1) id = x; else {
+			mSllWorld.updateArray(id, x);
+			id = -1;
+		}
+	}
+}
+
 bool SllState::handleEvent(const sf::Event& event) {
 	 mGUIContainer.handleEvent(event);
 	 handleInitBox();
 	 handleAddBox();
 	 handleDeleteBox();
+	 handleUpdateBox();
 	 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
 		 requestStackPush(States::Pause);
 	 }

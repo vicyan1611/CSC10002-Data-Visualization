@@ -21,11 +21,13 @@ public:
 	void next();
 	void previous();
 	void deleteFromArray(int id);
+	void updateArray(int id, int value);
 private:
 	void loadTextures();
 	void buildScene();
 	void addToArrayStep();
 	void deleteFromArrayStep();
+	void updateArrayStep();
 	void reUpdate();
 private:
 	enum Layer {

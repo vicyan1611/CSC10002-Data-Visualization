@@ -198,7 +198,34 @@ void SllWorld::deleteFromArrayStep() {
 	}
 }
 
+void SllWorld::updateArrayStep() {
+	if (step == 0) return;
+	for (auto node : mSllNodes)
+		node->setColor(sf::Color::White);
+	if (step <= operation.first)
+		mSllNodes[step]->setColor(sf::Color::Cyan);
+	else {
+		mSllNodes[operation.first]->setValue(operation.second);
+	}
+}
+
+void SllWorld::updateArray(int id, int value) {
+	if (id < 1 || id > int(mSllNodes.size()) - 2) {
+		std::cout << "Invalid id" << std::endl;
+		return;
+	}
+	operationType = 3;
+	step = 0;
+	totalStep = id + 1;
+	operation = { id, value };
+}
+
 void SllWorld::reUpdate() {
+	if (operationType == 3) {
+		operationType = 0;
+		step = totalStep = 0;
+		return;
+	}
 	operationType = 0;
 	step = totalStep = 0;
 	mSllNodes.clear();
@@ -217,6 +244,7 @@ void SllWorld::next() {
 
 	if (operationType == 1) addToArrayStep();
 	else if (operationType == 2) deleteFromArrayStep();
+	else if (operationType == 3) updateArrayStep();
 
 	if (step >= totalStep) reUpdate();
 }
@@ -227,6 +255,7 @@ void SllWorld::previous() {
 	step = std::max(step, 0);
 	if (operationType == 1) addToArrayStep();
 	else if (operationType == 2) deleteFromArrayStep();
+	else if (operationType == 3) updateArrayStep();
 }
 
 void SllWorld::buildScene() {
