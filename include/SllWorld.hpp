@@ -21,6 +21,7 @@ public:
 private:
 	void loadTextures();
 	void buildScene();
+	void addToArrayStep();
 private:
 	enum Layer {
 		Background,
@@ -35,7 +36,7 @@ private:
 		SceneNode mSceneGraph;
 		std::array<SceneNode*, LayerCount> mSceneLayers;
 
-		std::vector<LLNode*> mSllNodes;
+		std::vector<LLNode*> mSllNodes, tmpSllNodes;
 		sf::FloatRect mWorldBounds;
 		CommandQueue mCommandQueue;
 
