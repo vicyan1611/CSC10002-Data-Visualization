@@ -88,13 +88,13 @@ void SllWorld::addToArray(int id, int value) {
 }
 
 void SllWorld::addToArrayStep() {
+	if (step == 0) return;
 	if (!tmpSllNodes.empty()) {
 		for (auto node : tmpSllNodes) {
 			mSceneLayers[Air]->detachChild(*node);
 		}
 		tmpSllNodes.clear();
 	}
-	if (step == 0) return;
 	int tmpStep = step;
 	for (int i = 0; i < mSllNodes.size(); ++i) {
 		std::unique_ptr<LLNode> node(new LLNode(1, mFonts, (i == mSllNodes.size() - 1) ? 0 : 1));
@@ -107,7 +107,8 @@ void SllWorld::addToArrayStep() {
 			node->setString("nullptr");
 		}
 		else {
-			node->setValue(mValue[i-1]);
+			int tmpID = i - 1;
+			node->setValue(mValue[tmpID]);
 		}
 		tmpSllNodes.push_back(node.get());
 		mSceneLayers[Air]->attachChild(std::move(node));
@@ -151,6 +152,13 @@ void SllWorld::next() {
 	if (operationType == 1) addToArrayStep();
 
 	if (step >= totalStep) reUpdate();
+}
+
+void SllWorld::previous() {
+	if (operationType == 0) return;
+	step--;
+	step = std::max(step, 0);
+	if (operationType == 1) addToArrayStep();
 }
 
 void SllWorld::buildScene() {

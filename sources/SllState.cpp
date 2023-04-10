@@ -33,9 +33,9 @@ SllState::SllState(StateStack& stack, Context context)
 	mPreviousButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	mPreviousButton->setPosition(1000, 720);
 	mPreviousButton->setText("Previous");
-	/*mPreviousButton->setCallback([this]() {
+	mPreviousButton->setCallback([this]() {
 		mSllWorld.previous();
-		});*/
+		});
 	mGUIContainer.pack(mPreviousButton);
 
 	mNextButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
