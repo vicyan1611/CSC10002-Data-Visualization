@@ -22,12 +22,14 @@ public:
 	void previous();
 	void deleteFromArray(int id);
 	void updateArray(int id, int value);
+	void searchArray(int value);
 private:
 	void loadTextures();
 	void buildScene();
 	void addToArrayStep();
 	void deleteFromArrayStep();
 	void updateArrayStep();
+	void searchArrayStep();
 	void reUpdate();
 private:
 	enum Layer {

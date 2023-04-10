@@ -38,22 +38,6 @@ SllState::SllState(StateStack& stack, Context context)
 	mDeleteLabel->setPosition(1000, 620);
 	mGUIContainer.pack(mDeleteLabel);
 
-	mPreviousButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	mPreviousButton->setPosition(1000, 720);
-	mPreviousButton->setText("Previous");
-	mPreviousButton->setCallback([this]() {
-		mSllWorld.previous();
-		});
-	mGUIContainer.pack(mPreviousButton);
-
-	mNextButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	mNextButton->setPosition(1000, 800);
-	mNextButton->setText("Next");
-	mNextButton->setCallback([this]() {
-		mSllWorld.next();
-		});
-	mGUIContainer.pack(mNextButton);
-
 	mUpdateBox = std::make_shared<GUI::InputBox>(*context.fonts);
 	mUpdateBox->setPosition(1300, 650);
 	mUpdateBox->setText("");
@@ -61,6 +45,30 @@ SllState::SllState(StateStack& stack, Context context)
 	GUI::Label::Ptr mUpdateLabel = std::make_shared<GUI::Label>("Update Box", *context.fonts);
 	mUpdateLabel->setPosition(1300, 620);
 	mGUIContainer.pack(mUpdateLabel);
+
+	mSearchBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mSearchBox->setPosition(1600, 650);
+	mSearchBox->setText("");
+	mGUIContainer.pack(mSearchBox);
+	GUI::Label::Ptr mSearchLabel = std::make_shared<GUI::Label>("Search Box", *context.fonts);
+	mSearchLabel->setPosition(1600, 620);
+	mGUIContainer.pack(mSearchLabel);
+
+	mPreviousButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mPreviousButton->setPosition(1600, 720);
+	mPreviousButton->setText("Previous");
+	mPreviousButton->setCallback([this]() {
+		mSllWorld.previous();
+		});
+	mGUIContainer.pack(mPreviousButton);
+
+	mNextButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mNextButton->setPosition(1600, 800);
+	mNextButton->setText("Next");
+	mNextButton->setCallback([this]() {
+		mSllWorld.next();
+		});
+	mGUIContainer.pack(mNextButton);
 }
 
 void SllState::draw() {
@@ -121,12 +129,21 @@ void SllState::handleUpdateBox() {
 	}
 }
 
+void SllState::handleSearchBox() {
+	std::string temp = mSearchBox->getFinalText();
+	if (temp != "") {
+		int x = std::stoi(temp);
+		mSllWorld.searchArray(x);
+	}
+}
+
 bool SllState::handleEvent(const sf::Event& event) {
 	 mGUIContainer.handleEvent(event);
 	 handleInitBox();
 	 handleAddBox();
 	 handleDeleteBox();
 	 handleUpdateBox();
+	 handleSearchBox();
 	 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
 		 requestStackPush(States::Pause);
 	 }

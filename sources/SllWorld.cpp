@@ -220,8 +220,52 @@ void SllWorld::updateArray(int id, int value) {
 	operation = { id, value };
 }
 
+void SllWorld::searchArrayStep() {
+	if (step == 0) return;
+	for (int i = 0; i < mSllNodes.size(); ++i) {
+		mSllNodes[i]->setColor(sf::Color::White);
+	}
+	int tmpStep = step;
+	for (int i = 1; i < mSllNodes.size() - 1; ++i) {
+		if (mSllNodes[i]->getValue() == operation.second) {
+			mSllNodes[i]->setColor(sf::Color::Cyan);
+		}
+		tmpStep--;
+		if (tmpStep == 0) {
+			mSllNodes[i]->setColor(sf::Color::Green);
+			break;
+		}
+	}
+	if (tmpStep == 0) return;
+	if (mSllNodes[mSllNodes.size() - 2]->getValue() == operation.second) {
+		mSllNodes[mSllNodes.size() - 2]->setColor(sf::Color::Cyan);
+		tmpStep--;
+	}
+	if (tmpStep == 0) return;
+	for (int i = 0; i < mSllNodes.size(); ++i) {
+		mSllNodes[i]->setColor(sf::Color::White);
+	}
+}
+
+void SllWorld::searchArray(int value) {
+	if (mSllNodes.empty()) return;
+	operationType = 4;
+	step = 0;
+	totalStep = int(mSllNodes.size()) - 2 + 1;
+	int tmpID = int(mSllNodes.size()) - 2;
+	if (mSllNodes[tmpID]->getValue() == value) {
+		totalStep += 1;
+	}
+	operation = { -1, value };
+}
+
 void SllWorld::reUpdate() {
 	if (operationType == 3) {
+		operationType = 0;
+		step = totalStep = 0;
+		return;
+	}
+	else if (operationType == 4) {
 		operationType = 0;
 		step = totalStep = 0;
 		return;
@@ -245,6 +289,7 @@ void SllWorld::next() {
 	if (operationType == 1) addToArrayStep();
 	else if (operationType == 2) deleteFromArrayStep();
 	else if (operationType == 3) updateArrayStep();
+	else if (operationType == 4) searchArrayStep();
 
 	if (step >= totalStep) reUpdate();
 }
@@ -256,6 +301,7 @@ void SllWorld::previous() {
 	if (operationType == 1) addToArrayStep();
 	else if (operationType == 2) deleteFromArrayStep();
 	else if (operationType == 3) updateArrayStep();
+	else if (operationType == 4) searchArrayStep();
 }
 
 void SllWorld::buildScene() {
