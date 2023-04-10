@@ -216,6 +216,7 @@ void SllWorld::next() {
 	step = std::min(step, totalStep);
 
 	if (operationType == 1) addToArrayStep();
+	else if (operationType == 2) deleteFromArrayStep();
 
 	if (step >= totalStep) reUpdate();
 }
@@ -225,6 +226,7 @@ void SllWorld::previous() {
 	step--;
 	step = std::max(step, 0);
 	if (operationType == 1) addToArrayStep();
+	else if (operationType == 2) deleteFromArrayStep();
 }
 
 void SllWorld::buildScene() {

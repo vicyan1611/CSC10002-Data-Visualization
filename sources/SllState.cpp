@@ -30,6 +30,14 @@ SllState::SllState(StateStack& stack, Context context)
 	mAddLabel->setPosition(700, 620);
 	mGUIContainer.pack(mAddLabel);
 
+	mDeleteBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mDeleteBox->setPosition(1000, 650);
+	mDeleteBox->setText("");
+	mGUIContainer.pack(mDeleteBox);
+	GUI::Label::Ptr mDeleteLabel = std::make_shared<GUI::Label>("Delete Box", *context.fonts);
+	mDeleteLabel->setPosition(1000, 620);
+	mGUIContainer.pack(mDeleteLabel);
+
 	mPreviousButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	mPreviousButton->setPosition(1000, 720);
 	mPreviousButton->setText("Previous");
@@ -45,14 +53,6 @@ SllState::SllState(StateStack& stack, Context context)
 		mSllWorld.next();
 		});
 	mGUIContainer.pack(mNextButton);
-
-	mDeleteBox = std::make_shared<GUI::InputBox>(*context.fonts);
-	mDeleteBox->setPosition(1000, 650);
-	mDeleteBox->setText("");
-	mGUIContainer.pack(mDeleteBox);
-	GUI::Label::Ptr mDeleteLabel = std::make_shared<GUI::Label>("Delete Box", *context.fonts);
-	mDeleteLabel->setPosition(1000, 620);
-	mGUIContainer.pack(mDeleteLabel);
 }
 
 void SllState::draw() {
@@ -97,7 +97,7 @@ void SllState::handleDeleteBox() {
 	std::string temp = mDeleteBox->getFinalText();
 	if (temp != "") {
 		int x = std::stoi(temp);
-		//mSllWorld.deleteFromArray(x);
+		mSllWorld.deleteFromArray(x);
 	}
 }
 
@@ -105,7 +105,7 @@ bool SllState::handleEvent(const sf::Event& event) {
 	 mGUIContainer.handleEvent(event);
 	 handleInitBox();
 	 handleAddBox();
-	 //handleDeleteBox();
+	 handleDeleteBox();
 	 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
 		 requestStackPush(States::Pause);
 	 }
