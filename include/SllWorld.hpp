@@ -9,7 +9,7 @@
 #include <vector>
 #include <LLNode.hpp>
 
-class SllWorld: private sf::NonCopyable {
+class SllWorld : private sf::NonCopyable {
 public:
 	explicit SllWorld(sf::RenderWindow& window);
 	void update(sf::Time dt);
@@ -24,24 +24,26 @@ private:
 	void loadTextures();
 	void buildScene();
 	void addToArrayStep();
+	void reUpdate();
 private:
 	enum Layer {
 		Background,
 		Air,
 		LayerCount
 	};
-	private:
-		sf::RenderWindow& mWindow;
-		sf::View mWorldView;
-		TextureHolder mTextures;
-		FontHolder mFonts;
-		SceneNode mSceneGraph;
-		std::array<SceneNode*, LayerCount> mSceneLayers;
+private:
+	sf::RenderWindow& mWindow;
+	sf::View mWorldView;
+	TextureHolder mTextures;
+	FontHolder mFonts;
+	SceneNode mSceneGraph;
+	std::array<SceneNode*, LayerCount> mSceneLayers;
 
-		std::vector<LLNode*> mSllNodes, tmpSllNodes;
-		sf::FloatRect mWorldBounds;
-		CommandQueue mCommandQueue;
+	std::vector<LLNode*> mSllNodes, tmpSllNodes;
+	sf::FloatRect mWorldBounds;
+	CommandQueue mCommandQueue;
 
-		int totalStep = 0, step = -1, operationType = 0;
-		std::pair <int, int> operation = {-1, -1};
+	int totalStep = 0, step = -1, operationType = 0;
+	std::pair <int, int> operation = { -1, -1 };
+	std::vector<int> mValue;
 };

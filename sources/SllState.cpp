@@ -41,9 +41,9 @@ SllState::SllState(StateStack& stack, Context context)
 	mNextButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	mNextButton->setPosition(1000, 800);
 	mNextButton->setText("Next");
-	//mNextButton->setCallback([this]() {
-	//	mSllWorld.next();
-	//	});
+	mNextButton->setCallback([this]() {
+		mSllWorld.next();
+		});
 	mGUIContainer.pack(mNextButton);
 }
 
@@ -88,7 +88,7 @@ void SllState::handleAddBox() {
 bool SllState::handleEvent(const sf::Event& event) {
 	 mGUIContainer.handleEvent(event);
 	 handleInitBox();
-	 //handleAddBox();
+	 handleAddBox();
 	 if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
 		 requestStackPush(States::Pause);
 	 }
