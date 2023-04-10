@@ -59,6 +59,15 @@ MenuState::MenuState(StateStack& stack, Context context)
 		requestStackPush(States::Sll);
 		});
 	mGUIContainer.pack(sllButton);
+
+	auto dllButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	dllButton->setPosition(100, 550);
+	dllButton->setText("Doubly Linked List");
+	dllButton->setCallback([this]() {
+		requestStackPush(States::Dll);
+		});
+	mGUIContainer.pack(dllButton);
+
 	/*auto userInput = std::make_shared<GUI::InputBox>(*context.fonts);
 	userInput->setPosition(100, 450);
 	userInput->setText("Enter your name");

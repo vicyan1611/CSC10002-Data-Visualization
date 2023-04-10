@@ -26,6 +26,8 @@
     <ClCompile Include="sources\CommandQueue.cpp" />
     <ClCompile Include="sources\Component.cpp" />
     <ClCompile Include="sources\Container.cpp" />
+    <ClCompile Include="sources\DllState.cpp" />
+    <ClCompile Include="sources\DllWorld.cpp" />
     <ClCompile Include="sources\DynamicArrayState.cpp" />
     <ClCompile Include="sources\DynamicArrayWorld.cpp" />
     <ClCompile Include="sources\Entity.cpp" />
@@ -58,6 +60,8 @@
     <ClInclude Include="include\CommandQueue.hpp" />
     <ClInclude Include="include\Component.hpp" />
     <ClInclude Include="include\Container.hpp" />
+    <ClInclude Include="include\DllState.hpp" />
+    <ClInclude Include="include\DllWorld.hpp" />
     <ClInclude Include="include\DynamicArrayState.hpp" />
     <ClInclude Include="include\DynamicArrayWorld.hpp" />
     <ClInclude Include="include\Entity.hpp" />

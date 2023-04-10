@@ -17,7 +17,8 @@ namespace States {
 		Pause,
 		StaticArray,
 		DynamicArray,
-		Sll
+		Sll, 
+		Dll,
 	};
 }
 
