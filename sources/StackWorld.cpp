@@ -47,6 +47,12 @@ CommandQueue& StackWorld::getCommandQueue() {
 }
 
 void StackWorld::setArray(std::vector<int> data) {
+	if (!mStackNodes.empty()) {
+		for (auto& node : mStackNodes) {
+			mSceneLayers[Air]->detachChild(*node);
+		}
+		mStackNodes.clear();
+	}
 	for (int i = 0; i < data.size(); ++i) {
 		std::unique_ptr<LLNode> node(new LLNode(data[i], mFonts, 1));
 		node->setPosition(100.f + i * 180.f, 100.f);
@@ -62,4 +68,13 @@ void StackWorld::setArray(std::vector<int> data) {
 	lnull->setString("nullptr");
 	mStackNodes.push_back(lnull.get());
 	mSceneLayers[Air]->attachChild(std::move(lnull));
+}
+
+void StackWorld::setRandomArray() {
+	std::vector<int> data;
+	int n = rand() % 8 + 1;
+	for (int i = 0; i < n; ++i) {
+		data.push_back(rand() % 100);
+	}
+	setArray(data);
 }

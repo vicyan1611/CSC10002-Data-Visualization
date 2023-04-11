@@ -24,6 +24,7 @@ private:
 	StackWorld mStackWorld;
 	GUI::Container mGUIContainer;
 	GUI::InputBox::Ptr mInitBox;
+	GUI::Button::Ptr mRandomButton;
 
 	std::vector <int> mData;
 	int nData = 0, id = -1;
