@@ -21,6 +21,14 @@ DllState::DllState(StateStack& stack, Context context)
 		mDllWorld.setRandomArray();
 		});
 	mGUIContainer.pack(mRandomButton);
+
+	mAddBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mAddBox->setPosition(700, 650);
+	mAddBox->setText("");
+	mGUIContainer.pack(mAddBox);
+	GUI::Label::Ptr mAddLabel = std::make_shared<GUI::Label>("Add Box", *context.fonts);
+	mAddLabel->setPosition(700, 620);
+	mGUIContainer.pack(mAddLabel);
 }
 
 void DllState::draw() {
@@ -50,9 +58,21 @@ void DllState::handleInitBox() {
 	}
 }
 
+void DllState::handleAddBox() {
+	std::string temp = mAddBox->getFinalText();
+	if (temp != "") {
+		int x = std::stoi(temp);
+		if (id == -1) id = x; else {
+			mDllWorld.addToArray(id, x);
+			id = -1;
+		}
+	}
+}
+
 bool DllState::handleEvent(const sf::Event& event) {
 	mGUIContainer.handleEvent(event);
 	handleInitBox();
+	handleAddBox();
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 		requestStackPush(States::Pause);
 	return false;
