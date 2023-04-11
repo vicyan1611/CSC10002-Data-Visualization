@@ -68,6 +68,14 @@ MenuState::MenuState(StateStack& stack, Context context)
 		});
 	mGUIContainer.pack(dllButton);
 
+	auto stackButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	stackButton->setPosition(100, 600);
+	stackButton->setText("Stack");
+	stackButton->setCallback([this]() {
+		requestStackPush(States::Stackk);
+		});
+	mGUIContainer.pack(stackButton);
+
 	/*auto userInput = std::make_shared<GUI::InputBox>(*context.fonts);
 	userInput->setPosition(100, 450);
 	userInput->setText("Enter your name");

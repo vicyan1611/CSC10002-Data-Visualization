@@ -169,10 +169,10 @@ void DllWorld::updateArray(int id, int value) {
 void DllWorld::searchArray(int value) {
 	if (mDllNodes.empty()) return;
 	operationType = 4;
-	totalStep = mDllNodes.size() - 1;
+	totalStep = int(mDllNodes.size()) - 1;
 	step = 0;
 	operation = { 0, value };
-	int tmpID = mDllNodes.size() - 2;
+	int tmpID = int(mDllNodes.size()) - 2;
 	if (mDllNodes[tmpID]->getValue() == value) totalStep++;
 }
 

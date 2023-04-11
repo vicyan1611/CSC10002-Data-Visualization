@@ -19,6 +19,7 @@ namespace States {
 		DynamicArray,
 		Sll, 
 		Dll,
+		Stackk,
 	};
 }
 
