@@ -109,11 +109,23 @@ void DllState::handleDeleteBox() {
 	}
 }
 
+void DllState::handleUpdateBox() {
+	std::string temp = mUpdateBox->getFinalText();
+	if (temp != "") {
+		int x = std::stoi(temp);
+		if (id == -1) id = x; else {
+			mDllWorld.updateArray(id, x);
+			id = -1;
+		}
+	}
+}
+
 bool DllState::handleEvent(const sf::Event& event) {
 	mGUIContainer.handleEvent(event);
 	handleInitBox();
 	handleAddBox();
 	handleDeleteBox();
+	handleUpdateBox();
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 		requestStackPush(States::Pause);
 	return false;

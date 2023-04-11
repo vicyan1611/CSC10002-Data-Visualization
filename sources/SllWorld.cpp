@@ -260,12 +260,7 @@ void SllWorld::searchArray(int value) {
 }
 
 void SllWorld::reUpdate() {
-	if (operationType == 3) {
-		operationType = 0;
-		step = totalStep = 0;
-		return;
-	}
-	else if (operationType == 4) {
+	if (operationType == 3 || operationType == 4) {
 		operationType = 0;
 		step = totalStep = 0;
 		return;

@@ -155,6 +155,17 @@ void DllWorld::deleteFromArray(int id) {
 	}
 }
 
+void DllWorld::updateArray(int id, int value) {
+	if (id < 1 || id > int(mDllNodes.size()) - 2) {
+		std::cout << "Invalid id" << std::endl;
+		return;
+	}
+	operationType = 3;
+	totalStep = id + 1;
+	step = 0;
+	operation = { id, value };
+}
+
 void DllWorld::addToArrayStep() {
 	if (step == 0) return;
 	if (!tmpDllNodes.empty()) {
@@ -236,7 +247,22 @@ void DllWorld::deleteFromArrayStep() {
 	}
 }
 
+void DllWorld::updateArrayStep() {
+	if (step == 0) return;
+	for (auto node : mDllNodes) {
+		node->setColor(sf::Color::White);
+	}
+	if (step <= operation.first) 
+		mDllNodes[step]->setColor(sf::Color::Cyan);
+	else mDllNodes[operation.first]->setValue(operation.second);
+}
+
 void DllWorld::reUpdate() {
+	if (operationType == 3 || operationType == 4) {
+		operationType = 0;
+		step = totalStep = 0;
+		return;
+	}
 	operationType = 0;
 	step = totalStep = 0;
 	mDllNodes.clear();
@@ -256,6 +282,7 @@ void DllWorld::next() {
 
 	if (operationType == 1) addToArrayStep();
 	else if (operationType == 2) deleteFromArrayStep();
+	else if (operationType == 3) updateArrayStep();
 
 	if (step >= totalStep) reUpdate();
 }
@@ -266,4 +293,5 @@ void DllWorld::previous() {
 	step = std::max(step, 0);
 	if (operationType == 1) addToArrayStep();
 	else if (operationType == 2) deleteFromArrayStep();
+	else if (operationType == 3) updateArrayStep();
 }
