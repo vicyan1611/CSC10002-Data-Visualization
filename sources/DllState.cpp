@@ -46,8 +46,16 @@ DllState::DllState(StateStack& stack, Context context)
 	mUpdateLabel->setPosition(1300, 620);
 	mGUIContainer.pack(mUpdateLabel);
 
+	mSearchBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mSearchBox->setPosition(1600, 650);
+	mSearchBox->setText("");
+	mGUIContainer.pack(mSearchBox);
+	GUI::Label::Ptr mSearchLabel = std::make_shared<GUI::Label>("Search Box", *context.fonts);
+	mSearchLabel->setPosition(1600, 620);
+	mGUIContainer.pack(mSearchLabel);
+
 	mPreviousButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	mPreviousButton->setPosition(1000, 720);
+	mPreviousButton->setPosition(1600, 720);
 	mPreviousButton->setText("Previous");
 	mPreviousButton->setCallback([this]() {
 		mDllWorld.previous();
@@ -55,7 +63,7 @@ DllState::DllState(StateStack& stack, Context context)
 	mGUIContainer.pack(mPreviousButton);
 
 	mNextButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	mNextButton->setPosition(1000, 800);
+	mNextButton->setPosition(1600, 800);
 	mNextButton->setText("Next");
 	mNextButton->setCallback([this]() {
 		mDllWorld.next();
@@ -120,12 +128,21 @@ void DllState::handleUpdateBox() {
 	}
 }
 
+void DllState::handleSearchBox() {
+	std::string temp = mSearchBox->getFinalText();
+	if (temp != "") {
+		int x = std::stoi(temp);
+		mDllWorld.searchArray(x);
+	}
+}
+
 bool DllState::handleEvent(const sf::Event& event) {
 	mGUIContainer.handleEvent(event);
 	handleInitBox();
 	handleAddBox();
 	handleDeleteBox();
 	handleUpdateBox();
+	handleSearchBox();
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 		requestStackPush(States::Pause);
 	return false;
