@@ -24,6 +24,7 @@ public:
 	void deleteFromStack();
 	void deleteFromStackStep();
 	void updateStack(int id, int x);
+	void searchStack(int x);
 private:
 	void loadTextures();
 	void buildScene();

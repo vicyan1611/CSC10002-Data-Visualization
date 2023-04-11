@@ -157,6 +157,16 @@ void StackWorld::updateStack(int id, int x) {
 	mStackNodes[tmpID]->setValue(x);
 }
 
+void StackWorld::searchStack(int x) {
+	if (mStackNodes.empty()) return;
+	for (int i = 0; i < mStackNodes.size() - 1; ++i) {
+		mStackNodes[i]->setColor(sf::Color::White);
+		if (mStackNodes[i]->getValue() == x) {
+			mStackNodes[i]->setColor(sf::Color::Cyan);
+		}
+	}
+}
+
 void StackWorld::reUpdate() {
 	operationType = 0;
 	step = 0;
