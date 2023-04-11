@@ -16,6 +16,7 @@ public:
 	void draw();
 	CommandQueue& getCommandQueue();
 
+	void setArray(std::vector<int> data);
 private:
 	void loadTextures();
 	void buildScene();
@@ -32,6 +33,8 @@ private:
 	FontHolder mFonts;
 	SceneNode mSceneGraph;
 	std::array<SceneNode*, LayerCount> mSceneLayers;
+	
+	std::vector<LLNode*> mStackNodes;
 
 	sf::FloatRect mWorldBounds;
 	CommandQueue mCommandQueue;

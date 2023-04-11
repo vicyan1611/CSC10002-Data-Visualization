@@ -45,3 +45,21 @@ void StackWorld::draw() {
 CommandQueue& StackWorld::getCommandQueue() {
 	return mCommandQueue;
 }
+
+void StackWorld::setArray(std::vector<int> data) {
+	for (int i = 0; i < data.size(); ++i) {
+		std::unique_ptr<LLNode> node(new LLNode(data[i], mFonts, 1));
+		node->setPosition(100.f + i * 180.f, 100.f);
+		node->setVelocity(0.f, 0.f);
+		if (i == 0) node->setColorSquare(sf::Color::Red); //not a real value
+		mStackNodes.push_back(node.get());
+		mSceneLayers[Air]->attachChild(std::move(node));
+	}
+	//create last nullptr;
+	std::unique_ptr<LLNode> lnull(new LLNode(0, mFonts, 0));
+	lnull->setPosition(100.f + data.size() * 180.f, 100.f);
+	lnull->setVelocity(0.f, 0.f);
+	lnull->setString("nullptr");
+	mStackNodes.push_back(lnull.get());
+	mSceneLayers[Air]->attachChild(std::move(lnull));
+}
