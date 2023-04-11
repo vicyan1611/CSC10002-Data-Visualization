@@ -166,6 +166,16 @@ void DllWorld::updateArray(int id, int value) {
 	operation = { id, value };
 }
 
+void DllWorld::searchArray(int value) {
+	if (mDllNodes.empty()) return;
+	operationType = 4;
+	totalStep = mDllNodes.size() - 1;
+	step = 0;
+	operation = { 0, value };
+	int tmpID = mDllNodes.size() - 2;
+	if (mDllNodes[tmpID]->getValue() == value) totalStep++;
+}
+
 void DllWorld::addToArrayStep() {
 	if (step == 0) return;
 	if (!tmpDllNodes.empty()) {
@@ -257,6 +267,32 @@ void DllWorld::updateArrayStep() {
 	else mDllNodes[operation.first]->setValue(operation.second);
 }
 
+void DllWorld::searchArrayStep() {
+	if (step == 0) return;
+	for (auto node : mDllNodes) 
+		node->setColor(sf::Color::White);
+	int tmpStep = step;
+	for (int i = 1; i < mDllNodes.size() - 1; ++i) {
+		if (mDllNodes[i]->getValue() == operation.second) {
+			mDllNodes[i]->setColor(sf::Color::Green);
+		}
+		tmpStep--;
+		if (tmpStep == 0) {
+			mDllNodes[i]->setColor(sf::Color::Cyan);
+			break;
+		}
+	}
+	if (tmpStep == 0) return;
+	if (mDllNodes[mDllNodes.size() - 2]->getValue() == operation.second) {
+		mDllNodes[mDllNodes.size() - 2]->setColor(sf::Color::Green);
+		tmpStep--;
+	}
+	if (tmpStep == 0) return;
+	for (int i = 0; i < mDllNodes.size(); ++i) {
+		mDllNodes[i]->setColor(sf::Color::White);
+	}
+}
+
 void DllWorld::reUpdate() {
 	if (operationType == 3 || operationType == 4) {
 		operationType = 0;
@@ -283,6 +319,7 @@ void DllWorld::next() {
 	if (operationType == 1) addToArrayStep();
 	else if (operationType == 2) deleteFromArrayStep();
 	else if (operationType == 3) updateArrayStep();
+	else if (operationType == 4) searchArrayStep();
 
 	if (step >= totalStep) reUpdate();
 }
@@ -294,4 +331,5 @@ void DllWorld::previous() {
 	if (operationType == 1) addToArrayStep();
 	else if (operationType == 2) deleteFromArrayStep();
 	else if (operationType == 3) updateArrayStep();
+	else if (operationType == 4) searchArrayStep();
 }
