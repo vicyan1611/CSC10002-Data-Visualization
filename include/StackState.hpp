@@ -17,13 +17,12 @@ public:
 private:
 	void handleInitBox();
 	void handleAddBox();
-	void handleDeleteBox();
 	void handleUpdateBox();
 	void handleSearchBox();
 private:
 	StackWorld mStackWorld;
 	GUI::Container mGUIContainer;
-	GUI::InputBox::Ptr mInitBox, mAddBox;
+	GUI::InputBox::Ptr mInitBox, mAddBox, mUpdateBox, mSearchBox;
 	GUI::Button::Ptr mRandomButton, mNextButton, mPreviousButton, mDeleteButton;
 
 	std::vector <int> mData;

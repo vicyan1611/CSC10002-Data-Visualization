@@ -23,6 +23,7 @@ public:
 	void previous();
 	void deleteFromStack();
 	void deleteFromStackStep();
+	void updateStack(int id, int x);
 private:
 	void loadTextures();
 	void buildScene();

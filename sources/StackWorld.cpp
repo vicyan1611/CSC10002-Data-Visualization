@@ -151,6 +151,12 @@ void StackWorld::deleteFromStackStep() {
 	}
 }
 
+void StackWorld::updateStack(int id, int x) {
+	if (id < 0 || id >= mStackNodes.size() - 1) return;
+	int tmpID = id - 1;
+	mStackNodes[tmpID]->setValue(x);
+}
+
 void StackWorld::reUpdate() {
 	operationType = 0;
 	step = 0;

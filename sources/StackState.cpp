@@ -38,6 +38,14 @@ StackState::StackState(StateStack& stack, Context context)
 		});
 	mGUIContainer.pack(mDeleteButton);
 
+	mUpdateBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mUpdateBox->setPosition(1300, 650);
+	mUpdateBox->setText("");
+	mGUIContainer.pack(mUpdateBox);
+	GUI::Label::Ptr mUpdateLabel = std::make_shared<GUI::Label>("Update Box", *context.fonts);
+	mUpdateLabel->setPosition(1300, 620);
+	mGUIContainer.pack(mUpdateLabel);
+
 	mPreviousButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	mPreviousButton->setPosition(1600, 720);
 	mPreviousButton->setText("Previous");
@@ -94,11 +102,24 @@ void StackState::handleAddBox()
 	}
 }
 
+void StackState::handleUpdateBox()
+{
+	std::string temp = mUpdateBox->getFinalText();
+	if (temp != "") {
+		int x = std::stoi(temp);
+		if (id == -1) id = x; else {
+			mStackWorld.updateStack(id, x);
+			id = -1;
+		}
+	}
+}
+
 bool StackState::handleEvent(const sf::Event& event)
 {
 	mGUIContainer.handleEvent(event);
 	handleInitBox();
 	handleAddBox();
+	handleUpdateBox();
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 		requestStackPush(States::Pause);
 	return false;
