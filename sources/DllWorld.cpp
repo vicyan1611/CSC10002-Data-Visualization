@@ -79,4 +79,21 @@ void DllWorld::setArray(std::vector<int> data	) {
 		mDllNodes.push_back(dllNode.get());
 		mSceneLayers[Air]->attachChild(std::move(dllNode));
 	}
+
+	//create last nullptr
+	std::unique_ptr<LLNode> lNull(new LLNode(0, mFonts, 0));
+	lNull->setPosition(100.f + (data.size() + 1) * 180.f, 100.f);
+	lNull->setVelocity(0.f, 0.f);
+	lNull->setString("nullptr");
+	mDllNodes.push_back(lNull.get());
+	mSceneLayers[Air]->attachChild(std::move(lNull));
+}
+
+void DllWorld::setRandomArray() {
+	std::vector<int> data;
+	int n = rand() % 8 + 1;
+	for (int i = 0; i < n; ++i) {
+		data.push_back(rand() % 100);
+	}
+	setArray(data);
 }

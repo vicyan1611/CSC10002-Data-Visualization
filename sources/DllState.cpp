@@ -13,6 +13,14 @@ DllState::DllState(StateStack& stack, Context context)
 	GUI::Label::Ptr mInitLabel = std::make_shared<GUI::Label>("Initialize Box", *context.fonts);
 	mInitLabel->setPosition(100, 620);
 	mGUIContainer.pack(mInitLabel);
+
+	mRandomButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mRandomButton->setPosition(400, 650);
+	mRandomButton->setText("Random Data");
+	mRandomButton->setCallback([this]() {
+		mDllWorld.setRandomArray();
+		});
+	mGUIContainer.pack(mRandomButton);
 }
 
 void DllState::draw() {
