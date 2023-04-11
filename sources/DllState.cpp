@@ -29,6 +29,24 @@ DllState::DllState(StateStack& stack, Context context)
 	GUI::Label::Ptr mAddLabel = std::make_shared<GUI::Label>("Add Box", *context.fonts);
 	mAddLabel->setPosition(700, 620);
 	mGUIContainer.pack(mAddLabel);
+
+	mPreviousButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mPreviousButton->setPosition(1000, 720);
+	mPreviousButton->setText("Previous");
+	mPreviousButton->setCallback([this]() {
+		mDllWorld.previous();
+		});
+	mGUIContainer.pack(mPreviousButton);
+
+	mNextButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mNextButton->setPosition(1000, 800);
+	mNextButton->setText("Next");
+	mNextButton->setCallback([this]() {
+		mDllWorld.next();
+		});
+	mGUIContainer.pack(mNextButton);
+
+
 }
 
 void DllState::draw() {
