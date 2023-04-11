@@ -21,6 +21,8 @@ public:
 	void addToStack(int x);
 	void next();
 	void previous();
+	void deleteFromStack();
+	void deleteFromStackStep();
 private:
 	void loadTextures();
 	void buildScene();

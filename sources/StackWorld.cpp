@@ -130,6 +130,27 @@ void StackWorld::addToStackStep() {
 	}
 }
 
+void StackWorld::deleteFromStack() {
+	if (mStackNodes.empty()) return;
+	operationType = 2;
+	totalStep = 2;
+	step = 0;
+}
+
+void StackWorld::deleteFromStackStep() {
+	if (step == 1) {
+		mStackNodes[0]->setColorSquare(sf::Color::White);
+		mStackNodes[1]->setColorSquare(sf::Color::Red);
+	}
+	if (step == 2) {
+		mSceneLayers[Air]->detachChild(*mStackNodes[0]);
+		mStackNodes.erase(mStackNodes.begin());
+		for (int i = 0; i < mStackNodes.size(); ++i) {
+			mStackNodes[i]->setPosition(100.f + i * 180.f, 100.f);
+		}
+	}
+}
+
 void StackWorld::reUpdate() {
 	operationType = 0;
 	step = 0;
@@ -149,6 +170,7 @@ void StackWorld::next() {
 	step = std::min(step, totalStep);
 
 	if (operationType == 1) addToStackStep();
+	else if (operationType == 2) deleteFromStackStep();
 
 	if (step >= totalStep) reUpdate();
 }
@@ -158,4 +180,6 @@ void StackWorld::previous() {
 	step--;
 	step = std::max(step, 0);
 	if (operationType == 1) addToStackStep();
+	else if (operationType == 2) deleteFromStackStep();
 }
+
