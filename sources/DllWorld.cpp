@@ -103,7 +103,7 @@ void DllWorld::addToArray(int id, int value) {
 		std::cout << "Invalid id" << std::endl;
 		return;
 	}
-	operationType = 2;
+	operationType = 1;
 	totalStep = id + 1;
 	step = 0;
 	operation = { id, value };
@@ -135,4 +135,67 @@ void DllWorld::addToArrayStep() {
 		}
 		tmpDllNodes.clear();
 	}
+	int tmpStep = step;
+	for (int i = 0; i < mDllNodes.size(); ++i) {
+		int numEdges = 3;
+		if (i == 0 || i == mDllNodes.size() - 1) numEdges = 0;
+		std::unique_ptr<LLNode> node(new LLNode(1, mFonts, numEdges));
+		node->setPosition(100.f + i * 180.f, 100.f);
+		node->setVelocity(0.f, 0.f);
+		if (i == 0 || i == mDllNodes.size() - 1) node->setString("nullptr");
+		else {
+			int tmpID = i - 1;
+			node->setValue(mValue[tmpID]);
+		}
+		if (i == 1) node->setColorSquare(sf::Color::Red);
+		tmpDllNodes.push_back(node.get());
+		mSceneLayers[Air]->attachChild(std::move(node));
+	}
+	if (tmpStep < operation.first) {
+		tmpDllNodes[tmpStep]->setColor(sf::Color::Cyan);
+	}
+	else if (tmpStep >= operation.first) {
+		tmpDllNodes[tmpStep]->setColor(sf::Color::Cyan);
+		std::unique_ptr<LLNode> newNode(new LLNode(operation.second, mFonts, 3));
+		newNode->setPosition(tmpDllNodes[tmpStep]->getPosition() + sf::Vector2f(0.f, 75.f));
+		newNode->setVelocity(0.f, 0.f);
+		tmpDllNodes.insert(tmpDllNodes.begin() + operation.first, newNode.get());
+		mSceneLayers[Air]->attachChild(std::move(newNode));
+	}
+	if (tmpStep > operation.first) {
+		for (int i = 0; i < tmpDllNodes.size(); ++i) {
+			tmpDllNodes[i]->setPosition(100.f + i * 180.f, 100.f);
+			tmpDllNodes[i]->setColor(sf::Color::White);
+			if (i == 1) tmpDllNodes[i]->setColorSquare(sf::Color::Red);
+		}
+	}
+}
+
+void DllWorld::reUpdate() {
+	operationType = 0;
+	step = totalStep = 0;
+	mDllNodes.clear();
+	for (int i = 0; i < tmpDllNodes.size(); ++i) {
+		mDllNodes.push_back(tmpDllNodes[i]);
+	}
+	tmpDllNodes.clear();
+	operation = { -1, -1 };
+}
+
+void DllWorld::next() {
+	if (operationType == 0) return;
+
+	step++;
+	step = std::min(step, totalStep);
+
+	if (operationType == 1) addToArrayStep();
+
+	if (step >= totalStep) reUpdate();
+}
+
+void DllWorld::previous() {
+	if (operationType == 0) return;
+	step--;
+	step = std::max(step, 0);
+	if (operationType == 1) addToArrayStep();
 }

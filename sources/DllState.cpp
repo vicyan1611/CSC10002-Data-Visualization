@@ -45,8 +45,6 @@ DllState::DllState(StateStack& stack, Context context)
 		mDllWorld.next();
 		});
 	mGUIContainer.pack(mNextButton);
-
-
 }
 
 void DllState::draw() {

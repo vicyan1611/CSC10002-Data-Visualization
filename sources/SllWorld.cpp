@@ -90,7 +90,7 @@ void SllWorld::addToArray(int id, int value) {
 void SllWorld::addToArrayStep() {
 	if (step == 0) return;
 	if (!tmpSllNodes.empty()) {
-		for (auto node : tmpSllNodes) {
+		for (auto& node : tmpSllNodes) {
 			mSceneLayers[Air]->detachChild(*node);
 		}
 		tmpSllNodes.clear();
