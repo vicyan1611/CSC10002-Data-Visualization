@@ -84,5 +84,5 @@ sf::Color LLNode::getColor() const {
 }
 
 void LLNode::setColorSquare(sf::Color color) {
-	mSquare.setOutlineColor(sf::Color::Color(245, 158, 20, 255));
+	mSquare.setOutlineColor(color);
 }

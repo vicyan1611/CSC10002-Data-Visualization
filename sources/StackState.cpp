@@ -21,6 +21,30 @@ StackState::StackState(StateStack& stack, Context context)
 		mStackWorld.setRandomArray();
 		});
 	mGUIContainer.pack(mRandomButton);
+
+	mAddBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mAddBox->setPosition(700, 650);
+	mAddBox->setText("");
+	mGUIContainer.pack(mAddBox);
+	GUI::Label::Ptr mAddLabel = std::make_shared<GUI::Label>("Add Box", *context.fonts);
+	mAddLabel->setPosition(700, 620);
+	mGUIContainer.pack(mAddLabel);
+
+	mPreviousButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mPreviousButton->setPosition(1600, 720);
+	mPreviousButton->setText("Previous");
+	mPreviousButton->setCallback([this]() {
+		mStackWorld.previous();
+		});
+	mGUIContainer.pack(mPreviousButton);
+
+	mNextButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mNextButton->setPosition(1600, 800);
+	mNextButton->setText("Next");
+	mNextButton->setCallback([this]() {
+		mStackWorld.next();
+		});
+	mGUIContainer.pack(mNextButton);
 }
 
 void StackState::draw()
@@ -53,10 +77,20 @@ void StackState::handleInitBox()
 	}
 }
 
+void StackState::handleAddBox()
+{
+	std::string temp = mAddBox->getFinalText();
+	if (temp != "") {
+		int x = std::stoi(temp);
+		mStackWorld.addToStack(x);
+	}
+}
+
 bool StackState::handleEvent(const sf::Event& event)
 {
 	mGUIContainer.handleEvent(event);
 	handleInitBox();
+	handleAddBox();
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 		requestStackPush(States::Pause);
 	return false;

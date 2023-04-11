@@ -57,7 +57,7 @@ void StackWorld::setArray(std::vector<int> data) {
 		std::unique_ptr<LLNode> node(new LLNode(data[i], mFonts, 1));
 		node->setPosition(100.f + i * 180.f, 100.f);
 		node->setVelocity(0.f, 0.f);
-		if (i == 0) node->setColorSquare(sf::Color::Red); //not a real value
+		if (i == 0) node->setColorSquare(sf::Color::Red);
 		mStackNodes.push_back(node.get());
 		mSceneLayers[Air]->attachChild(std::move(node));
 	}
@@ -77,4 +77,85 @@ void StackWorld::setRandomArray() {
 		data.push_back(rand() % 100);
 	}
 	setArray(data);
+}
+
+void StackWorld::addToStack(int x) {
+	if (mStackNodes.empty()) {
+		std::vector <int> a;
+		a.push_back(x);
+		setArray(a);
+		return;
+	}
+	operationType = 1;
+	totalStep = 3;
+	step = 0;
+	value = x;
+}
+
+void StackWorld::addToStackStep() {
+	if (!tmpNodes.empty()) {
+		for (auto& node : tmpNodes) {
+			mSceneLayers[Air]->detachChild(*node);
+		}
+		tmpNodes.clear();
+	}
+	mStackNodes[0]->setColorSquare(sf::Color::Red);
+
+	if (step == 0) return;
+	std::cout << "step1: " << step << std::endl;
+	int tmpStep = step;
+	std::unique_ptr<LLNode> tmpNode(new LLNode(value, mFonts, 4));
+	tmpNode->setPosition(100.f, 230.f);
+	tmpNode->setVelocity(0.f, 0.f);
+	tmpNodes.push_back(tmpNode.get());
+	mSceneLayers[Air]->attachChild(std::move(tmpNode));
+	
+
+	if (--tmpStep == 0) return;
+	std::cout << "step2: " << tmpStep << std::endl;
+	mStackNodes[0]->setColorSquare(sf::Color::White);
+	tmpNodes[0]->setColorSquare(sf::Color::Red);
+
+	if (--tmpStep == 0) return;
+
+	std::unique_ptr<LLNode> node(new LLNode(value, mFonts, 1));
+	node->setVelocity(0.f, 0.f);
+	mStackNodes.insert(mStackNodes.begin(), node.get());
+	mSceneLayers[Air]->attachChild(std::move(node));
+
+	for (int i = 0; i < mStackNodes.size(); ++i) {
+		mStackNodes[i]->setPosition(100.f + i * 180.f, 100.f);
+		mStackNodes[i]->setColorSquare(sf::Color::White);
+		if (i == 0) mStackNodes[i]->setColorSquare(sf::Color::Red);
+	}
+}
+
+void StackWorld::reUpdate() {
+	operationType = 0;
+	step = 0;
+	totalStep = 0;
+	value = 0;
+	if (!tmpNodes.empty()) {
+		for (auto& node : tmpNodes) {
+			mSceneLayers[Air]->detachChild(*node);
+		}
+		tmpNodes.clear();
+	}
+}
+
+void StackWorld::next() {
+	if (operationType == 0) return;
+	step++;
+	step = std::min(step, totalStep);
+
+	if (operationType == 1) addToStackStep();
+
+	if (step >= totalStep) reUpdate();
+}
+
+void StackWorld::previous() {
+	if (operationType == 0) return;
+	step--;
+	step = std::max(step, 0);
+	if (operationType == 1) addToStackStep();
 }

@@ -18,9 +18,15 @@ public:
 
 	void setArray(std::vector<int> data);
 	void setRandomArray();
+	void addToStack(int x);
+	void next();
+	void previous();
 private:
 	void loadTextures();
 	void buildScene();
+private:
+	void addToStackStep();
+	void reUpdate();
 private:
 	enum Layer {
 		Background,
@@ -35,8 +41,10 @@ private:
 	SceneNode mSceneGraph;
 	std::array<SceneNode*, LayerCount> mSceneLayers;
 	
-	std::vector<LLNode*> mStackNodes;
+	std::vector<LLNode*> mStackNodes, tmpNodes;
 
 	sf::FloatRect mWorldBounds;
 	CommandQueue mCommandQueue;
+
+	int operationType = 0, value = 0, totalStep = 0, step = 0;
 };
