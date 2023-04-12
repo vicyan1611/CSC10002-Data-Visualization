@@ -38,6 +38,14 @@ QueueState::QueueState(StateStack& stack, Context context)
 		});
 	mGUIContainer.pack(mDeleteButton);
 
+	mUpdateBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mUpdateBox->setPosition(1300, 650);
+	mUpdateBox->setText("");
+	mGUIContainer.pack(mUpdateBox);
+	GUI::Label::Ptr mUpdateLabel = std::make_shared<GUI::Label>("Update", *context.fonts);
+	mUpdateLabel->setPosition(1300, 620);
+	mGUIContainer.pack(mUpdateLabel);
+
 	mPreviousButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	mPreviousButton->setPosition(1600, 720);
 	mPreviousButton->setText("Previous");
