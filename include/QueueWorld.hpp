@@ -18,9 +18,14 @@ public:
 
 	void setArray(std::vector<int> data);
 	void setRandomArray();
+	void enque(int x);
+	void next();
+	void previous();
 private:
 	void loadTextures();
 	void buildScene();
+	void enqueStep();
+	void reUpdate();
 private:
 	enum Layer {
 		Background,

@@ -17,11 +17,15 @@ LLNode::LLNode(int value, const FontHolder& fonts, int num) : mText()
 	bounds = mSquare.getLocalBounds();
 	mSquare.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 
+	setDirection(num);
+	setArrows();
+}
+
+void LLNode::setDirection(int num) {
 	if (num & 1) mHasRight = true; else mHasRight = false;
 	if ((num >> 1) & 1) mHasLeft = true; else mHasLeft = false;
 	if ((num >> 2) & 1) mHasUp = true; else mHasUp = false;
 	if ((num >> 3) & 1) mHasDown = true; else mHasDown = false;
-	setArrows();
 }
 
 void LLNode::setArrows() {

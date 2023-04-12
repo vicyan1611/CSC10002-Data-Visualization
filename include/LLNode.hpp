@@ -12,6 +12,7 @@ public:
 	void setValue(int value);
 	void setString(std::string str);
 	void setColorSquare(sf::Color color);
+	void setDirection(int num);
 private:
 	void setArrows();
 private:
