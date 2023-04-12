@@ -30,6 +30,14 @@ QueueState::QueueState(StateStack& stack, Context context)
 	mAddLabel->setPosition(700, 620);
 	mGUIContainer.pack(mAddLabel);
 
+	mDeleteButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mDeleteButton->setPosition(1000, 650);
+	mDeleteButton->setText("DeQueue");
+	mDeleteButton->setCallback([this]() {
+		mQueueWorld.dequeue();
+		});
+	mGUIContainer.pack(mDeleteButton);
+
 	mPreviousButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	mPreviousButton->setPosition(1600, 720);
 	mPreviousButton->setText("Previous");
@@ -80,7 +88,7 @@ void QueueState::handleAddBox() {
 	std::string temp = mAddBox->getFinalText();
 	if (temp != "") {
 		int x = std::stoi(temp);
-		mQueueWorld.enque(x);
+		mQueueWorld.enqueue(x);
 	}
 }
 

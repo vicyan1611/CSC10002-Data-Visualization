@@ -59,7 +59,7 @@ void QueueWorld::setRandomArray() {
 	setArray(data);
 }
 
-void QueueWorld::enque(int x) {
+void QueueWorld::enqueue(int x) {
 	if (mQueueNodes.empty()) {
 		std::vector <int> temp;
 		temp.push_back(x);
@@ -69,6 +69,13 @@ void QueueWorld::enque(int x) {
 	operationType = 1;
 	step = 0;
 	value = x;
+}
+
+void QueueWorld::dequeue() {
+	if (mQueueNodes.empty()) return;
+	totalStep = 2;
+	operationType = 2;
+	step = 0;
 }
 
 void QueueWorld::enqueStep() {
@@ -99,6 +106,35 @@ void QueueWorld::enqueStep() {
 	}
 }
 
+void QueueWorld::dequeueStep() {
+	for (int i = 0; i < mQueueNodes.size(); ++i) {
+		if (i == 0) mQueueNodes[i]->setColorSquare(sf::Color::Red); 
+		else if (i == mQueueNodes.size() - 1) mQueueNodes[i]->setColorSquare(sf::Color::Green);
+		else mQueueNodes[i]->setColorSquare(sf::Color::White);
+	}
+	if (step == 0) return;
+	if (step == 1) {
+		mQueueNodes[0]->setColorSquare(sf::Color::White);
+		if (mQueueNodes.size() > 1) mQueueNodes[1]->setColorSquare(sf::Color::Red);
+	}
+	else
+	{
+		if (mQueueNodes.size() == 1)
+		{
+			mSceneLayers[Air]->detachChild(*mQueueNodes[0]);
+			mQueueNodes.clear();
+		}
+		else {
+			mSceneLayers[Air]->detachChild(*mQueueNodes[0]);
+			mQueueNodes.erase(mQueueNodes.begin());
+			if (mQueueNodes.size() > 1) mQueueNodes[0]->setColorSquare(sf::Color::Red);
+		}
+		for (int i = 0; i < mQueueNodes.size(); ++i) {
+			mQueueNodes[i]->setPosition(100.f + i * 180.f, 100.f);
+		}
+	}
+}
+
 void QueueWorld::reUpdate() {
 	totalStep = 0;
 	operationType = 0;
@@ -120,6 +156,7 @@ void QueueWorld::next() {
 	step = std::min(step, totalStep);
 
 	if (operationType == 1) enqueStep();
+	else if (operationType == 2) dequeueStep();
 	
 	if (step >= totalStep) reUpdate();
 }
@@ -129,6 +166,7 @@ void QueueWorld::previous() {
 	step--;
 	step = std::max(step, 0);
 	if (operationType == 1) enqueStep();
+	else if (operationType == 2) dequeueStep();
 
 }
 
