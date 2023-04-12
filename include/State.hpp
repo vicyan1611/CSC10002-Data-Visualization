@@ -20,6 +20,7 @@ namespace States {
 		Sll, 
 		Dll,
 		Stackk,
+		Queuee,
 	};
 }
 

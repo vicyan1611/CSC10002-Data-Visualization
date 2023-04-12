@@ -76,6 +76,14 @@ MenuState::MenuState(StateStack& stack, Context context)
 		});
 	mGUIContainer.pack(stackButton);
 
+	auto queueButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	queueButton->setPosition(100, 650);
+	queueButton->setText("Queue");
+	queueButton->setCallback([this]() {
+		requestStackPush(States::Queuee);
+		});
+	mGUIContainer.pack(queueButton);
+
 	/*auto userInput = std::make_shared<GUI::InputBox>(*context.fonts);
 	userInput->setPosition(100, 450);
 	userInput->setText("Enter your name");

@@ -39,6 +39,8 @@
     <ClCompile Include="sources\MenuState.cpp" />
     <ClCompile Include="sources\PauseState.cpp" />
     <ClCompile Include="sources\Player.cpp" />
+    <ClCompile Include="sources\QueueState.cpp" />
+    <ClCompile Include="sources\QueueWorld.cpp" />
     <ClCompile Include="sources\SceneNode.cpp" />
     <ClCompile Include="sources\SettingsState.cpp" />
     <ClCompile Include="sources\SllState.cpp" />
@@ -74,6 +76,8 @@
     <ClInclude Include="include\MenuState.hpp" />
     <ClInclude Include="include\PauseState.hpp" />
     <ClInclude Include="include\Player.hpp" />
+    <ClInclude Include="include\QueueState.hpp" />
+    <ClInclude Include="include\QueueWorld.hpp" />
     <ClInclude Include="include\ResourceHolder.hpp" />
     <ClInclude Include="include\SceneNode.hpp" />
     <ClInclude Include="include\SettingsState.hpp" />
