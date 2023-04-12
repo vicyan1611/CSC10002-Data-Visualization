@@ -15,6 +15,8 @@ public:
 	void update(sf::Time dt);
 	void draw();
 	CommandQueue& getCommandQueue();
+
+	void setArray(std::vector<int> data);
 private:
 	void loadTextures();
 	void buildScene();
@@ -32,6 +34,10 @@ private:
 	SceneNode mSceneGraph;
 	std::array<SceneNode*, LayerCount> mSceneLayers;
 
+	std::vector <LLNode*> mQueueNodes, tmpNodes;
+
 	sf::FloatRect mWorldBounds;
 	CommandQueue mCommandQueue;
+
+	int operationType = 0, value = 0, totalStep = 0, step = 0;
 };

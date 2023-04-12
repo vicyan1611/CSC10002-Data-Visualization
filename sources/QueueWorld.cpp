@@ -32,6 +32,30 @@ void QueueWorld::buildScene() {
 	mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 }
 
+void QueueWorld::setArray(std::vector<int> data) {
+	if (!mQueueNodes.empty()) {
+		for (auto& node : mQueueNodes) {
+			mSceneLayers[Air]->detachChild(*node);
+		}
+		mQueueNodes.clear();
+	}
+	for (int i = 0; i < data.size(); ++i) {
+		std::unique_ptr<LLNode> node(new LLNode(data[i], mFonts, 1));
+		node->setPosition(100.f + i * 180.f, 100.f);
+		node->setVelocity(0.f, 0.f);
+		if (i == 0 || i == data.size() - 1) node->setColorSquare(sf::Color::Red);
+		mQueueNodes.push_back(node.get());
+		mSceneLayers[Air]->attachChild(std::move(node));
+	}
+	//create last nullptr
+	std::unique_ptr<LLNode> node(new LLNode(-1, mFonts, 0));
+	node->setPosition(100.f + data.size() * 180.f, 100.f);
+	node->setVelocity(0.f, 0.f);
+	node->setString("nullptr");
+	mQueueNodes.push_back(node.get());
+	mSceneLayers[Air]->attachChild(std::move(node));
+}
+
 void QueueWorld::update(sf::Time dt) {
 	while (!mCommandQueue.isEmpty())
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
