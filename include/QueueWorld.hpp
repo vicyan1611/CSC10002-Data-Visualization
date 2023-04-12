@@ -17,6 +17,7 @@ public:
 	CommandQueue& getCommandQueue();
 
 	void setArray(std::vector<int> data);
+	void setRandomArray();
 private:
 	void loadTextures();
 	void buildScene();

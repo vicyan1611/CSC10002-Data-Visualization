@@ -56,6 +56,15 @@ void QueueWorld::setArray(std::vector<int> data) {
 	mSceneLayers[Air]->attachChild(std::move(node));
 }
 
+void QueueWorld::setRandomArray() {
+	std::vector<int> data;
+	int n = rand() % 8 + 1;
+	for (int i = 0; i < n; ++i) {
+		data.push_back(rand() % 100);
+	}
+	setArray(data);
+}
+
 void QueueWorld::update(sf::Time dt) {
 	while (!mCommandQueue.isEmpty())
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
