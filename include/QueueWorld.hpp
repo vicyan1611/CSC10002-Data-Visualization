@@ -22,6 +22,8 @@ public:
 	void dequeue();
 	void next();
 	void previous();
+	void updateQueue(int id, int x);
+	void searchQueue(int x);
 private:
 	void loadTextures();
 	void buildScene();

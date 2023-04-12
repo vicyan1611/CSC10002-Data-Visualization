@@ -135,6 +135,12 @@ void QueueWorld::dequeueStep() {
 	}
 }
 
+void QueueWorld::updateQueue(int id, int x) {
+	if (id < 1 || id > mQueueNodes.size()) return;
+	int tmpID = id - 1;
+	mQueueNodes[tmpID]->setValue(x);
+}
+
 void QueueWorld::reUpdate() {
 	totalStep = 0;
 	operationType = 0;

@@ -100,11 +100,23 @@ void QueueState::handleAddBox() {
 	}
 }
 
+void QueueState::handleUpdateBox() {
+	std::string temp = mUpdateBox->getFinalText();
+	if (temp != "") {
+		int x = std::stoi(temp);
+		if (id == -1) id = x; else {
+			mQueueWorld.updateQueue(id, x);
+			id = -1;
+		}
+	}
+}
+
 bool QueueState::handleEvent(const sf::Event& event)
 {
 	mGUIContainer.handleEvent(event);
 	handleInitBox();
 	handleAddBox();
+	handleUpdateBox();
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 		requestStackPush(States::Pause);
 	return false;
