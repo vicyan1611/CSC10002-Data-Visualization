@@ -119,12 +119,21 @@ void QueueState::handleUpdateBox() {
 	}
 }
 
+void QueueState::handleSearchBox() {
+	std::string temp = mSearchBox->getFinalText();
+	if (temp != "") {
+		int x = std::stoi(temp);
+		mQueueWorld.searchQueue(x);
+	}
+}
+
 bool QueueState::handleEvent(const sf::Event& event)
 {
 	mGUIContainer.handleEvent(event);
 	handleInitBox();
 	handleAddBox();
 	handleUpdateBox();
+	handleSearchBox();
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 		requestStackPush(States::Pause);
 	return false;

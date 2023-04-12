@@ -78,6 +78,16 @@ void QueueWorld::dequeue() {
 	step = 0;
 }
 
+void QueueWorld::searchQueue(int x) {
+	if (mQueueNodes.empty()) return;
+	for (int i = 0; i < mQueueNodes.size(); ++i) {
+		mQueueNodes[i]->setColor(sf::Color::White);
+		if (mQueueNodes[i]->getValue() == x) {
+			mQueueNodes[i]->setColor(sf::Color::Cyan);
+		}
+	}
+}
+
 void QueueWorld::enqueStep() {
 	if (!tmpNodes.empty()) {
 		for (auto& node : tmpNodes) {
