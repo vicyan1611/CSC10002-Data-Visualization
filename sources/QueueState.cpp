@@ -46,6 +46,14 @@ QueueState::QueueState(StateStack& stack, Context context)
 	mUpdateLabel->setPosition(1300, 620);
 	mGUIContainer.pack(mUpdateLabel);
 
+	mSearchBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mSearchBox->setPosition(1600, 650);
+	mSearchBox->setText("");
+	mGUIContainer.pack(mSearchBox);
+	GUI::Label::Ptr mSearchLabel = std::make_shared<GUI::Label>("Search", *context.fonts);
+	mSearchLabel->setPosition(1600, 620);
+	mGUIContainer.pack(mSearchLabel);
+
 	mPreviousButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	mPreviousButton->setPosition(1600, 720);
 	mPreviousButton->setText("Previous");
