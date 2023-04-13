@@ -52,6 +52,8 @@ void LLNode::setArrows() {
 	bounds = mArrowDown.getLocalBounds();
 	mArrowDown.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 	mArrowDown.setPosition(mSquare.getPosition().x, mSquare.getPosition().y + 62.f);
+
+	//std::cout << mSquare.getPosition().x << " " << mSquare.getPosition().y << std::endl;
 }
 
 void LLNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -61,6 +63,10 @@ void LLNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) cons
 	if (mHasLeft) target.draw(mArrowLeft, states);
 	if (mHasUp) target.draw(mArrowUp, states);
 	if (mHasDown) target.draw(mArrowDown, states);
+	if (isCll) {
+		target.draw(mCll1, states);
+		target.draw(mCll2, states);
+	}
 }
 
 unsigned int LLNode::getValue() const {
@@ -89,4 +95,23 @@ sf::Color LLNode::getColor() const {
 
 void LLNode::setColorSquare(sf::Color color) {
 	mSquare.setOutlineColor(color);
+}
+
+void LLNode::setCll(bool cll) {
+	isCll = cll;
+	float length = getPosition().x - 100.f;
+	//std::cout << length << std::endl;
+
+	mCll1.setSize(sf::Vector2f(length, 2));
+	mCll1.setFillColor(sf::Color::Red);
+	sf::FloatRect bounds = mCll1.getLocalBounds();
+	mCll1.setOrigin(bounds.width + getPosition().x, bounds.height / 2.f);
+	mCll1.setPosition(getPosition().x, 83.f);
+
+	mCll2.setSize(sf::Vector2f(2, 40.f));
+	mCll2.setFillColor(sf::Color::Red);
+	bounds = mCll2.getLocalBounds();
+	mCll2.setOrigin(bounds.width + getPosition().x, bounds.height / 2.f);
+	mCll2.setPosition(100.f, 64.f);
+
 }

@@ -13,10 +13,11 @@ public:
 	void setString(std::string str);
 	void setColorSquare(sf::Color color);
 	void setDirection(int num);
+	void setCll(bool cll);
 private:
 	void setArrows();
 private:
 	sf::Text mText;
-	sf::RectangleShape mSquare, mArrowLeft, mArrowRight, mArrowUp, mArrowDown;
-	bool mHasLeft, mHasRight, mHasUp, mHasDown;
+	sf::RectangleShape mSquare, mArrowLeft, mArrowRight, mArrowUp, mArrowDown, mCll1, mCll2;
+	bool mHasLeft, mHasRight, mHasUp, mHasDown, isCll = false;
 };
