@@ -113,5 +113,4 @@ void LLNode::setCll(bool cll) {
 	bounds = mCll2.getLocalBounds();
 	mCll2.setOrigin(bounds.width + getPosition().x, bounds.height / 2.f);
 	mCll2.setPosition(100.f, 64.f);
-
 }

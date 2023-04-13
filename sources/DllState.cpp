@@ -28,7 +28,7 @@ DllState::DllState(StateStack& stack, Context context)
 	mGUIContainer.pack(mAddBox);
 	GUI::Label::Ptr mAddLabel = std::make_shared<GUI::Label>("Add Box", *context.fonts);
 	mAddLabel->setPosition(700, 620);
-	mGUIContainer.pack(mAddLabel);
+	mGUIContainer.pack(mAddLabel);	
 
 	mDeleteBox = std::make_shared<GUI::InputBox>(*context.fonts);
 	mDeleteBox->setPosition(1000, 650);
