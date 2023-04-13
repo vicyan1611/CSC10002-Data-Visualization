@@ -81,3 +81,12 @@ void CllWorld::setArray(std::vector<int> data) {
 		mSceneLayers[Air]->attachChild(std::move(CllNode));
 	}
 }
+
+void CllWorld::setRandomArray() {
+	int n = rand() % 8 + 1;
+	std::vector<int> data;
+	for (int i = 0; i < n; ++i) {
+		data.push_back(rand() % 100);
+	}
+	setArray(data);
+}

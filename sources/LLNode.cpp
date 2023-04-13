@@ -108,7 +108,7 @@ void LLNode::setCll(bool cll) {
 	mCll1.setOrigin(bounds.width + getPosition().x, bounds.height / 2.f);
 	mCll1.setPosition(getPosition().x, 83.f);
 
-	mCll2.setSize(sf::Vector2f(2, 37.f));
+	mCll2.setSize(sf::Vector2f(2, 35.f));
 	mCll2.setFillColor(sf::Color::Red);
 	bounds = mCll2.getLocalBounds();
 	mCll2.setOrigin(bounds.width + getPosition().x, bounds.height / 2.f);
