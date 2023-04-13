@@ -32,17 +32,17 @@ void CllWorld::buildScene() {
 	mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
 	//start node
-	std::unique_ptr<LLNode> startNode(new LLNode(0, mFonts, 0));
+	/*std::unique_ptr<LLNode> startNode(new LLNode(0, mFonts, 0));
 	startNode->setPosition(100.f, 100.f);
 	startNode->setVelocity(0.f, 0.f);
-	mSceneLayers[Air]->attachChild(std::move(startNode));
+	mSceneLayers[Air]->attachChild(std::move(startNode));*/
 
 	//test Node
-	std::unique_ptr<LLNode> CllNode(new LLNode(1, mFonts, 8));
+	/*std::unique_ptr<LLNode> CllNode(new LLNode(1, mFonts, 8));
 	CllNode->setPosition(500.f, 100.f);
 	CllNode->setCll(true);
 	CllNode->setVelocity(0.f, 0.f);
-	mSceneLayers[Air]->attachChild(std::move(CllNode));
+	mSceneLayers[Air]->attachChild(std::move(CllNode));*/
 }
 
 void CllWorld::update(sf::Time dt) {
@@ -58,4 +58,26 @@ void CllWorld::draw() {
 
 CommandQueue& CllWorld::getCommandQueue() {
 	return mCommandQueue;
+}
+
+void CllWorld::setArray(std::vector<int> data) {
+	if (!mCllNodes.empty()) {
+		for (auto& node : mCllNodes) {
+			mSceneLayers[Air]->detachChild(*node);
+		}
+		mCllNodes.clear();
+	}
+	for (int i = 0; i < data.size(); ++i) {
+		std::unique_ptr <LLNode> CllNode(new LLNode(data[i], mFonts, 1));
+		CllNode->setPosition(100.f + i * 180.f, 100.f);
+		if (i == 0) CllNode->setColorSquare(sf::Color::Red);
+		if (i == data.size() - 1)
+		{
+			CllNode->setDirection(8);
+			CllNode->setColorSquare(sf::Color::Green);
+			CllNode->setCll(true);
+		}
+		mCllNodes .push_back(CllNode.get());
+		mSceneLayers[Air]->attachChild(std::move(CllNode));
+	}
 }
