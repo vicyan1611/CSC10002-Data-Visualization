@@ -10,7 +10,7 @@
 #include <DllState.hpp>
 #include <StackState.hpp>
 #include <QueueState.hpp>
-
+#include <CllState.hpp>
 Application::Application()
 	:mWindow(sf::VideoMode(1900, 1000), "Data Visualization - Test ver", sf::Style::Close)
 	,mPlayer()
@@ -40,6 +40,7 @@ void Application::registerStates() {
 	mStateStack.registerState<DllState>(States::Dll);
 	mStateStack.registerState<StackState>(States::Stackk);
 	mStateStack.registerState<QueueState>(States::Queuee);
+	mStateStack.registerState<CllState>(States::Cll);
 }
 
 void Application::run() {

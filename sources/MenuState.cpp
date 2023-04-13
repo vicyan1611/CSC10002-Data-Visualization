@@ -68,8 +68,16 @@ MenuState::MenuState(StateStack& stack, Context context)
 		});
 	mGUIContainer.pack(dllButton);
 
+	auto cllButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	cllButton->setPosition(100, 600);
+	cllButton->setText("Circular Linked List");
+	cllButton->setCallback([this]() {
+		requestStackPush(States::Cll);
+		});
+	mGUIContainer.pack(cllButton);
+
 	auto stackButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	stackButton->setPosition(100, 600);
+	stackButton->setPosition(100, 650);
 	stackButton->setText("Stack");
 	stackButton->setCallback([this]() {
 		requestStackPush(States::Stackk);
@@ -77,7 +85,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	mGUIContainer.pack(stackButton);
 
 	auto queueButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	queueButton->setPosition(100, 650);
+	queueButton->setPosition(100, 700);
 	queueButton->setText("Queue");
 	queueButton->setCallback([this]() {
 		requestStackPush(States::Queuee);
