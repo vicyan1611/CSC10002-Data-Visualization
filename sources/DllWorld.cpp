@@ -268,9 +268,9 @@ void DllWorld::updateArrayStep() {
 }
 
 void DllWorld::searchArrayStep() {
-	if (step == 0) return;
 	for (auto node : mDllNodes) 
 		node->setColor(sf::Color::White);
+	if (step == 0) return;
 	int tmpStep = step;
 	for (int i = 1; i < mDllNodes.size() - 1; ++i) {
 		if (mDllNodes[i]->getValue() == operation.second) {

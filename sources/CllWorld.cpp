@@ -174,14 +174,14 @@ void CllWorld::deleteFromArrayStep() {
 		int tmpID = step - 1;
 		mCllNodes[tmpID]->setColor(sf::Color::Cyan);
 		return;
-	} 
+	}
 	if (totalStep == operation.first + 1 && step == totalStep) {
 		int tmpID = operation.first - 1;
 		mSceneLayers[Air]->detachChild(*mCllNodes[tmpID]);
 		mCllNodes.erase(mCllNodes.begin() + tmpID);
 		for (int i = 0; i < mCllNodes.size(); ++i) {
 			mCllNodes[i]->setPosition(100.f + i * 180.f, 100.f);
-			if (i == mCllNodes.size()-1) {
+			if (i == mCllNodes.size() - 1) {
 				mCllNodes[i]->setCll(true);
 			}
 		}
@@ -223,6 +223,66 @@ void CllWorld::deleteFromArrayStep() {
 	}
 }
 
+void CllWorld::updateArray(int id, int value) {
+	if (id > mCllNodes.size() || id < 1) return;
+	operationType = 3;
+	totalStep = id + 1;
+	operation = { id, value };
+	step = 0;
+}
+
+void CllWorld::updateArrayStep() {
+	if (step == 0) return;
+	for (auto node : mCllNodes) {
+		node->setColor(sf::Color::White);
+	}
+	if (step <= operation.first) {
+		int tmpID = step - 1;
+		mCllNodes[tmpID]->setColor(sf::Color::Cyan);
+	}
+	else {
+		int tmpID = operation.first - 1;
+		mCllNodes[tmpID]->setValue(operation.second);
+	}
+}
+
+void CllWorld::searchArray(int value) {
+	if (mCllNodes.empty()) return;
+	operationType = 4;
+	totalStep = mCllNodes.size() + 1;
+	operation = { 0, value };
+	step = 0;
+	int tmpID = mCllNodes.size() - 1;
+	if (mCllNodes[tmpID]->getValue() == value) totalStep++;
+}
+
+void CllWorld::searchArrayStep() {
+	for (auto node : mCllNodes) {
+		node->setColor(sf::Color::White);
+	}
+	if (step == 0) return;
+	int tmpStep = step;
+	for (int i = 0; i < mCllNodes.size(); ++i) {
+		if (mCllNodes[i]->getValue() == operation.second) {
+			mCllNodes[i]->setColor(sf::Color::Green);
+		}
+		tmpStep--;
+		if (tmpStep == 0) {
+			mCllNodes[i]->setColor(sf::Color::Cyan);
+			break;
+		}
+	}
+	if (tmpStep == 0) return;
+	if (mCllNodes[mCllNodes.size() - 1]->getValue() == operation.second) {
+		mCllNodes[mCllNodes.size() - 1]->setColor(sf::Color::Green);
+		tmpStep--;
+	}
+	if (tmpStep == 0) return;
+	for (int i = 0; i < mCllNodes.size(); ++i) {
+		mCllNodes[i]->setColor(sf::Color::White);
+	}
+}
+
 void CllWorld::reUpdate() {
 	operationType = 0;
 	step = totalStep = 0;
@@ -243,6 +303,8 @@ void CllWorld::next() {
 
 	if (operationType == 1) addToArrayStep();
 	else if (operationType == 2) deleteFromArrayStep();
+	else if (operationType == 3) updateArrayStep();
+	else if (operationType == 4) searchArrayStep();
 
 	if (step >= totalStep) reUpdate();
 }
@@ -255,4 +317,6 @@ void CllWorld::previous() {
 
 	if (operationType == 1) addToArrayStep();
 	else if (operationType == 2) deleteFromArrayStep();
+	else if (operationType == 3) updateArrayStep();
+	else if (operationType == 4) searchArrayStep();
 }

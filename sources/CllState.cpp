@@ -144,6 +144,8 @@ bool CllState::handleEvent(const sf::Event& event)
 	handleInitBox();
 	handleAddBox();
 	handleDeleteBox();
+	handleUpdateBox();
+	handleSearchBox();
 	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 		requestStackPush(States::Pause);
 	return false;
