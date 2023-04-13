@@ -14,7 +14,13 @@ CllState::CllState(StateStack& stack, Context context)
 	mInitLabel->setPosition(100, 620);
 	mGUIContainer.pack(mInitLabel);
 
-
+	mRandomButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mRandomButton->setPosition(400, 650);
+	mRandomButton->setText("Random Data");
+	mRandomButton->setCallback([this]() {
+		mCllWorld.setRandomArray();
+		});
+	mGUIContainer.pack(mRandomButton);
 }
 
 void CllState::draw()
