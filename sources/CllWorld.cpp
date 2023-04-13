@@ -73,10 +73,12 @@ void CllWorld::setArray(std::vector<int> data) {
 		if (i == 0) CllNode->setColorSquare(sf::Color::Red);
 		if (i == data.size() - 1)
 		{
-			CllNode->setColorSquare(sf::Color::Green);
 			if (data.size() > 1) {
 				CllNode->setDirection(8);
 				CllNode->setCll(true);
+			}
+			else {
+				CllNode->setDirection(0);
 			}
 		}
 		mCllNodes .push_back(CllNode.get());
@@ -95,6 +97,12 @@ void CllWorld::setRandomArray() {
 
 void CllWorld::addToArray(int id, int value) {
 	if (id < 1 || id > mCllNodes.size()) return;
+	if (mCllNodes.size() == 0) {
+		std::vector <int> data;
+		data.push_back(value);
+		setArray(data);
+		return;
+	}
 	operationType = 1;
 	totalStep = id + 1;
 	operation = { id, value };
@@ -131,12 +139,86 @@ void CllWorld::addToArrayStep() {
 			mCllNodes[i]->setPosition(100.f + i * 180.f, 100.f);
 			mCllNodes[i]->setColor(sf::Color::White);
 			mCllNodes[i]->setColorSquare(sf::Color::White);
-			if (i == mCllNodes.size() - 1)
-			{
-				mCllNodes[i]->setCll(true);
-				mCllNodes[i]->setColorSquare(sf::Color::Green);
-			}
+			if (i == mCllNodes.size() - 1)	mCllNodes[i]->setCll(true);
 			if (i == 0) mCllNodes[i]->setColorSquare(sf::Color::Red); 
+		}
+	}
+}
+
+void CllWorld::deleteFromArray(int id) {
+	if (id > mCllNodes.size() || id < 1) return;
+	if (mCllNodes.size() == 1)
+	{
+		mSceneLayers[Air]->detachChild(*mCllNodes[0]);
+		mCllNodes.clear();
+		return;
+	}
+	operationType = 2;
+	totalStep = id + 1;
+	operation = { id, 0 };
+	if (id == 1 || id == mCllNodes.size()) {
+		totalStep++;
+	}
+	step = 0;
+}
+
+void CllWorld::deleteFromArrayStep() {
+	for (int i = 0; i < mCllNodes.size(); ++i)
+	{
+		mCllNodes[i]->setColor(sf::Color::White);
+		if (i != mCllNodes.size() - 1) mCllNodes[i]->setCll(false);
+		if (i != 0) mCllNodes[i]->setColorSquare(sf::Color::White);
+	}
+	if (step == 0) return;
+	if (step <= operation.first) {
+		int tmpID = step - 1;
+		mCllNodes[tmpID]->setColor(sf::Color::Cyan);
+		return;
+	} 
+	if (totalStep == operation.first + 1 && step == totalStep) {
+		int tmpID = operation.first - 1;
+		mSceneLayers[Air]->detachChild(*mCllNodes[tmpID]);
+		mCllNodes.erase(mCllNodes.begin() + tmpID);
+		for (int i = 0; i < mCllNodes.size(); ++i) {
+			mCllNodes[i]->setPosition(100.f + i * 180.f, 100.f);
+			if (i == mCllNodes.size()-1) {
+				mCllNodes[i]->setCll(true);
+			}
+		}
+		return;
+	}
+	if (operation.first == 1) {
+		if (step >= 2) {
+			mCllNodes[operation.first]->setColorSquare(sf::Color::Red);
+		}
+		if (step == 3) {
+			mSceneLayers[Air]->detachChild(*mCllNodes[0]);
+			mCllNodes.erase(mCllNodes.begin());
+			for (int i = 0; i < mCllNodes.size(); ++i) {
+				mCllNodes[i]->setPosition(100.f + i * 180.f, 100.f);
+				if (i == mCllNodes.size() - 1) {
+					mCllNodes[i]->setCll(true);
+				}
+			}
+		}
+	}
+	else if (operation.first == mCllNodes.size()) {
+		if (step + 1 == totalStep) {
+			int tmpID = operation.first - 2;
+			mCllNodes[tmpID]->setDirection(8);
+			mCllNodes[tmpID]->setCll(true);
+		}
+		else {
+			int tmpID = operation.first - 1;
+			mSceneLayers[Air]->detachChild(*mCllNodes[tmpID]);
+			mCllNodes.pop_back();
+			for (int i = 0; i < mCllNodes.size(); ++i) {
+				mCllNodes[i]->setPosition(100.f + i * 180.f, 100.f);
+				if (i == mCllNodes.size() - 1) {
+					mCllNodes[i]->setCll(true);
+					mCllNodes[i]->setDirection(8);
+				}
+			}
 		}
 	}
 }
@@ -160,6 +242,7 @@ void CllWorld::next() {
 	step = std::min(step, totalStep);
 
 	if (operationType == 1) addToArrayStep();
+	else if (operationType == 2) deleteFromArrayStep();
 
 	if (step >= totalStep) reUpdate();
 }
@@ -171,4 +254,5 @@ void CllWorld::previous() {
 	step = std::max(step, 0);
 
 	if (operationType == 1) addToArrayStep();
+	else if (operationType == 2) deleteFromArrayStep();
 }
