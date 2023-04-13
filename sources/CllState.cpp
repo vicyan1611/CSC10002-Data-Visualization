@@ -119,6 +119,25 @@ void CllState::handleDeleteBox() {
 	}
 }
 
+void CllState::handleUpdateBox() {
+	std::string temp = mUpdateBox->getFinalText();
+	if (temp != "") {
+		int x = std::stoi(temp);
+		if (id == -1) id = x; else {
+			mCllWorld.updateArray(id, x);
+			id = -1;
+		}
+	}
+}
+
+void CllState::handleSearchBox() {
+	std::string temp = mSearchBox->getFinalText();
+	if (temp != "") {
+		int x = std::stoi(temp);
+		mCllWorld.searchArray(x);
+	}
+}
+
 bool CllState::handleEvent(const sf::Event& event)
 {
 	mGUIContainer.handleEvent(event);
