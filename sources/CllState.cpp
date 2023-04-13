@@ -38,6 +38,22 @@ CllState::CllState(StateStack& stack, Context context)
 	mDeleteLabel->setPosition(1000, 620);
 	mGUIContainer.pack(mDeleteLabel);
 
+	mUpdateBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mUpdateBox->setPosition(1300, 650);
+	mUpdateBox->setText("");
+	mGUIContainer.pack(mUpdateBox);
+	GUI::Label::Ptr mUpdateLabel = std::make_shared<GUI::Label>("Update Box", *context.fonts);
+	mUpdateLabel->setPosition(1300, 620);
+	mGUIContainer.pack(mUpdateLabel);
+
+	mSearchBox = std::make_shared<GUI::InputBox>(*context.fonts);
+	mSearchBox->setPosition(1600, 650);
+	mSearchBox->setText("");
+	mGUIContainer.pack(mSearchBox);
+	GUI::Label::Ptr mSearchLabel = std::make_shared<GUI::Label>("Search Box", *context.fonts);
+	mSearchLabel->setPosition(1600, 620);
+	mGUIContainer.pack(mSearchLabel);
+
 	mPreviousButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	mPreviousButton->setPosition(1600, 720);
 	mPreviousButton->setText("Previous");
