@@ -23,7 +23,7 @@ public:
 	void searchArray(int value);
 	void next();
 	void previous();
-
+	void runAtOnce();
 private:
 	void loadTextures();
 	void buildScene();
@@ -50,4 +50,5 @@ private:
 	CommandQueue mCommandQueue;
 	int operationType = 0, totalSearchStep = 0, step = -1;
 	std::pair <int, int> operation = {-1, -1};
+	bool isRunAtOnce = false;
 };

@@ -111,6 +111,7 @@ void DynamicArrayWorld::addToArrayStep() {
 }
 
 void DynamicArrayWorld::reUpdate() {
+	isRunAtOnce = false;
 	if (operationType == 3) {
 		operationType = 0;
 		step = 0;
@@ -242,6 +243,14 @@ void DynamicArrayWorld::update(sf::Time dt, sf::Time& at) {
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 	}
 	mSceneGraph.update(dt, at);
+	if (at >= sf::seconds(1.f) && isRunAtOnce) {
+		at = sf::Time::Zero;
+		next();
+	}
+}
+
+void DynamicArrayWorld::runAtOnce() {
+	isRunAtOnce = true;
 }
 
 void DynamicArrayWorld::draw() {
