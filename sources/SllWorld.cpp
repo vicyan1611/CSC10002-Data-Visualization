@@ -260,6 +260,7 @@ void SllWorld::searchArray(int value) {
 }
 
 void SllWorld::reUpdate() {
+	isRunAtOnce = false;
 	if (operationType == 3 || operationType == 4) {
 		operationType = 0;
 		step = totalStep = 0;
@@ -326,11 +327,19 @@ void SllWorld::draw() {
 	mWindow.draw(mSceneGraph);
 }
 
+void SllWorld::runAtOnce() {
+	isRunAtOnce = true;
+}
+
 void SllWorld::update(sf::Time dt, sf::Time& at) {
 	while (!mCommandQueue.isEmpty()) {
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 	}
 	mSceneGraph.update(dt, at);
+	if (at >= sf::seconds(1.f) && isRunAtOnce) {
+		at = sf::Time::Zero;
+		next();
+	}
 }
 
 CommandQueue& SllWorld::getCommandQueue() {

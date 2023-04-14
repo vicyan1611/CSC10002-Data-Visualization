@@ -23,6 +23,7 @@ public:
 	void deleteFromArray(int id);
 	void updateArray(int id, int value);
 	void searchArray(int value);
+	void runAtOnce();
 private:
 	void loadTextures();
 	void buildScene();
@@ -52,4 +53,5 @@ private:
 	int totalStep = 0, step = -1, operationType = 0;
 	std::pair <int, int> operation = { -1, -1 };
 	std::vector<int> mValue;
+	bool isRunAtOnce = false;
 };
