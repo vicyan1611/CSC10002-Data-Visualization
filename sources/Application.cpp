@@ -47,13 +47,15 @@ void Application::run() {
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	sf::Clock clock;
 	sf::Time elapsedTime = sf::Time::Zero;
+	sf::Time allTime = sf::Time::Zero;
 	while (mWindow.isOpen()) {
 		elapsedTime = clock.restart();
 		timeSinceLastUpdate += elapsedTime;
+		allTime += elapsedTime;
 		while (timeSinceLastUpdate > TimePerFrame) {
 			timeSinceLastUpdate -= TimePerFrame;
 			processInput();
-			update(TimePerFrame);
+			update(TimePerFrame, allTime);
 			if (mStateStack.isEmpty())
 				mWindow.close();
 		}
@@ -71,8 +73,8 @@ void Application::processInput() {
 	}
 }
 
-void Application::update(sf::Time dt) {
-	mStateStack.update(dt);
+void Application::update(sf::Time dt, sf::Time at) {
+	mStateStack.update(dt, at);
 }
 
 void Application::render() {

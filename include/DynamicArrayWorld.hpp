@@ -12,7 +12,7 @@
 class DynamicArrayWorld : private sf::NonCopyable {
 public:
 	explicit DynamicArrayWorld(sf::RenderWindow& window);
-	void update(sf::Time dt);
+	void update(sf::Time dt, sf::Time at);
 	void draw();
 	CommandQueue& getCommandQueue();
 	void setRandomArray();

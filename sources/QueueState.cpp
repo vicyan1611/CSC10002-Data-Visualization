@@ -46,6 +46,14 @@ QueueState::QueueState(StateStack& stack, Context context)
 	mUpdateLabel->setPosition(1300, 620);
 	mGUIContainer.pack(mUpdateLabel);
 
+	mRunAtOnceButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mRunAtOnceButton->setPosition(1300, 720);
+	mRunAtOnceButton->setText("Run at once");
+	mRunAtOnceButton->setCallback([this]() {
+		mQueueWorld.runAtOnce();
+		});
+	mGUIContainer.pack(mRunAtOnceButton);
+
 	mSearchBox = std::make_shared<GUI::InputBox>(*context.fonts);
 	mSearchBox->setPosition(1600, 650);
 	mSearchBox->setText("");
@@ -94,9 +102,9 @@ void QueueState::draw()
 	window.draw(mGUIContainer);
 }
 
-bool QueueState::update(sf::Time dt)
+bool QueueState::update(sf::Time dt, sf::Time at)
 {
-	mQueueWorld.update(dt);
+	mQueueWorld.update(dt, at);
 	return true;
 }
 

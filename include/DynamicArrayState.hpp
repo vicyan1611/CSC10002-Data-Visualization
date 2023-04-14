@@ -12,7 +12,7 @@ class DynamicArrayState : public State {
 public:
 	DynamicArrayState(StateStack& stack, Context context);
 	virtual void draw();
-	virtual bool update(sf::Time dt);
+	virtual bool update(sf::Time dt, sf::Time at);
 	virtual bool handleEvent(const sf::Event& event);
 private:
 	void handleInitBox();

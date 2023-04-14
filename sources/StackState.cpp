@@ -78,9 +78,9 @@ void StackState::draw()
 	window.draw(mGUIContainer);
 }
 
-bool StackState::update(sf::Time dt)
+bool StackState::update(sf::Time dt, sf::Time at)
 {
-	mStackWorld.update(dt);
+	mStackWorld.update(dt, at);
 	return true;
 }
 

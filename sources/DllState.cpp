@@ -77,8 +77,8 @@ void DllState::draw() {
 	window.draw(mGUIContainer);
 }
 
-bool DllState::update(sf::Time dt) {
-	mDllWorld.update(dt);
+bool DllState::update(sf::Time dt, sf::Time at) {
+	mDllWorld.update(dt, at);
 	return true;
 }
 

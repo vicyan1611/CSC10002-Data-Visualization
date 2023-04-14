@@ -12,7 +12,7 @@ class StackState : public State {
 public:
 	StackState(StateStack& stack, Context context);
 	virtual void draw();
-	virtual bool update(sf::Time dt);
+	virtual bool update(sf::Time dt, sf::Time at);
 	virtual bool handleEvent(const sf::Event& event);
 private:
 	void handleInitBox();

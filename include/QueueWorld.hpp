@@ -12,7 +12,7 @@
 class QueueWorld : private sf::NonCopyable {
 public:
 	explicit QueueWorld(sf::RenderWindow& window);
-	void update(sf::Time dt);
+	void update(sf::Time dt, sf::Time at);
 	void draw();
 	CommandQueue& getCommandQueue();
 
@@ -24,6 +24,7 @@ public:
 	void previous();
 	void updateQueue(int id, int x);
 	void searchQueue(int x);
+	void runAtOnce();
 private:
 	void loadTextures();
 	void buildScene();
@@ -50,4 +51,5 @@ private:
 	CommandQueue mCommandQueue;
 
 	int operationType = 0, value = 0, totalStep = 0, step = 0;
+	bool isRunAtOnce = false;
 };

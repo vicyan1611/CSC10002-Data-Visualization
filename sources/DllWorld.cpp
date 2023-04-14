@@ -39,11 +39,11 @@ void DllWorld::buildScene() {
 
 }
 
-void DllWorld::update(sf::Time dt) {
+void DllWorld::update(sf::Time dt, sf::Time at) {
 	while (!mCommandQueue.isEmpty()) {
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 	}
-	mSceneGraph.update(dt);
+	mSceneGraph.update(dt, at);
 }
 
 void DllWorld::draw() {

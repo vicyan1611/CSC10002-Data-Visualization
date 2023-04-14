@@ -156,6 +156,7 @@ void QueueWorld::reUpdate() {
 	operationType = 0;
 	step = 0;
 	value = 0;
+	isRunAtOnce = false;
 	if (!tmpNodes.empty())
 	{
 		for (auto& node : tmpNodes)
@@ -186,10 +187,14 @@ void QueueWorld::previous() {
 
 }
 
-void QueueWorld::update(sf::Time dt) {
+void QueueWorld::runAtOnce() {
+	isRunAtOnce = true;
+}
+
+void QueueWorld::update(sf::Time dt, sf::Time at) {
 	while (!mCommandQueue.isEmpty())
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
-	mSceneGraph.update(dt);
+	mSceneGraph.update(dt, at);
 }
 
 void QueueWorld::draw() {

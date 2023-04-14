@@ -31,10 +31,10 @@ void StackWorld::buildScene() {
 	mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 }
 
-void StackWorld::update(sf::Time dt) {
+void StackWorld::update(sf::Time dt, sf::Time at) {
 	while (!mCommandQueue.isEmpty())
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
-	mSceneGraph.update(dt);
+	mSceneGraph.update(dt, at);
 }
 
 void StackWorld::draw() {

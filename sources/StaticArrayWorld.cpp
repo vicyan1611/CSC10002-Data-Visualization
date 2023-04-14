@@ -94,14 +94,16 @@ void StaticArrayWorld::next() {
 	}
 	step++;
 	step = std::min(step, totalSearchStep);
-	if (step > 0) mPlayerAircraftar[step - 1]->setColor(sf::Color::White);
+	int tmpID = step - 1;
+	if (step > 0) mPlayerAircraftar[tmpID]->setColor(sf::Color::White);
 	mPlayerAircraftar[step]->setColor(sf::Color::Red);	
 }
 
 void StaticArrayWorld::previous() {
 	step--;
 	step = std::max(step, 0);
-	if (step < totalSearchStep) mPlayerAircraftar[step + 1]->setColor(sf::Color::White);
+	int tmpID = step + 1;
+	if (step < totalSearchStep) mPlayerAircraftar[tmpID]->setColor(sf::Color::White);
 	mPlayerAircraftar[step]->setColor(sf::Color::Red);
 }
 
@@ -114,9 +116,9 @@ CommandQueue& StaticArrayWorld::getCommandQueue() {
 	return mCommandQueue;
 }
 
-void StaticArrayWorld::update(sf::Time dt) {
+void StaticArrayWorld::update(sf::Time dt, sf::Time at) {
 	while (!mCommandQueue.isEmpty()) {
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 	}
-	mSceneGraph.update(dt);
+	mSceneGraph.update(dt, at);
 }

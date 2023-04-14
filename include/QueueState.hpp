@@ -12,7 +12,7 @@ class QueueState : public State {
 public:
 	QueueState(StateStack& stack, Context context);
 	virtual void draw();
-	virtual bool update(sf::Time dt);
+	virtual bool update(sf::Time dt, sf::Time at);
 	virtual bool handleEvent(const sf::Event& event);
 private:
 	void handleInitBox();
@@ -23,7 +23,7 @@ private:
 	QueueWorld mQueueWorld;
 	GUI::Container mGUIContainer;
 	GUI::InputBox::Ptr mInitBox, mAddBox, mUpdateBox, mSearchBox;
-	GUI::Button::Ptr mRandomButton, mNextButton, mPreviousButton, mDeleteButton;
+	GUI::Button::Ptr mRandomButton, mNextButton, mPreviousButton, mDeleteButton, mRunAtOnceButton;
 
 	std::vector <int> mData;
 	int nData = 0, id = -1;

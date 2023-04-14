@@ -77,8 +77,8 @@ void DynamicArrayState::draw() {
 	window.draw(mGUIContainer);
 }
 
-bool DynamicArrayState::update(sf::Time dt) {
-	mDAWorld.update(dt);
+bool DynamicArrayState::update(sf::Time dt, sf::Time at) {
+	mDAWorld.update(dt, at);
 	return true;
 }
 

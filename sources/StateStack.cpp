@@ -21,9 +21,9 @@ void StateStack::handleEvent(const sf::Event& event) {
 	applyPendingChanges();
 }
 
-void StateStack::update(sf::Time dt) {
+void StateStack::update(sf::Time dt, sf::Time at) {
 	for (auto itr = mStack.rbegin(); itr != mStack.rend(); ++itr) {
-		if (!(*itr)->update(dt)) return;
+		if (!(*itr)->update(dt, at)) return;
 	}
 	applyPendingChanges();
 }

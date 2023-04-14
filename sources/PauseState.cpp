@@ -50,7 +50,7 @@ void PauseState::draw() {
 	window.draw(mGUIContainer);
 }
 
-bool PauseState::update(sf::Time) {
+bool PauseState::update(sf::Time dt, sf::Time at) {
 	return false;
 }
 

@@ -105,7 +105,7 @@ void MenuState::draw() {
 	window.draw(mGUIContainer);
 }
 
-bool MenuState::update(sf::Time dt) {
+bool MenuState::update(sf::Time dt, sf::Time at) {
 	return true;
 }
 

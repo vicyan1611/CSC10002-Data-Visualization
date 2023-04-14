@@ -326,11 +326,11 @@ void SllWorld::draw() {
 	mWindow.draw(mSceneGraph);
 }
 
-void SllWorld::update(sf::Time dt) {
+void SllWorld::update(sf::Time dt, sf::Time at) {
 	while (!mCommandQueue.isEmpty()) {
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 	}
-	mSceneGraph.update(dt);
+	mSceneGraph.update(dt, at);
 }
 
 CommandQueue& SllWorld::getCommandQueue() {

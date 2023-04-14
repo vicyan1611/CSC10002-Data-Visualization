@@ -98,8 +98,8 @@ void StaticArrayState::handleSearchBox() {
 	}
 }
 
-bool StaticArrayState::update(sf::Time dt) {
-	mSAWorld.update(dt);
+bool StaticArrayState::update(sf::Time dt, sf::Time at) {
+	mSAWorld.update(dt, at);
 	//CommandQueue& commands = mWorld.getCommandQueue();
 	return true;
 }
