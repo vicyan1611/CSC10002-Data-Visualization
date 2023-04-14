@@ -49,6 +49,10 @@ void CllWorld::update(sf::Time dt, sf::Time& at) {
 	while (!mCommandQueue.isEmpty())
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 	mSceneGraph.update(dt, at);
+	if (at >= sf::seconds(1.f) && isRunAtOnce) {
+		at = sf::Time::Zero;
+		next();
+	}
 }
 
 void CllWorld::draw() {
@@ -286,6 +290,7 @@ void CllWorld::searchArrayStep() {
 void CllWorld::reUpdate() {
 	operationType = 0;
 	step = totalStep = 0;
+	isRunAtOnce = false;
 	if (!tmpCllNodes.empty()) {
 		for (auto& node : tmpCllNodes)
 		{
@@ -319,4 +324,8 @@ void CllWorld::previous() {
 	else if (operationType == 2) deleteFromArrayStep();
 	else if (operationType == 3) updateArrayStep();
 	else if (operationType == 4) searchArrayStep();
+}
+
+void CllWorld::runAtOnce() {
+	isRunAtOnce = true;
 }

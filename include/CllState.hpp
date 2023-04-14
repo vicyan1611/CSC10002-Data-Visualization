@@ -24,7 +24,7 @@ private:
 	CllWorld mCllWorld;
 	GUI::Container mGUIContainer;
 	GUI::InputBox::Ptr mInitBox, mUpdateBox, mSearchBox, mAddBox, mDeleteBox;
-	GUI::Button::Ptr mRandomButton, mNextButton, mPreviousButton;
+	GUI::Button::Ptr mRunAtOnceButton,mRandomButton, mNextButton, mPreviousButton;
 	std::vector <int> mData;
 	int nData = 0, id = -1;
 };
