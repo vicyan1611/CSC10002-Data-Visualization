@@ -44,6 +44,10 @@ void DllWorld::update(sf::Time dt, sf::Time& at) {
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 	}
 	mSceneGraph.update(dt, at);
+	if (at >= sf::seconds(1.f) && isRunAtOnce) {
+		at = sf::Time::Zero;
+		next();
+	}
 }
 
 void DllWorld::draw() {
@@ -294,6 +298,7 @@ void DllWorld::searchArrayStep() {
 }
 
 void DllWorld::reUpdate() {
+	isRunAtOnce = false;
 	if (operationType == 3 || operationType == 4) {
 		operationType = 0;
 		step = totalStep = 0;
@@ -332,4 +337,8 @@ void DllWorld::previous() {
 	else if (operationType == 2) deleteFromArrayStep();
 	else if (operationType == 3) updateArrayStep();
 	else if (operationType == 4) searchArrayStep();
+}
+
+void DllWorld::runAtOnce() {
+	isRunAtOnce = true;
 }
