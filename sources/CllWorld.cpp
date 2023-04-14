@@ -1,5 +1,6 @@
 #include <CllWorld.hpp>
 #include <iostream>
+#include <fstream>
 
 CllWorld::CllWorld(sf::RenderWindow& window)
 	: mWindow(window)
@@ -328,4 +329,17 @@ void CllWorld::previous() {
 
 void CllWorld::runAtOnce() {
 	isRunAtOnce = true;
+}
+
+void CllWorld::loadFromFile() {
+	std::ifstream file("data.txt");
+	std::vector<int> data;
+	int n;
+	file >> n;
+	for (int i = 0; i < n; ++i) {
+		int x;
+		file >> x;
+		data.push_back(x);
+	}
+	setArray(data);
 }

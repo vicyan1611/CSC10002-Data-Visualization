@@ -1,5 +1,6 @@
 #include <QueueWorld.hpp>
 #include <iostream>
+#include <fstream>
 
 QueueWorld::QueueWorld(sf::RenderWindow& window)
 	: mWindow(window)
@@ -208,4 +209,17 @@ void QueueWorld::draw() {
 
 CommandQueue& QueueWorld::getCommandQueue() {
 	return mCommandQueue;
+}
+
+void QueueWorld::loadFromFile() {
+	std::ifstream file("data.txt");
+	std::vector<int> data;
+	int n;
+	file >> n;
+	for (int i = 0; i < n; ++i) {
+		int x;
+		file >> x;
+		data.push_back(x);
+	}
+	setArray(data);
 }

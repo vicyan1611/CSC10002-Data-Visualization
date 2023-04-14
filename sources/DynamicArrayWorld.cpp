@@ -1,5 +1,6 @@
 #include <DynamicArrayWorld.hpp>
 #include <iostream>
+#include <fstream>
 
 DynamicArrayWorld::DynamicArrayWorld(sf::RenderWindow& window)
 	: mWindow(window)
@@ -13,6 +14,19 @@ DynamicArrayWorld::DynamicArrayWorld(sf::RenderWindow& window)
 void DynamicArrayWorld::loadTextures() {
 	mFonts.load(Fonts::Main, "assets/JetBrainsMono-Medium.ttf");
 	mTextures.load(Textures::Desert, "assets/GameState.jpg");
+}
+
+void DynamicArrayWorld::loadFromFile() {
+	std::ifstream file("data.txt");
+	std::vector<int> data;
+	int n;
+	file >> n;
+	for (int i = 0; i < n; ++i) {
+		int x;
+		file >> x;
+		data.push_back(x);
+	}
+	setArray(data);
 }
 
 void DynamicArrayWorld::setRandomArray() {

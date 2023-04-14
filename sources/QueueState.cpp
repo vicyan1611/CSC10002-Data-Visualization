@@ -14,8 +14,16 @@ QueueState::QueueState(StateStack& stack, Context context)
 		});
 	mGUIContainer.pack(mRandomButton);
 
+	mFileLoadButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mFileLoadButton->setPosition(300, 750);
+	mFileLoadButton->setText("Load From File");
+	mFileLoadButton->setCallback([this]() {
+		mQueueWorld.loadFromFile();
+		});
+	mGUIContainer.pack(mFileLoadButton);
+
 	mDeleteButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	mDeleteButton->setPosition(300, 750);
+	mDeleteButton->setPosition(500, 750);
 	mDeleteButton->setText("DeQueue");
 	mDeleteButton->setCallback([this]() {
 		mQueueWorld.dequeue();

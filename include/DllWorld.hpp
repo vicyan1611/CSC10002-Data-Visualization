@@ -25,6 +25,7 @@ public:
 	void updateArray(int id, int value);
 	void searchArray(int value);
 	void runAtOnce();
+	void loadFromFile();
 private:
 	void loadTextures();
 	void buildScene();

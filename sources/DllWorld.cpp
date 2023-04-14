@@ -1,5 +1,6 @@
 #include <DllWorld.hpp>
 #include <iostream>
+#include <fstream>
 
 DllWorld::DllWorld(sf::RenderWindow& window)
 	: mWindow(window)
@@ -341,4 +342,17 @@ void DllWorld::previous() {
 
 void DllWorld::runAtOnce() {
 	isRunAtOnce = true;
+}
+
+void DllWorld::loadFromFile() {
+	std::ifstream file("data.txt");
+	std::vector<int> data;
+	int n;
+	file >> n;
+	for (int i = 0; i < n; ++i) {
+		int x;
+		file >> x;
+		data.push_back(x);
+	}
+	setArray(data);
 }

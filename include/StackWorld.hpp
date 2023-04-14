@@ -26,6 +26,8 @@ public:
 	void updateStack(int id, int x);
 	void searchStack(int x);
 	void runAtOnce();
+	void loadFromFile();
+
 private:
 	void loadTextures();
 	void buildScene();

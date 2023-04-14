@@ -24,7 +24,7 @@ private:
     DynamicArrayWorld mDAWorld;
 	GUI::Container mGUIContainer;
 	GUI::InputBox::Ptr mInitBox, mUpdateBox, mSearchBox, mAddBox, mDeleteBox;
-	GUI::Button::Ptr mRandomButton, mNextButton, mPreviousButton, mRunAtOnceButton;
+	GUI::Button::Ptr mRandomButton, mNextButton, mPreviousButton, mRunAtOnceButton, mFileLoadButton;
 	std::vector <int> mData;
 	int nData = 0, id = -1, value = 0;
 };

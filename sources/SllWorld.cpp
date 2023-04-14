@@ -1,6 +1,6 @@
 #include <SllWorld.hpp>
 #include <iostream>
-
+#include <fstream>
 SllWorld::SllWorld(sf::RenderWindow& window)
 	: mWindow(window)
 	, mWorldView(window.getDefaultView())
@@ -340,6 +340,19 @@ void SllWorld::update(sf::Time dt, sf::Time& at) {
 		at = sf::Time::Zero;
 		next();
 	}
+}
+
+void SllWorld::loadFromFile() {
+	std::ifstream file("data.txt");
+	std::vector<int> data;
+	int n;
+	file >> n;
+	for (int i = 0; i < n; ++i) {
+		int x;
+		file >> x;
+		data.push_back(x);
+	}
+	setArray(data); 
 }
 
 CommandQueue& SllWorld::getCommandQueue() {

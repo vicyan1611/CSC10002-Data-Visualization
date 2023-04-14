@@ -14,6 +14,14 @@ CllState::CllState(StateStack& stack, Context context)
 		});
 	mGUIContainer.pack(mRandomButton);
 
+	mFileLoadButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mFileLoadButton->setPosition(300, 750);
+	mFileLoadButton->setText("Load From File");
+	mFileLoadButton->setCallback([this]() {
+		mCllWorld.loadFromFile();
+		});
+	mGUIContainer.pack(mFileLoadButton);
+
 	mInitBox = std::make_shared<GUI::InputBox>(*context.fonts);
 	mInitBox->setPosition(100, 850);
 	mInitBox->setText("");

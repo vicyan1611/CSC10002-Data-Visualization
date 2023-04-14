@@ -1,5 +1,6 @@
 #include <StackWorld.hpp>
 #include <iostream>
+#include <fstream>
 
 StackWorld::StackWorld(sf::RenderWindow& window)
 	: mWindow(window)
@@ -208,3 +209,15 @@ void StackWorld::previous() {
 	else if (operationType == 2) deleteFromStackStep();
 }
 
+void StackWorld::loadFromFile() {
+	std::ifstream file("data.txt");
+	std::vector<int> data;
+	int n;
+	file >> n;
+	for (int i = 0; i < n; ++i) {
+		int x;
+		file >> x;
+		data.push_back(x);
+	}
+	setArray(data);
+}
