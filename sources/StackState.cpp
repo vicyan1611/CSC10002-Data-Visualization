@@ -22,6 +22,14 @@ StackState::StackState(StateStack& stack, Context context)
 		});
 	mGUIContainer.pack(mRandomButton);
 
+	mRunAtOnceButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mRunAtOnceButton->setPosition(400, 800);
+	mRunAtOnceButton->setText("Run at once");
+	mRunAtOnceButton->setCallback([this]() {
+		mStackWorld.runAtOnce();
+		});
+	mGUIContainer.pack(mRunAtOnceButton);
+
 	mAddBox = std::make_shared<GUI::InputBox>(*context.fonts);
 	mAddBox->setPosition(700, 650);
 	mAddBox->setText("");

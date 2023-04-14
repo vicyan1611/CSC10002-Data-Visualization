@@ -25,6 +25,7 @@ public:
 	void deleteFromStackStep();
 	void updateStack(int id, int x);
 	void searchStack(int x);
+	void runAtOnce();
 private:
 	void loadTextures();
 	void buildScene();
@@ -51,4 +52,5 @@ private:
 	CommandQueue mCommandQueue;
 
 	int operationType = 0, value = 0, totalStep = 0, step = 0;
+	bool isRunAtOnce = false;
 };

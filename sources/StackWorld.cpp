@@ -35,6 +35,14 @@ void StackWorld::update(sf::Time dt, sf::Time& at) {
 	while (!mCommandQueue.isEmpty())
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 	mSceneGraph.update(dt, at);
+	if (at >= sf::seconds(1.f) && isRunAtOnce) {
+		at = sf::Time::Zero;
+		next();
+	}
+}
+
+void StackWorld::runAtOnce() {
+	isRunAtOnce = true;
 }
 
 void StackWorld::draw() {
@@ -172,6 +180,7 @@ void StackWorld::reUpdate() {
 	step = 0;
 	totalStep = 0;
 	value = 0;
+	isRunAtOnce = false;
 	if (!tmpNodes.empty()) {
 		for (auto& node : tmpNodes) {
 			mSceneLayers[Air]->detachChild(*node);
