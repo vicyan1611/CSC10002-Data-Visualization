@@ -22,6 +22,7 @@ public:
 	void next();
 	void previous();
 	void runAtOnce();
+	void loadFromFile();
 private:
 	void loadTextures();
 	void buildScene();

@@ -80,6 +80,8 @@ void LLNode::setColor(sf::Color color) {
 
 void LLNode::setValue(int value) {
 	mText.setString(std::to_string(value));
+	sf::FloatRect bounds = mText.getLocalBounds();
+	mText.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 }
 
 void LLNode::setString(std::string str) {

@@ -1,4 +1,5 @@
 #include <StaticArrayWorld.hpp>
+#include <fstream>
 
 StaticArrayWorld::StaticArrayWorld(sf::RenderWindow& window)
 	: mWindow(window)
@@ -35,6 +36,19 @@ void StaticArrayWorld::buildScene() {
 	mPlayerAircraft->setPosition(100.f, 100.f);
 	mPlayerAircraft->setVelocity(40.f, 0.f);
 	mSceneLayers[Air]->attachChild(std::move(leader));*/
+}
+
+void StaticArrayWorld::loadFromFile() {
+	std::ifstream file("data.txt");
+	std::vector<int> data;
+	int n;
+	file >> n;
+	for (int i = 0; i < n; ++i) {
+		int x;
+		file >> x;
+		data.push_back(x);
+	}
+	setArray(data);
 }
 
 void StaticArrayWorld::setArray(std::vector<int> data) {

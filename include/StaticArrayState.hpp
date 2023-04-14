@@ -22,7 +22,7 @@ private:
 	StaticArrayWorld mSAWorld;
 	GUI::Container mGUIContainer;
 	GUI::InputBox::Ptr mInitBox, mUpdateBox, mSearchBox;
-	GUI::Button::Ptr mRandomButton, mNextButton, mPreviousButton, mRunAtOnceButton;
+	GUI::Button::Ptr mRandomButton, mNextButton, mPreviousButton, mRunAtOnceButton, mFileLoadButton;
 
 	int nData = 0, id = -1, value = 0;
 	std::vector <int> mData;

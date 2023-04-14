@@ -36,10 +36,14 @@ void Aircraft::setColor(sf::Color color) {
 
 void Aircraft::setValue(int value) {
 	mText.setString(std::to_string(value));
+	sf::FloatRect bounds = mText.getLocalBounds();
+	mText.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 }
 
 void Aircraft::setString(std::string str) {
 	mText.setString(str);
+	sf::FloatRect bounds = mText.getLocalBounds();
+	mText.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 }
 
 sf::Color Aircraft::getColor() const {
