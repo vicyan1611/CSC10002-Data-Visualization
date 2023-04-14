@@ -21,6 +21,7 @@ public:
 	void searchArray(int value);
 	void next();
 	void previous();
+	void runAtOnce();
 private:
 	void loadTextures();
 	void buildScene();
@@ -42,4 +43,5 @@ private:
 	std::vector<Aircraft*> mPlayerAircraftar;
 	CommandQueue mCommandQueue;
 	int totalSearchStep = 0, step = -1;
+	bool isRunAtOnce = false;
 };

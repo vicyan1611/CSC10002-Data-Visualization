@@ -87,9 +87,14 @@ void StaticArrayWorld::searchArray(int value) {
 	step = 0;
 }
 
+void StaticArrayWorld::runAtOnce() {
+	isRunAtOnce = true;
+}
+
 void StaticArrayWorld::next() {
 	if (step == totalSearchStep) {
 		mPlayerAircraftar[step]->setColor(sf::Color::White);
+		isRunAtOnce = false;
 		return;
 	}
 	step++;
@@ -121,4 +126,8 @@ void StaticArrayWorld::update(sf::Time dt, sf::Time& at) {
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 	}
 	mSceneGraph.update(dt, at);
+	if (at >= sf::seconds(1.f) && isRunAtOnce) {
+		at = sf::Time::Zero;
+		next();
+	}
 }

@@ -37,8 +37,16 @@ StaticArrayState::StaticArrayState(StateStack& stack, Context context)
 	mSearchLabel->setPosition(1000, 620);
 	mGUIContainer.pack(mSearchLabel);
 
+	mRunAtOnceButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mRunAtOnceButton->setPosition(1000, 700);
+	mRunAtOnceButton->setText("Run at once");
+	mRunAtOnceButton->setCallback([this]() {
+		mSAWorld.runAtOnce();
+		});
+	mGUIContainer.pack(mRunAtOnceButton);
+
 	mPreviousButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	mPreviousButton->setPosition(1000, 720);
+	mPreviousButton->setPosition(1000, 750);
 	mPreviousButton->setText("Previous");
 	mPreviousButton->setCallback([this]() {
 		mSAWorld.previous();
