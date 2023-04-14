@@ -50,7 +50,7 @@ void DynamicArrayWorld::addToArray(int id, int value) {
 		return;
 	}
 	operationType = 1;
-	totalSearchStep = 1 + (int(mPlayerAircraftar.size()) - id + 1) + 1 + 1;
+	totalSearchStep = mPlayerAircraftar.size() + 3;
 	step = 0;
 	operation = {id-1, value};
 	std::cout << id << " " << value << std::endl;
@@ -76,38 +76,31 @@ void DynamicArrayWorld::addToArrayStep() {
 	}
 	if (step == 0) return;
 	int tmp_step = step;
-	for (int i = 0; i < mPlayerAircraftar.size(); ++i) {
-		std::unique_ptr<Aircraft> player(new Aircraft(mPlayerAircraftar[i]->getValue(), mFonts));
+	for (int i = 0; i < mPlayerAircraftar.size() + 1; ++i) {
+		std::unique_ptr<Aircraft> player(new Aircraft(1, mFonts));
 		player->setPosition(100.f + (i + 1) * 100.f, 200.f);
 		player->setVelocity(0.f, 0.f);
-		tmp_mPlayerAircraftar.push_back(player.get());
-		mSceneLayers[Air]->attachChild(std::move(player));
-	}
-	{
-		std::unique_ptr<Aircraft> player(new Aircraft(-1, mFonts));
-		player->setPosition(100.f + (mPlayerAircraftar.size() + 1) * 100.f, 200.f);
-		player->setVelocity(0.f, 0.f);
+		player->setString("");
 		tmp_mPlayerAircraftar.push_back(player.get());
 		mSceneLayers[Air]->attachChild(std::move(player));
 	}
 
 	tmp_step--;
 	if (tmp_step == 0) return;
-	int tmpID = int(tmp_mPlayerAircraftar.size()) - 1;
-	mSceneLayers[Air]->detachChild(*tmp_mPlayerAircraftar[tmpID]);
-	tmp_mPlayerAircraftar.pop_back();
-	for (int i = int(tmp_mPlayerAircraftar.size()) - 1; i >= operation.first; --i) {
-		tmp_mPlayerAircraftar[i]->setPosition(100.f + (i + 2) * 100.f, 200.f);
+	for (int i = 0; i < tmp_mPlayerAircraftar.size(); ++i) {
+		if (i < operation.first) {
+			tmp_mPlayerAircraftar[i]->setValue(mPlayerAircraftar[i]->getValue());
+		}
+		else if (i == operation.first) {
+			tmp_mPlayerAircraftar[i]->setValue(operation.second);
+		}
+		else {
+			int tmpID = i - 1;
+			tmp_mPlayerAircraftar[i]->setValue(mPlayerAircraftar[tmpID]->getValue());
+		}
 		tmp_step--;
 		if (tmp_step == 0) return;
 	}
-	std::unique_ptr<Aircraft> player(new Aircraft(operation.second, mFonts));
-	player->setPosition(100.f + (operation.first + 1) * 100.f, 200.f);
-	player->setVelocity(0.f, 0.f);
-	tmp_mPlayerAircraftar.insert(tmp_mPlayerAircraftar.begin() + operation.first, player.get());
-	mSceneLayers[Air]->attachChild(std::move(player));
-	tmp_step--;
-	if (tmp_step == 0) return;
 }
 
 void DynamicArrayWorld::reUpdate() {
