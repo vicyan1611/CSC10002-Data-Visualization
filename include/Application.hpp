@@ -11,7 +11,7 @@ public:
 	void run();
 private:
 	void processInput();
-	void update(sf::Time dt, sf::Time at);
+	void update(sf::Time dt, sf::Time& at);
 	void render();
 	void registerStates();
 private:

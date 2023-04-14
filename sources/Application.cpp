@@ -73,7 +73,7 @@ void Application::processInput() {
 	}
 }
 
-void Application::update(sf::Time dt, sf::Time at) {
+void Application::update(sf::Time dt, sf::Time& at) {
 	mStateStack.update(dt, at);
 }
 

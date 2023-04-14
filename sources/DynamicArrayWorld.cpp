@@ -237,7 +237,7 @@ void DynamicArrayWorld::buildScene() {
 	mSceneLayers[Background]->attachChild(std::move(backgroundSprite));
 }
 
-void DynamicArrayWorld::update(sf::Time dt, sf::Time at) {
+void DynamicArrayWorld::update(sf::Time dt, sf::Time& at) {
 	while (!mCommandQueue.isEmpty()) {
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 	}

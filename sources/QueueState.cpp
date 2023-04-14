@@ -102,7 +102,7 @@ void QueueState::draw()
 	window.draw(mGUIContainer);
 }
 
-bool QueueState::update(sf::Time dt, sf::Time at)
+bool QueueState::update(sf::Time dt, sf::Time& at)
 {
 	mQueueWorld.update(dt, at);
 	return true;

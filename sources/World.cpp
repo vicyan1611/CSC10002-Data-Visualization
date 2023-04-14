@@ -54,7 +54,7 @@ void World::draw() {
 	mWindow.draw(mSceneGraph);
 }
 
-void World::update(sf::Time dt, sf::Time at) {
+void World::update(sf::Time dt, sf::Time& at) {
 	mWorldView.move(0.f, mScrollSpeed * dt.asSeconds());
 	/*sf::Vector2f position = mPlayerAircraft->getPosition();
 	sf::Vector2f velocity = mPlayerAircraft->getVelocity();*/

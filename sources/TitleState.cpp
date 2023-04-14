@@ -23,7 +23,7 @@ void TitleState::draw() {
 		window.draw(mText);
 }
 
-bool TitleState::update(sf::Time dt, sf::Time at) {
+bool TitleState::update(sf::Time dt, sf::Time& at) {
 	mTextEffectTime += dt;
 	if (mTextEffectTime >= sf::seconds(0.5f)) {
 		mShowText = !mShowText;

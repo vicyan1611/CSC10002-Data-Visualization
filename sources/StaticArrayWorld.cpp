@@ -116,7 +116,7 @@ CommandQueue& StaticArrayWorld::getCommandQueue() {
 	return mCommandQueue;
 }
 
-void StaticArrayWorld::update(sf::Time dt, sf::Time at) {
+void StaticArrayWorld::update(sf::Time dt, sf::Time& at) {
 	while (!mCommandQueue.isEmpty()) {
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 	}

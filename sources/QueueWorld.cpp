@@ -191,10 +191,14 @@ void QueueWorld::runAtOnce() {
 	isRunAtOnce = true;
 }
 
-void QueueWorld::update(sf::Time dt, sf::Time at) {
+void QueueWorld::update(sf::Time dt, sf::Time& at) {
 	while (!mCommandQueue.isEmpty())
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 	mSceneGraph.update(dt, at);
+	if (at >= sf::seconds(1.f) && isRunAtOnce) {
+		at = sf::Time::Zero;
+		next();
+	}
 }
 
 void QueueWorld::draw() {

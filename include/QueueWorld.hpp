@@ -12,7 +12,7 @@
 class QueueWorld : private sf::NonCopyable {
 public:
 	explicit QueueWorld(sf::RenderWindow& window);
-	void update(sf::Time dt, sf::Time at);
+	void update(sf::Time dt, sf::Time& at);
 	void draw();
 	CommandQueue& getCommandQueue();
 

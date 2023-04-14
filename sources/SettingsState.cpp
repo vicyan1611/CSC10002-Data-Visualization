@@ -48,7 +48,7 @@ void SettingsState::draw() {
 	window.draw(mGUIContainer);
 }
 
-bool SettingsState::update(sf::Time dt, sf::Time at) {
+bool SettingsState::update(sf::Time dt, sf::Time& at) {
 	return true;
 }
 

@@ -13,15 +13,15 @@ public:
 	SceneNode();
 	void attachChild(Ptr child);
 	Ptr detachChild(const SceneNode& node);
-	void update(sf::Time dt, sf::Time at);
+	void update(sf::Time dt, sf::Time& at);
 	sf::Vector2f getWorldPosition() const;
 	void onCommand(const Command& command, sf::Time dt);
 	virtual unsigned int getCategory() const;
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
-	virtual void updateCurrent(sf::Time dt, sf::Time at);
-	void updateChildren(sf::Time dt, sf::Time at);
+	virtual void updateCurrent(sf::Time dt, sf::Time& at);
+	void updateChildren(sf::Time dt, sf::Time& at);
 	sf::Transform getWorldTransform() const;
 private:
 	std::vector<Ptr> mChildren;

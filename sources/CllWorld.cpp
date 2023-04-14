@@ -45,7 +45,7 @@ void CllWorld::buildScene() {
 	mSceneLayers[Air]->attachChild(std::move(CllNode));*/
 }
 
-void CllWorld::update(sf::Time dt, sf::Time at) {
+void CllWorld::update(sf::Time dt, sf::Time& at) {
 	while (!mCommandQueue.isEmpty())
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 	mSceneGraph.update(dt, at);

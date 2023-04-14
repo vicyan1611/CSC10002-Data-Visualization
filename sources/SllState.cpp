@@ -77,7 +77,7 @@ void SllState::draw() {
 	window.draw(mGUIContainer);
 }
 
-bool SllState::update(sf::Time dt, sf::Time at) {	
+bool SllState::update(sf::Time dt, sf::Time& at) {	
 	mSllWorld.update(dt, at);
 	return true;
 }

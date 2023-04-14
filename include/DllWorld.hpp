@@ -12,7 +12,7 @@
 class DllWorld : private sf::NonCopyable {
 public:
 	explicit DllWorld(sf::RenderWindow& window);
-	void update(sf::Time dt, sf::Time at);
+	void update(sf::Time dt, sf::Time& at);
 	void draw();
 	CommandQueue& getCommandQueue();
 
