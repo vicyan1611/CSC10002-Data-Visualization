@@ -24,9 +24,9 @@ void GUI::Container::handleEvent(const sf::Event& event) {
 		mChildren[mSelectedChild]->handleEvent(event);
 	}
 	else if (event.type == sf::Event::KeyReleased) {
-		if (event.key.code == sf::Keyboard::Up)
+		if (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::Left)
 			selectPrevious();
-		else if (event.key.code == sf::Keyboard::Down)
+		else if (event.key.code == sf::Keyboard::Down || event.key.code == sf::Keyboard::Right)
 			selectNext();
 		else if (event.key.code == sf::Keyboard::Return)
 		{
