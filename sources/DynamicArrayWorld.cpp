@@ -27,6 +27,7 @@ void DynamicArrayWorld::loadFromFile() {
 		data.push_back(x);
 	}
 	setArray(data);
+	file.close();
 }
 
 void DynamicArrayWorld::setRandomArray() {

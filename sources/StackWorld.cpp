@@ -220,4 +220,5 @@ void StackWorld::loadFromFile() {
 		data.push_back(x);
 	}
 	setArray(data);
+	file.close();
 }

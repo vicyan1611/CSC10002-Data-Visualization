@@ -4,7 +4,8 @@
 #include <SFML/Graphics.hpp>
 
 namespace Textures {
-	enum ID {Eagle, Raptor, Desert, TitleScreen, 
+	enum ID {
+		TitleScreen, TitleScreen1, TitleScreen2, TitleScreen3, Eagle, Raptor, Desert,
 		ButtonNormal, ButtonSelected, ButtonPressed
 	};
 }

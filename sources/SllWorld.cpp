@@ -353,6 +353,7 @@ void SllWorld::loadFromFile() {
 		data.push_back(x);
 	}
 	setArray(data); 
+	file.close();
 }
 
 CommandQueue& SllWorld::getCommandQueue() {

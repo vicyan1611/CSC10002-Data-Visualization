@@ -49,6 +49,7 @@ void StaticArrayWorld::loadFromFile() {
 		data.push_back(x);
 	}
 	setArray(data);
+	file.close();
 }
 
 void StaticArrayWorld::setArray(std::vector<int> data) {
