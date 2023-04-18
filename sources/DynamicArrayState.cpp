@@ -3,7 +3,7 @@
 
 DynamicArrayState::DynamicArrayState(StateStack& stack, Context context)
 	:State(stack, context)
-	, mDAWorld(*context.window)
+	, mDAWorld(*context.window, *context.id)
 	, mGUIContainer()
 {
 	mRandomButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);

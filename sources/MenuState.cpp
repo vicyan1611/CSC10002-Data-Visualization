@@ -11,6 +11,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 {
 	sf::Texture& texture = context.textures->get(Textures::TitleScreen);
 	mBackgroundSprite.setTexture(texture);
+	setBackground();
 
 	auto changeBackGroundButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	changeBackGroundButton->setPosition(1600, 200);
