@@ -11,7 +11,7 @@
 
 class SllWorld : private sf::NonCopyable {
 public:
-	explicit SllWorld(sf::RenderWindow& window);
+	explicit SllWorld(sf::RenderWindow& window, int& id);
 	void update(sf::Time dt, sf::Time& at);
 	void draw();
 	CommandQueue& getCommandQueue();
@@ -26,7 +26,7 @@ public:
 	void runAtOnce();
 	void loadFromFile();
 private:
-	void loadTextures();
+	void loadTextures(int id);
 	void buildScene();
 	void addToArrayStep();
 	void deleteFromArrayStep();

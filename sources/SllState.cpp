@@ -3,7 +3,7 @@
 
 SllState::SllState(StateStack& stack, Context context)
 	:State(stack, context)
-	, mSllWorld(*context.window)
+	, mSllWorld(*context.window, *context.id)
 	, mGUIContainer()
 {
 	mRandomButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);

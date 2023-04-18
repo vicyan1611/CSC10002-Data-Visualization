@@ -3,7 +3,7 @@
 
 DllState::DllState(StateStack& stack, Context context)
 	:State(stack, context)
-	, mDllWorld(*context.window)
+	, mDllWorld(*context.window, *context.id)
 	, mGUIContainer()
 {
 	mRandomButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);

@@ -3,7 +3,7 @@
 
 CllState::CllState(StateStack& stack, Context context)
 	:State(stack, context)
-	, mCllWorld(*context.window)
+	, mCllWorld(*context.window, *context.id)
 	, mGUIContainer()
 {
 	mRandomButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
