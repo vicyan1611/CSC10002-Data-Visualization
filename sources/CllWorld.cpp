@@ -11,7 +11,7 @@ CllWorld::CllWorld(sf::RenderWindow& window, int& id)
 	loadTextures(id);
 	buildScene();
 }
-
+ 
 void CllWorld::loadTextures(int id) {
 	mFonts.load(Fonts::Main, "assets/JetBrainsMono-Medium.ttf");
 	if (id == 0) mTextures.load(Textures::Desert, "assets/TitleScreen.png");

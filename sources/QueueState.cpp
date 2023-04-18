@@ -3,7 +3,7 @@
 
 QueueState::QueueState(StateStack& stack, Context context)
 	:State(stack, context)
-	, mQueueWorld(*context.window)
+	, mQueueWorld(*context.window, *context.id)
 	, mGUIContainer()
 {
 	mRandomButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);

@@ -2,19 +2,24 @@
 #include <iostream>
 #include <fstream>
 
-StackWorld::StackWorld(sf::RenderWindow& window)
+StackWorld::StackWorld(sf::RenderWindow& window, int& id)
 	: mWindow(window)
 	, mWorldView(window.getDefaultView())
 	, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y)
 	, mCommandQueue()
 {
-	loadTextures();
+	loadTextures(id);
 	buildScene();
 }
 
-void StackWorld::loadTextures() {
+void StackWorld::loadTextures(int id) {
 	mFonts.load(Fonts::Main, "assets/JetBrainsMono-Medium.ttf");
-	mTextures.load(Textures::Desert, "assets/GameState.jpg");
+	if (id == 0) mTextures.load(Textures::Desert, "assets/TitleScreen.png");
+	if (id == 1) mTextures.load(Textures::Desert, "assets/TitleScreen1.jpg");
+	if (id == 2) mTextures.load(Textures::Desert, "assets/TitleScreen2.jpg");
+	if (id == 3) mTextures.load(Textures::Desert, "assets/TitleScreen3.jpg");
+	if (id == 4) mTextures.load(Textures::Desert, "assets/TitleScreen4.jpg");
+	if (id == 5) mTextures.load(Textures::Desert, "assets/TitleScreen5.jpg");
 }
 
 void StackWorld::buildScene() {

@@ -11,7 +11,7 @@
 
 class StackWorld : private sf::NonCopyable {
 public:
-	explicit StackWorld(sf::RenderWindow& window);
+	explicit StackWorld(sf::RenderWindow& window, int& id);
 	void update(sf::Time dt, sf::Time& at);
 	void draw();
 	CommandQueue& getCommandQueue();
@@ -29,7 +29,7 @@ public:
 	void loadFromFile();
 
 private:
-	void loadTextures();
+	void loadTextures(int id);
 	void buildScene();
 private:
 	void addToStackStep();

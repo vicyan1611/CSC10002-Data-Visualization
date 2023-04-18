@@ -11,7 +11,7 @@
 
 class QueueWorld : private sf::NonCopyable {
 public:
-	explicit QueueWorld(sf::RenderWindow& window);
+	explicit QueueWorld(sf::RenderWindow& window, int& id);
 	void update(sf::Time dt, sf::Time& at);
 	void draw();
 	CommandQueue& getCommandQueue();
@@ -27,7 +27,7 @@ public:
 	void runAtOnce();
 	void loadFromFile();
 private:
-	void loadTextures();
+	void loadTextures(int id);
 	void buildScene();
 	void enqueStep();
 	void dequeueStep();
