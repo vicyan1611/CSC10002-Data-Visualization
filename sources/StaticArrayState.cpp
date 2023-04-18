@@ -2,7 +2,7 @@
 
 StaticArrayState::StaticArrayState(StateStack& stack, Context context)
 	:State(stack, context)
-	, mSAWorld(*context.window)
+	, mSAWorld(*context.window, *context.id)
 	, mGUIContainer()
 {
 

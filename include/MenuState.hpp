@@ -16,5 +16,5 @@ private:
 private:
 	sf::Sprite mBackgroundSprite;
 	GUI::Container mGUIContainer;
-	int id = 0;
+	int& mBackgroundID;
 };

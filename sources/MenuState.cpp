@@ -7,10 +7,10 @@
 MenuState::MenuState(StateStack& stack, Context context)
 	:State(stack, context)
 	, mGUIContainer()
+	, mBackgroundID(*context.id)
 {
 	sf::Texture& texture = context.textures->get(Textures::TitleScreen);
 	mBackgroundSprite.setTexture(texture);
-	setBackground();
 
 	auto changeBackGroundButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	changeBackGroundButton->setPosition(1600, 200);
@@ -124,13 +124,13 @@ bool MenuState::handleEvent(const sf::Event& event) {
 }
 
 void MenuState::changeBackground() {
-	id++;
-	if (id > 5) id = 0;
+	mBackgroundID++;
+	if (mBackgroundID > 5) mBackgroundID = 0;
 	setBackground();
 }
 
 void MenuState::setBackground() {
-	switch (id) {
+	switch (mBackgroundID) {
 	case 0:
 		mBackgroundSprite.setTexture(getContext().textures->get(Textures::TitleScreen));
 		break;
