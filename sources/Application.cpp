@@ -16,14 +16,17 @@ Application::Application()
 	,mPlayer()
 	,mTextures()
 	,mFonts()
-	,mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer))
+	,id(0)
+	,mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, id))
 {
 	mWindow.setKeyRepeatEnabled(false);
 	mFonts.load(Fonts::Main, "assets/JetBrainsMono-Medium.ttf");
 	mTextures.load(Textures::TitleScreen, "assets/TitleScreen.png");
-	mTextures.load(Textures::TitleScreen1, "assets/TitleScreen2.jpg");
-	mTextures.load(Textures::TitleScreen2, "assets/TitleScree3.jpg");
-	mTextures.load(Textures::TitleScreen3, "assets/TitleScreen4.jpg");
+	mTextures.load(Textures::TitleScreen1, "assets/TitleScreen1.jpg");
+	mTextures.load(Textures::TitleScreen2, "assets/TitleScreen2.jpg");
+	mTextures.load(Textures::TitleScreen3, "assets/TitleScreen3.jpg");
+	mTextures.load(Textures::TitleScreen4, "assets/TitleScreen4.jpg");
+	mTextures.load(Textures::TitleScreen5, "assets/TitleScreen5.jpg");
 	mTextures.load(Textures::ButtonNormal, "assets/ButtonNormal.png");
 	mTextures.load(Textures::ButtonSelected, "assets/ButtonSelected.png");
 	mTextures.load(Textures::ButtonPressed, "assets/ButtonPressed.png");

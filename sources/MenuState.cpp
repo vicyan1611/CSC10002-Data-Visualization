@@ -10,14 +10,15 @@ MenuState::MenuState(StateStack& stack, Context context)
 {
 	sf::Texture& texture = context.textures->get(Textures::TitleScreen);
 	mBackgroundSprite.setTexture(texture);
-	//mContext = context;
-	/*auto changeBackGroundButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	setBackground();
+
+	auto changeBackGroundButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	changeBackGroundButton->setPosition(1600, 200);
 	changeBackGroundButton->setText("Change Background");
 	changeBackGroundButton->setCallback([this]() {
 		changeBackground();
 		});
-	mGUIContainer.pack(changeBackGroundButton);*/
+	mGUIContainer.pack(changeBackGroundButton);
 
 	auto playButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	playButton->setPosition(100, 250);
@@ -120,4 +121,33 @@ bool MenuState::update(sf::Time dt, sf::Time& at) {
 bool MenuState::handleEvent(const sf::Event& event) {
 	mGUIContainer.handleEvent(event);
 	return false;
+}
+
+void MenuState::changeBackground() {
+	id++;
+	if (id > 5) id = 0;
+	setBackground();
+}
+
+void MenuState::setBackground() {
+	switch (id) {
+	case 0:
+		mBackgroundSprite.setTexture(getContext().textures->get(Textures::TitleScreen));
+		break;
+	case 1:
+		mBackgroundSprite.setTexture(getContext().textures->get(Textures::TitleScreen1));
+		break;
+	case 2:
+		mBackgroundSprite.setTexture(getContext().textures->get(Textures::TitleScreen2));
+		break;
+	case 3:
+		mBackgroundSprite.setTexture(getContext().textures->get(Textures::TitleScreen3));
+		break;
+	case 4:
+		mBackgroundSprite.setTexture(getContext().textures->get(Textures::TitleScreen4));
+		break;
+	case 5:
+		mBackgroundSprite.setTexture(getContext().textures->get(Textures::TitleScreen5));
+		break;
+	}
 }

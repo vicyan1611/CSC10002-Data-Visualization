@@ -5,7 +5,7 @@
 
 namespace Textures {
 	enum ID {
-		TitleScreen, TitleScreen1, TitleScreen2, TitleScreen3, Eagle, Raptor, Desert,
+		TitleScreen, TitleScreen1, TitleScreen2, TitleScreen3, TitleScreen4, TitleScreen5, Eagle, Raptor, Desert,
 		ButtonNormal, ButtonSelected, ButtonPressed
 	};
 }

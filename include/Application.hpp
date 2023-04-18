@@ -20,6 +20,6 @@ private:
 	StateStack mStateStack;
 	TextureHolder mTextures;
 	FontHolder mFonts;
-
+	int id;
 	const sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
 };

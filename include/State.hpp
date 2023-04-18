@@ -29,11 +29,12 @@ class State {
 public:
 	typedef std::unique_ptr<State> Ptr;
 	struct Context {
-		Context(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts, Player& player);
+		Context(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts, Player& player, int& id);
 		sf::RenderWindow* window;
 		TextureHolder* textures;
 		FontHolder* fonts;
 		Player* player;
+		int* id;
 	};
 public:
 	State(StateStack& stack, Context context);

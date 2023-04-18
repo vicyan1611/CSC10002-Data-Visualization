@@ -11,6 +11,9 @@ public:
 	virtual bool update(sf::Time dt, sf::Time& at);
 	virtual bool handleEvent(const sf::Event& event);
 private:
+	void changeBackground();
+	void setBackground();
+private:
 	sf::Sprite mBackgroundSprite;
 	GUI::Container mGUIContainer;
 	int id = 0;
