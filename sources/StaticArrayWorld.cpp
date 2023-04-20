@@ -119,6 +119,7 @@ void StaticArrayWorld::searchArrayStep() {
 	for (auto player : mPlayerAircraftar) {
 		player->setColor(sf::Color::White);
 	}
+	mPseudocode->resetColor();
 	if (step == 0) return;
 	if (step <= mPlayerAircraftar.size()) {
 		for (int i = 0; i < step; ++i) {
@@ -128,6 +129,8 @@ void StaticArrayWorld::searchArrayStep() {
 		}
 		int tmpID = step - 1;
 		mPlayerAircraftar[tmpID]->setColor(sf::Color::Green);
+		if (mPlayerAircraftar[tmpID]->getValue() == searchValue) mPseudocode->setFound();
+		else mPseudocode->setLoopOutside();
 		return;
 	}
 	if (step == mPlayerAircraftar.size() + 1 && totalSearchStep == mPlayerAircraftar.size() + 2) {
@@ -136,6 +139,7 @@ void StaticArrayWorld::searchArrayStep() {
 				mPlayerAircraftar[i]->setColor(sf::Color::Red);
 			}
 		}
+		mPseudocode->setFound();
 	}
 }
 

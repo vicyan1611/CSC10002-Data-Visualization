@@ -10,6 +10,7 @@ Pseudocode::Pseudocode(const FontHolder& fonts, int num) {
 	mText2.setFont(fonts.get(Fonts::Main));
 	mText2.setFillColor(sf::Color::White);
 	mText2.setCharacterSize(18);
+
 	setStringInside();
 	setPositionInside();
 }
@@ -37,4 +38,19 @@ void Pseudocode::setOriginInside() {
 
 	bounds = mText2.getLocalBounds();
 	mText2.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+}
+
+void Pseudocode::setLoopOutside() {
+	mText1.setFillColor(sf::Color::Cyan);
+	mText2.setFillColor(sf::Color::White);
+}
+
+void Pseudocode::setFound() {
+	mText1.setFillColor(sf::Color::White);
+	mText2.setFillColor(sf::Color::Cyan);
+}
+
+void Pseudocode::resetColor() {
+	mText1.setFillColor(sf::Color::White);
+	mText2.setFillColor(sf::Color::White);
 }
