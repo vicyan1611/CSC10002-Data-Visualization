@@ -104,6 +104,11 @@ void StaticArrayWorld::searchArray(int value) {
 	searchValue = value;
 	operationType = 1;
 	step = 0;
+	std::unique_ptr<Pseudocode> code(new Pseudocode(mFonts, 1));
+	code->setPosition(100.f, 400.f);
+	code->setVelocity(0.f, 0.f);
+	mPseudocode = code.get();
+	mSceneLayers[Air]->attachChild(std::move(code));
 }
 
 void StaticArrayWorld::runAtOnce() {
@@ -145,6 +150,7 @@ void StaticArrayWorld::next() {
 		step = 0;
 		totalSearchStep = 0;
 		isRunAtOnce = 0;
+		mSceneLayers[Air]->detachChild(*mPseudocode);
 	}
 }
 

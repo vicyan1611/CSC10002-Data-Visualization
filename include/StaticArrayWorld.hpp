@@ -8,6 +8,7 @@
 #include <SpriteNode.hpp>
 #include <CommandQueue.hpp>
 #include <vector>
+#include <Pseudocode.hpp>
 
 class StaticArrayWorld : private sf::NonCopyable {
 public:
@@ -43,6 +44,8 @@ private:
 
 	sf::FloatRect mWorldBounds;
 	std::vector<Aircraft*> mPlayerAircraftar;
+	Pseudocode* mPseudocode;
+
 	CommandQueue mCommandQueue;
 	int totalSearchStep = 0, step = -1, searchValue = 0, operationType = 0;
 	bool isRunAtOnce = false;
