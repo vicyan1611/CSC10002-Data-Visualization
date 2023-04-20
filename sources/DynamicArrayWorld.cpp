@@ -195,6 +195,8 @@ void DynamicArrayWorld::searchArray(int value) {
 	operationType = 3;
 	step = 0;
 	totalSearchStep = int(mPlayerAircraftar.size()) + 1;
+	if (mPlayerAircraftar[mPlayerAircraftar.size() - 1]->getValue() == value) totalSearchStep++;
+
 	operation = { -1, value };
 }
 
@@ -203,14 +205,24 @@ void DynamicArrayWorld::searchArrayStep()
 	for (auto player : mPlayerAircraftar) {
 		player->setColor(sf::Color::White);
 	}
-	if (step == 0 || step > mPlayerAircraftar.size()) return;
-	for (int i = 0; i < step; ++i) {
-		if (mPlayerAircraftar[i]->getValue() == operation.second) {
-			mPlayerAircraftar[i]->setColor(sf::Color::Red);
+	if (step == 0) return;
+	if (step <= mPlayerAircraftar.size()) {
+		for (int i = 0; i < step; ++i) {
+			if (mPlayerAircraftar[i]->getValue() == operation.second) {
+				mPlayerAircraftar[i]->setColor(sf::Color::Red);
+			}
+		}
+		int tmpID = step - 1;
+		mPlayerAircraftar[tmpID]->setColor(sf::Color::Green);
+		return;
+	}
+	if (step == mPlayerAircraftar.size() + 1 && totalSearchStep == mPlayerAircraftar.size() + 2) {
+		for (int i = 0; i < mPlayerAircraftar.size(); ++i) {
+			if (mPlayerAircraftar[i]->getValue() == operation.second) {
+				mPlayerAircraftar[i]->setColor(sf::Color::Red);
+			}
 		}
 	}
-	int tmpID = step - 1;
-	mPlayerAircraftar[tmpID]->setColor(sf::Color::Green);
 }
 
 void DynamicArrayWorld::next() {
