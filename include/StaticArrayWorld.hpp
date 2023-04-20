@@ -26,6 +26,7 @@ public:
 private:
 	void loadTextures(int id);
 	void buildScene();
+	void searchArrayStep();
 private:
 	enum Layer {
 		Background,
@@ -43,6 +44,6 @@ private:
 	sf::FloatRect mWorldBounds;
 	std::vector<Aircraft*> mPlayerAircraftar;
 	CommandQueue mCommandQueue;
-	int totalSearchStep = 0, step = -1;
+	int totalSearchStep = 0, step = -1, searchValue = 0, operationType = 0;
 	bool isRunAtOnce = false;
 };

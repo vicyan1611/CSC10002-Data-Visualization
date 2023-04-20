@@ -97,14 +97,12 @@ void StaticArrayWorld::updateArray(int id, int value) {
 }
 
 void StaticArrayWorld::searchArray(int value) {
-	totalSearchStep = 0;
-	for (int i = 0; i < mPlayerAircraftar.size(); i++) {
-		if (mPlayerAircraftar[i]->getValue() == value) {
-			mPlayerAircraftar[i]->setColor(sf::Color::Cyan);
-			break;
-		}
+	totalSearchStep = int (mPlayerAircraftar.size()) + 1;
+	if (mPlayerAircraftar[mPlayerAircraftar.size() - 1]->getValue() == value) {
 		totalSearchStep++;
 	}
+	searchValue = value;
+	operationType = 1;
 	step = 0;
 }
 
@@ -112,25 +110,49 @@ void StaticArrayWorld::runAtOnce() {
 	isRunAtOnce = true;
 }
 
-void StaticArrayWorld::next() {
-	if (step == totalSearchStep) {
-		mPlayerAircraftar[step]->setColor(sf::Color::White);
-		isRunAtOnce = false;
+void StaticArrayWorld::searchArrayStep() {
+	for (auto player : mPlayerAircraftar) {
+		player->setColor(sf::Color::White);
+	}
+	if (step == 0) return;
+	if (step <= mPlayerAircraftar.size()) {
+		for (int i = 0; i < step; ++i) {
+			if (mPlayerAircraftar[i]->getValue() == searchValue) {
+				mPlayerAircraftar[i]->setColor(sf::Color::Red);
+			}
+		}
+		int tmpID = step - 1;
+		mPlayerAircraftar[tmpID]->setColor(sf::Color::Green);
 		return;
 	}
+	if (step == mPlayerAircraftar.size() + 1 && totalSearchStep == mPlayerAircraftar.size() + 2) {
+		for (int i = 0; i < mPlayerAircraftar.size(); ++i) {
+			if (mPlayerAircraftar[i]->getValue() == searchValue) {
+				mPlayerAircraftar[i]->setColor(sf::Color::Red);
+			}
+		}
+	}
+}
+
+void StaticArrayWorld::next() {
+	if (operationType == 0) return;
 	step++;
 	step = std::min(step, totalSearchStep);
-	int tmpID = step - 1;
-	if (step > 0) mPlayerAircraftar[tmpID]->setColor(sf::Color::White);
-	mPlayerAircraftar[step]->setColor(sf::Color::Red);	
+
+	searchArrayStep();
+	if (step >= totalSearchStep) {
+		operationType = 0;
+		step = 0;
+		totalSearchStep = 0;
+		isRunAtOnce = 0;
+	}
 }
 
 void StaticArrayWorld::previous() {
+	if (operationType == 0) return;
 	step--;
 	step = std::max(step, 0);
-	int tmpID = step + 1;
-	if (step < totalSearchStep) mPlayerAircraftar[tmpID]->setColor(sf::Color::White);
-	mPlayerAircraftar[step]->setColor(sf::Color::Red);
+	searchArrayStep();
 }
 
 void StaticArrayWorld::draw() {
