@@ -91,6 +91,12 @@ void DynamicArrayWorld::deleteFromArray(int id) {
 	step = 0;
 	operation = { id - 1, 0 };
 	std::cout << id << std::endl;
+
+	std::unique_ptr<Pseudocode> code(new Pseudocode(mFonts, 3));
+	code->setPosition(100.f, 400.f);
+	code->setVelocity(0.f, 0.f);
+	mPseudocode = code.get();
+	mSceneLayers[Air]->attachChild(std::move(code));
 }
 
 void DynamicArrayWorld::addToArrayStep() {
@@ -172,6 +178,7 @@ void DynamicArrayWorld::deleteFromArrayStep() {
 		}
 		tmp_mPlayerAircraftar.clear();
 	}
+	mPseudocode->resetColor();
 	if (step == 0) return;
 	int tmp_step = step;
 	for (int i = 0; i < mPlayerAircraftar.size()-1; ++i) {
@@ -182,20 +189,24 @@ void DynamicArrayWorld::deleteFromArrayStep() {
 		tmp_mPlayerAircraftar.push_back(player.get());
 		mSceneLayers[Air]->attachChild(std::move(player));
 	}
+	mPseudocode->setColorText(1);
 	tmp_step--;
-	if (tmp_step == 0) return;
+	if (tmp_step == 0) return; else mPseudocode->resetColor();
+	mPseudocode->setColorText(2);
 	for (int i = 0; i < mPlayerAircraftar.size(); ++i) {
 		if (i == operation.first) continue;
+		tmp_step--;
 		if (i < operation.first) {
 			tmp_mPlayerAircraftar[i]->setPosition(100.f + (i+1) * 100.f, 200.f);
 			tmp_mPlayerAircraftar[i]->setValue(mPlayerAircraftar[i]->getValue());
+			if (tmp_step == 0) mPseudocode->setColorText(3);
 		}
 		else {
 			int tmpID = i - 1;
 			tmp_mPlayerAircraftar[tmpID]->setPosition(100.f + i * 100.f, 200.f);
 			tmp_mPlayerAircraftar[tmpID]->setValue(mPlayerAircraftar[i]->getValue());
+			if (tmp_step == 0) mPseudocode->setColorText(4);
 		}
-		tmp_step--;
 		if (tmp_step == 0) return;
 	}
 }
