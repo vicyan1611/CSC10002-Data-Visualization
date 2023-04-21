@@ -8,6 +8,7 @@
 #include <SpriteNode.hpp>
 #include <CommandQueue.hpp>
 #include <vector>
+#include <Pseudocode.hpp>
 
 class DynamicArrayWorld : private sf::NonCopyable {
 public:
@@ -48,7 +49,9 @@ private:
 
 	sf::FloatRect mWorldBounds;
     std::vector<Aircraft*> mPlayerAircraftar, tmp_mPlayerAircraftar;
+	Pseudocode* mPseudocode;
 	CommandQueue mCommandQueue;
+	
 	int operationType = 0, totalSearchStep = 0, step = -1;
 	std::pair <int, int> operation = {-1, -1};
 	bool isRunAtOnce = false;
