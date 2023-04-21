@@ -74,6 +74,12 @@ void DynamicArrayWorld::addToArray(int id, int value) {
 	step = 0;
 	operation = {id-1, value};
 	std::cout << id << " " << value << std::endl;
+
+	std::unique_ptr<Pseudocode> code(new Pseudocode(mFonts, 2));
+	code->setPosition(100.f, 400.f);
+	code->setVelocity(0.f, 0.f);
+	mPseudocode = code.get();
+	mSceneLayers[Air]->attachChild(std::move(code));
 }
 
 void DynamicArrayWorld::deleteFromArray(int id) {
@@ -94,6 +100,7 @@ void DynamicArrayWorld::addToArrayStep() {
 		}
 		tmp_mPlayerAircraftar.clear();
 	}
+	mPseudocode->resetColor();
 	if (step == 0) return;
 	int tmp_step = step;
 	for (int i = 0; i < mPlayerAircraftar.size() + 1; ++i) {
@@ -104,29 +111,36 @@ void DynamicArrayWorld::addToArrayStep() {
 		tmp_mPlayerAircraftar.push_back(player.get());
 		mSceneLayers[Air]->attachChild(std::move(player));
 	}
-
+	mPseudocode->setColorText(1);
 	tmp_step--;
-	if (tmp_step == 0) return;
+	if (tmp_step == 0) return; else mPseudocode->resetColor();
+	mPseudocode->setColorText(2);
 	for (int i = 0; i < tmp_mPlayerAircraftar.size(); ++i) {
+		tmp_step--;
 		if (i < operation.first) {
 			tmp_mPlayerAircraftar[i]->setValue(mPlayerAircraftar[i]->getValue());
+			if (tmp_step == 0) mPseudocode->setColorText(3);
 		}
 		else if (i == operation.first) {
 			tmp_mPlayerAircraftar[i]->setValue(operation.second);
+			if (tmp_step == 0) mPseudocode->setColorText(4);
 		}
 		else {
 			int tmpID = i - 1;
 			tmp_mPlayerAircraftar[i]->setValue(mPlayerAircraftar[tmpID]->getValue());
+			if (tmp_step == 0) mPseudocode->setColorText(5);
 		}
-		tmp_step--;
 		if (tmp_step == 0) return;
 	}
 }
 
 void DynamicArrayWorld::reUpdate() {
 	isRunAtOnce = false;
-	mSceneLayers[Air]->detachChild(*mPseudocode);
-	if (operationType == 3) {
+	if (mPseudocode != nullptr) {
+		mSceneLayers[Air]->detachChild(*mPseudocode);
+		mPseudocode = nullptr;
+	}
+		if (operationType == 3) {
 		operationType = 0;
 		step = 0;
 		totalSearchStep = 0;
@@ -222,8 +236,8 @@ void DynamicArrayWorld::searchArrayStep()
 		}
 		int tmpID = step - 1;
 		mPlayerAircraftar[tmpID]->setColor(sf::Color::Green);
-		if (mPlayerAircraftar[tmpID]->getValue() == operation.second) mPseudocode->setFound();
-		else mPseudocode->setLoopOutside();
+		if (mPlayerAircraftar[tmpID]->getValue() == operation.second) mPseudocode->setColorText(2);
+		else mPseudocode->setColorText(1);
 		return;
 	}
 	if (step == mPlayerAircraftar.size() + 1 && totalSearchStep == mPlayerAircraftar.size() + 2) {
@@ -232,7 +246,7 @@ void DynamicArrayWorld::searchArrayStep()
 				mPlayerAircraftar[i]->setColor(sf::Color::Red);
 			}
 		}
-		mPseudocode->setFound();
+		mPseudocode->setColorText(2);
 	}
 }
 

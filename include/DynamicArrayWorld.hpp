@@ -49,7 +49,7 @@ private:
 
 	sf::FloatRect mWorldBounds;
     std::vector<Aircraft*> mPlayerAircraftar, tmp_mPlayerAircraftar;
-	Pseudocode* mPseudocode;
+	Pseudocode* mPseudocode = nullptr;
 	CommandQueue mCommandQueue;
 	
 	int operationType = 0, totalSearchStep = 0, step = -1;
