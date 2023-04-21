@@ -27,29 +27,15 @@ void SllWorld::setArray(std::vector<int> data) {
 	}
 	mSllNodes.clear();
 	
-	//create pHead;
-	std::unique_ptr<LLNode> pHead(new LLNode(0, mFonts, 1));
-	pHead->setPosition(100.f, 100.f);
-	pHead->setVelocity(0.f, 0.f);
-	pHead->setString("pHead");
-	mSllNodes.push_back(pHead.get());
-	mSceneLayers[Air]->attachChild(std::move(pHead));
-	
 	for (int i = 0; i < data.size(); ++i) {
-		std::unique_ptr<LLNode> sllNode(new LLNode(data[i], mFonts, 1));
-		sllNode->setPosition(100.f + (i + 1) * 180.f, 100.f);
+		std::unique_ptr<LLNode> sllNode(new LLNode(data[i], mFonts, (i == data.size() - 1) ? 0 : 1));
+		sllNode->setPosition(100.f + i * 180.f, 100.f);
 		sllNode->setVelocity(0.f, 0.f);
+		if (i == 0) sllNode->setColorSquare(sf::Color::Red);
+		if (i == data.size() - 1) sllNode->setColorSquare(sf::Color::Green);
 		mSllNodes.push_back(sllNode.get());
 		mSceneLayers[Air]->attachChild(std::move(sllNode));
 	}
-
-	//create nullptr
-	std::unique_ptr<LLNode> pNull(new LLNode(0, mFonts, 0));
-	pNull->setPosition(100.f + (data.size() + 1) * 180.f, 100.f);
-	pNull->setVelocity(0.f, 0.f);
-	pNull->setString("nullptr");
-	mSllNodes.push_back(pNull.get());
-	mSceneLayers[Air]->attachChild(std::move(pNull));
 }
 
 void SllWorld::setRandomArray() {
@@ -75,17 +61,11 @@ void SllWorld::addToArray(int id, int value) {
 		std::unique_ptr<LLNode> node(new LLNode(1, mFonts, (i == mSllNodes.size() - 1) ? 0: 1));
 		node->setPosition(mSllNodes[i]->getPosition());
 		node->setVelocity(0.f, 0.f);
-		if (i == 0) {
-			node->setString("pHead");
-		}
-		else if (i == mSllNodes.size() - 1) {
-			node->setString("nullptr");
-		}
-		else {
-			node->setString(std::to_string(mSllNodes[i]->getValue()));
-			mValue.push_back(mSllNodes[i]->getValue());
-		}
+		node->setString(std::to_string(mSllNodes[i]->getValue()));
+		mValue.push_back(mSllNodes[i]->getValue());
 		tmpSllNodes.push_back(node.get());
+		if (i == 0) node->setColorSquare(sf::Color::Red);
+		if (i == mSllNodes.size() - 1) node->setColorSquare(sf::Color::Green);
 		mSceneLayers[Air]->attachChild(std::move(node));
 		mSceneLayers[Air]->detachChild(*mSllNodes[i]);
 	}
@@ -105,28 +85,23 @@ void SllWorld::addToArrayStep() {
 		std::unique_ptr<LLNode> node(new LLNode(1, mFonts, (i == mSllNodes.size() - 1) ? 0 : 1));
 		node->setPosition(100.f + i * 180.f, 100.f);
 		node->setVelocity(0.f, 0.f);
-		if (i == 0) {
-			node->setString("pHead");
-		}
-		else if (i == mSllNodes.size() - 1) {
-			node->setString("nullptr");
-		}
-		else {
-			int tmpID = i - 1;
-			node->setValue(mValue[tmpID]);
-		}
+		if (i == 0) node->setColorSquare(sf::Color::Red);
+		if (i == mSllNodes.size() - 1) node->setColorSquare(sf::Color::Green);
+		node->setValue(mValue[i]);
 		tmpSllNodes.push_back(node.get());
 		mSceneLayers[Air]->attachChild(std::move(node));
 	}
 	if (tmpStep < operation.first) {
-		tmpSllNodes[tmpStep]->setColor(sf::Color::Cyan);
+		int tmpID = tmpStep-1;
+		tmpSllNodes[tmpID]->setColor(sf::Color::Cyan);
 	}
 	else if (tmpStep >= operation.first) {
-		tmpSllNodes[tmpStep]->setColor(sf::Color::Cyan);
+		int tmpID = tmpStep - 1;
+		tmpSllNodes[tmpID]->setColor(sf::Color::Cyan);
 		std::unique_ptr<LLNode> newNode(new LLNode(operation.second, mFonts, 1));
-		newNode->setPosition(tmpSllNodes[tmpStep]->getPosition() + sf::Vector2f(0.f, 75.f));
+		newNode->setPosition(tmpSllNodes[tmpID]->getPosition() + sf::Vector2f(0.f, 75.f));
 		newNode->setVelocity(0.f, 0.f);
-		tmpSllNodes.insert(tmpSllNodes.begin() + operation.first, newNode.get());
+		tmpSllNodes.insert(tmpSllNodes.begin() + (operation.first-1), newNode.get());
 		mSceneLayers[Air]->attachChild(std::move(newNode));
 	}
 	if (tmpStep > operation.first) {
