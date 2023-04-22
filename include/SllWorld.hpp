@@ -8,6 +8,7 @@
 #include <CommandQueue.hpp>
 #include <vector>
 #include <LLNode.hpp>
+#include <Pseudocode.hpp>
 
 class SllWorld : private sf::NonCopyable {
 public:
@@ -50,6 +51,7 @@ private:
 	std::vector<LLNode*> mSllNodes, tmpSllNodes;
 	sf::FloatRect mWorldBounds;
 	CommandQueue mCommandQueue;
+	Pseudocode* mPseudocode;
 
 	int totalStep = 0, step = -1, operationType = 0;
 	std::pair <int, int> operation = { -1, -1 };

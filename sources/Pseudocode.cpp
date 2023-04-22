@@ -39,6 +39,11 @@ void Pseudocode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) 
 		target.draw(mText3, states);
 		target.draw(mText4, states);
 	}
+	else if (mNum == 4) {
+		target.draw(mText3, states);
+		target.draw(mText4, states);
+		target.draw(mText5, states);
+	}
 }
 void Pseudocode::setStringInside() {
 	if (mNum == 1) {
@@ -57,6 +62,13 @@ void Pseudocode::setStringInside() {
 		mText2.setString("for index: 1 -> sizeof(newArr)");
 		mText3.setString("	if (index < position) newArr[index] = arr[index];");
 		mText4.setString("	if (index >= position) newArr[index] = arr[index+1]");
+	}
+	else if (mNum == 4) {
+		mText1.setString("Node* cur = pHead, pre = nullptr");
+		mText2.setString("for k: 0 -> position - 2 { pre = cur; cur = cur->pNext }");
+		mText3.setString("newNode = createNode(value)");
+		mText4.setString("newNode->pNext = cur");
+		mText5.setString("pre->pNext = newNode");
 	}
 }
 
