@@ -72,31 +72,24 @@ void DllWorld::setArray(std::vector<int> data	) {
 		}
 		mDllNodes.clear();
 	}
-	
-	//create first nullptr
-	std::unique_ptr<LLNode> fNull(new LLNode(0, mFonts, 0));
-	fNull->setPosition(100.f, 100.f);
-	fNull->setVelocity(0.f, 0.f);
-	fNull->setString("nullptr");
-	mDllNodes.push_back(fNull.get());
-	mSceneLayers[Air]->attachChild(std::move(fNull));
-
 	for (int i = 0; i < data.size(); ++i) {
 		std::unique_ptr <LLNode> dllNode(new LLNode(data[i], mFonts, 3));
-		dllNode->setPosition(100.f + (i + 1) * 180.f, 100.f);
+		dllNode->setPosition(100.f + i * 180.f, 100.f);
 		dllNode->setVelocity(0.f, 0.f);
-		if (i == 0) dllNode->setColorSquare(sf::Color::Red);//not red, just an trash value
+		if (i == 0)
+		{
+			dllNode->setColorSquare(sf::Color::Red);
+			dllNode->setDirection(1);
+		}
+		if (i == data.size() - 1)
+		{
+			dllNode->setColorSquare(sf::Color::Green);
+			dllNode->setDirection(2);
+		}
 		mDllNodes.push_back(dllNode.get());
 		mSceneLayers[Air]->attachChild(std::move(dllNode));
 	}
-
-	//create last nullptr
-	std::unique_ptr<LLNode> lNull(new LLNode(0, mFonts, 0));
-	lNull->setPosition(100.f + (data.size() + 1) * 180.f, 100.f);
-	lNull->setVelocity(0.f, 0.f);
-	lNull->setString("nullptr");
-	mDllNodes.push_back(lNull.get());
-	mSceneLayers[Air]->attachChild(std::move(lNull));
+	if (data.size() == 1) mDllNodes[0]->setDirection(0);
 }
 
 void DllWorld::setRandomArray() {
@@ -109,36 +102,47 @@ void DllWorld::setRandomArray() {
 }
 
 void DllWorld::addToArray(int id, int value) {
-	if (id < 1 || id > mDllNodes.size() - 2) {
+	if (id < 1 || id > mDllNodes.size()) {
 		std::cout << "Invalid id" << std::endl;
 		return;
 	}
 	operationType = 1;
-	totalStep = id + 1;
+	totalStep = id + 2;
 	step = 0;
 	operation = { id, value };
 	mValue.clear();
 	for (int i = 0; i < mDllNodes.size(); ++i) {
-		int numEdges = 3;
-		if (i == 0 || i == mDllNodes.size() - 1) numEdges = 0;
-		std::unique_ptr<LLNode> node(new LLNode(1, mFonts, numEdges));
+		std::unique_ptr<LLNode> node(new LLNode(1, mFonts, 3));
 		node->setPosition(mDllNodes[i]->getPosition());
 		node->setVelocity(0.f, 0.f);
-		if (i == 0 || i == mDllNodes.size() - 1) node->setString("nullptr"); 
-		else {
-			node->setValue(mDllNodes[i]->getValue());
-			mValue.push_back(mDllNodes[i]->getValue());
+		node->setValue(mDllNodes[i]->getValue());
+		mValue.push_back(mDllNodes[i]->getValue());
+		if (i == 0)
+		{
+			node->setColorSquare(sf::Color::Red);
+			node->setDirection(1);
 		}
-		if (i == 1) node->setColorSquare(sf::Color::Red);
+		if (i == mDllNodes.size() - 1)
+		{
+			node->setColorSquare(sf::Color::Green);
+			node->setDirection(2);
+		}
 		tmpDllNodes.push_back(node.get());
 		mSceneLayers[Air]->attachChild(std::move(node));
 		mSceneLayers[Air]->detachChild(*mDllNodes[i]);
 	}
-	std::cout << id << " " << value << std::endl;
+	if (tmpDllNodes.size() == 1) mDllNodes[0]->setDirection(0);
+	std::cout << id << " add to DLL " << value << std::endl;
+
+	std::unique_ptr<Pseudocode> code(new Pseudocode(mFonts, 8));
+	code->setPosition(100.f, 400.f);
+	code->setVelocity(0.f, 0.f);
+	mPseudocode = code.get();
+	mSceneLayers[Air]->attachChild(std::move(code));
 }
 
 void DllWorld::deleteFromArray(int id) {
-	if (id < 1 || id > mDllNodes.size() - 2) {
+	if (id < 1 || id > mDllNodes.size()) {
 		std::cout << "Invalid id" << std::endl;
 		return;
 	}
@@ -148,25 +152,30 @@ void DllWorld::deleteFromArray(int id) {
 	operation = { id, 0 };
 	mValue.clear();
 	for (int i = 0; i < mDllNodes.size(); ++i) {
-		int numEdges = 3;
-		if (i == 0 || i == mDllNodes.size() - 1) numEdges = 0;
-		std::unique_ptr<LLNode> node(new LLNode(1, mFonts, numEdges));
+		std::unique_ptr<LLNode> node(new LLNode(1, mFonts, 3));
 		node->setPosition(mDllNodes[i]->getPosition());
 		node->setVelocity(0.f, 0.f);
-		if (i == 0 || i == mDllNodes.size() - 1) node->setString("nullptr");
-		else {
-			node->setValue(mDllNodes[i]->getValue());
-			mValue.push_back(mDllNodes[i]->getValue());
+		node->setValue(mDllNodes[i]->getValue());
+		mValue.push_back(mDllNodes[i]->getValue());
+		if (i == 0)
+		{
+			node->setColorSquare(sf::Color::Red);
+			node->setDirection(1);
 		}
-		if (i == 1) node->setColorSquare(sf::Color::Red);
+		if (i == mDllNodes.size() - 1)
+		{
+			node->setColorSquare(sf::Color::Green);
+			node->setDirection(2);
+		}
 		tmpDllNodes.push_back(node.get());
 		mSceneLayers[Air]->attachChild(std::move(node));
 		mSceneLayers[Air]->detachChild(*mDllNodes[i]);
 	}
+	if (tmpDllNodes.size() == 1) mDllNodes[0]->setDirection(0);
 }
 
 void DllWorld::updateArray(int id, int value) {
-	if (id < 1 || id > int(mDllNodes.size()) - 2) {
+	if (id < 1 || id > int(mDllNodes.size()) ) {
 		std::cout << "Invalid id" << std::endl;
 		return;
 	}
@@ -194,31 +203,39 @@ void DllWorld::addToArrayStep() {
 		}
 		tmpDllNodes.clear();
 	}
+	mPseudocode->resetColor();
 	int tmpStep = step;
 	for (int i = 0; i < mDllNodes.size(); ++i) {
-		int numEdges = 3;
-		if (i == 0 || i == mDllNodes.size() - 1) numEdges = 0;
-		std::unique_ptr<LLNode> node(new LLNode(1, mFonts, numEdges));
+		std::unique_ptr<LLNode> node(new LLNode(1, mFonts, 3));
 		node->setPosition(100.f + i * 180.f, 100.f);
 		node->setVelocity(0.f, 0.f);
-		if (i == 0 || i == mDllNodes.size() - 1) node->setString("nullptr");
-		else {
-			int tmpID = i - 1;
-			node->setValue(mValue[tmpID]);
+		node->setValue(mValue[i]);
+		if (i == 0)
+		{
+			node->setColorSquare(sf::Color::Red);
+			node->setDirection(1);
 		}
-		if (i == 1) node->setColorSquare(sf::Color::Red);
+		if (i == mDllNodes.size() - 1)
+		{
+			node->setColorSquare(sf::Color::Green);
+			node->setDirection(2);
+		}
 		tmpDllNodes.push_back(node.get());
 		mSceneLayers[Air]->attachChild(std::move(node));
 	}
+	if (tmpDllNodes.size() == 1) mDllNodes[0]->setDirection(0);
 	if (tmpStep < operation.first) {
-		tmpDllNodes[tmpStep]->setColor(sf::Color::Cyan);
+		tmpDllNodes[tmpStep-1]->setColor(sf::Color::Cyan);
+		if (tmpStep == 1) mPseudocode->setColorText(1);
+		else mPseudocode->setColorText(2);
 	}
 	else if (tmpStep >= operation.first) {
-		tmpDllNodes[tmpStep]->setColor(sf::Color::Cyan);
+		tmpDllNodes[tmpStep- 1]->setColor(sf::Color::Cyan);
+		mPseudocode->setColorText(3);
 		std::unique_ptr<LLNode> newNode(new LLNode(operation.second, mFonts, 3));
-		newNode->setPosition(tmpDllNodes[tmpStep]->getPosition() + sf::Vector2f(0.f, 75.f));
+		newNode->setPosition(tmpDllNodes[tmpStep-1]->getPosition() + sf::Vector2f(0.f, 75.f));
 		newNode->setVelocity(0.f, 0.f);
-		tmpDllNodes.insert(tmpDllNodes.begin() + operation.first, newNode.get());
+		tmpDllNodes.insert(tmpDllNodes.begin() + operation.first - 1, newNode.get());
 		mSceneLayers[Air]->attachChild(std::move(newNode));
 	}
 	if (tmpStep > operation.first) {
@@ -226,6 +243,7 @@ void DllWorld::addToArrayStep() {
 			tmpDllNodes[i]->setPosition(100.f + i * 180.f, 100.f);
 			tmpDllNodes[i]->setColor(sf::Color::White);
 			if (i == 1) tmpDllNodes[i]->setColorSquare(sf::Color::Red);
+			mPseudocode->resetColor(); mPseudocode->setColorText(4); mPseudocode->setColorText(5);
 		}
 	}
 }
@@ -305,6 +323,10 @@ void DllWorld::searchArrayStep() {
 
 void DllWorld::reUpdate() {
 	isRunAtOnce = false;
+	if (mPseudocode != nullptr) {
+		mSceneLayers[Air]->detachChild(*mPseudocode);
+		mPseudocode = nullptr;
+	}
 	if (operationType == 3 || operationType == 4) {
 		operationType = 0;
 		step = totalStep = 0;

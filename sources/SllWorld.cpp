@@ -48,7 +48,7 @@ void SllWorld::setRandomArray() {
 }
 
 void SllWorld::addToArray(int id, int value) {
-	if (id < 1 || id > int(mSllNodes.size()) - 2) {
+	if (id < 1 || id > int(mSllNodes.size())) {
 		std::cout << "Invalid id" << std::endl;
 		return;
 	}

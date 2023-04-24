@@ -8,6 +8,8 @@
 #include <CommandQueue.hpp>
 #include <vector>
 #include <LLNode.hpp>
+#include <DllWorld.hpp>
+#include <Pseudocode.hpp>
 
 class DllWorld : private sf::NonCopyable {
 public:
@@ -51,6 +53,7 @@ private:
 
 	std::vector<LLNode*> mDllNodes, tmpDllNodes;
 	LLNode* tmp;
+	Pseudocode* mPseudocode;
 	sf::FloatRect mWorldBounds;
 	CommandQueue mCommandQueue;
 
