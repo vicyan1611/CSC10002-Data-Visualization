@@ -124,9 +124,9 @@ void SllWorld::addToArrayStep() {
 }
 
 void SllWorld::deleteFromArray(int id) {
-	if (id < 1 || id > int(mSllNodes.size()) - 2) return;
+	if (id < 1 || id > mSllNodes.size()) return;
 	operationType = 2;
-	totalStep = id + 1;
+	totalStep = id + 2;
 	operation = { id, -1 };
 	step = 0;
 	mValue.clear();
@@ -134,21 +134,23 @@ void SllWorld::deleteFromArray(int id) {
 		std::unique_ptr<LLNode> node(new LLNode(1, mFonts, (i == mSllNodes.size() - 1) ? 0 : 1));
 		node->setPosition(mSllNodes[i]->getPosition());
 		node->setVelocity(0.f, 0.f);
-		if (i == 0) {
-			node->setString("pHead");
-		}
-		else if (i == mSllNodes.size() - 1) {
-			node->setString("nullptr");
-		}
-		else {
-			node->setString(std::to_string(mSllNodes[i]->getValue()));
-			mValue.push_back(mSllNodes[i]->getValue());
-		}
+
+		node->setValue(mSllNodes[i]->getValue());
+		mValue.push_back(mSllNodes[i]->getValue());
+
+		if (i == 0) node->setColorSquare(sf::Color::Red);
+		if (i == mSllNodes.size() - 1) node->setColorSquare(sf::Color::Green);
 		tmpSllNodes.push_back(node.get());
 		mSceneLayers[Air]->attachChild(std::move(node));
 		mSceneLayers[Air]->detachChild(*mSllNodes[i]);
 	}
 	std::cout << id << "\n";
+
+	std::unique_ptr<Pseudocode> code(new Pseudocode(mFonts, 5));
+	code->setPosition(100.f, 400.f);
+	code->setVelocity(0.f, 0.f);
+	mPseudocode = code.get();
+	mSceneLayers[Air]->attachChild(std::move(code));
 }
 
 void SllWorld::deleteFromArrayStep() {
@@ -159,33 +161,58 @@ void SllWorld::deleteFromArrayStep() {
 		}
 		tmpSllNodes.clear();
 	}
+	mPseudocode->resetColor();
 	for (int i = 0; i < mSllNodes.size(); ++i) {
 		std::unique_ptr<LLNode> node(new LLNode(1, mFonts, (i == mSllNodes.size() - 1) ? 0 : 1));
 		node->setPosition(100.f + i * 180.f, 100.f);
 		node->setVelocity(0.f, 0.f);
-		if (i == 0) {
-			node->setString("pHead");
-		}
-		else if (i == mSllNodes.size() - 1) {
-			node->setString("nullptr");
-		}
-		else {
-			int tmpID = i - 1;
-			node->setValue(mValue[tmpID]);
-		}
+		if (i == 0)	node->setColorSquare(sf::Color::Red);
+		if (i == mSllNodes.size() - 1)	node->setColorSquare(sf::Color::Green);
+		node->setValue(mValue[i]);
 		tmpSllNodes.push_back(node.get());
 		mSceneLayers[Air]->attachChild(std::move(node));
 	}
-	if (step <= operation.first) {
-		tmpSllNodes[step]->setColor(sf::Color::Cyan);
+	if (step < operation.first) {
+		int tmpID = step - 1;
+		if (tmpID == 0) mPseudocode->setColorText(1); else mPseudocode->setColorText(2);
+		tmpSllNodes[tmpID]->setColor(sf::Color::Cyan);
 	}
-	else {
-		mSceneLayers[Air]->detachChild(*tmpSllNodes[operation.first]);
-		tmpSllNodes.erase(tmpSllNodes.begin() + operation.first);
+	if (step >= operation.first) {
+		mPseudocode->setColorText(3); mPseudocode->setColorText(4);
+		mSceneLayers[Air]->detachChild(*tmpSllNodes[operation.first - 1]);
+		tmpSllNodes.erase(tmpSllNodes.begin() + operation.first - 1);
 		for (int i = 0; i < tmpSllNodes.size(); ++i) {
 			tmpSllNodes[i]->setPosition(100.f + i * 180.f, 100.f);
 			tmpSllNodes[i]->setColor(sf::Color::White);
+			if (i == 0) tmpSllNodes[i]->setColorSquare(sf::Color::Red);
+			if (i == tmpSllNodes.size() - 1)
+			{
+				tmpSllNodes[i]->setColorSquare(sf::Color::Green);
+				tmpSllNodes[i]->setDirection(0);
+			}
 		}
+		std::unique_ptr<LLNode> node(new LLNode(1, mFonts, 4));
+		node->setPosition(100.f + (operation.first - 1) * 180.f, 230.f);
+		node->setVelocity(0.f, 0.f);
+		node->setValue(mValue[operation.first - 1]);
+		tmpSllNodes.push_back(node.get());
+		mSceneLayers[Air]->attachChild(std::move(node));
+	}
+	if (step > operation.first) {
+		mSceneLayers[Air]->detachChild(*tmpSllNodes[tmpSllNodes.size() - 1]);
+		tmpSllNodes.pop_back();
+		for (int i = 0; i < tmpSllNodes.size(); ++i) {
+			tmpSllNodes[i]->setPosition(100.f + i * 180.f, 100.f);
+			tmpSllNodes[i]->setColor(sf::Color::White);
+			if (i == 0) tmpSllNodes[i]->setColorSquare(sf::Color::Red);
+			if (i == tmpSllNodes.size() - 1) {
+				tmpSllNodes[i]->setDirection(0);
+				tmpSllNodes[i]->setColorSquare(sf::Color::Green);
+
+			}
+		}
+		mPseudocode->resetColor();
+		mPseudocode->setColorText(5);
 	}
 }
 
