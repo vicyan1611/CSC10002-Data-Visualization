@@ -254,20 +254,31 @@ void SllWorld::searchArrayStep() {
 	for (int i = 0; i < mSllNodes.size(); ++i) {
 		mSllNodes[i]->setColor(sf::Color::White);
 	}
+	mPseudocode->resetColor();
 	int tmpStep = step;
-	for (int i = 1; i < mSllNodes.size() - 1; ++i) {
+	mPseudocode->setColorText(1);
+	if (--tmpStep == 0) return;
+	for (int i = 0; i < mSllNodes.size(); ++i) {
 		if (mSllNodes[i]->getValue() == operation.second) {
-			mSllNodes[i]->setColor(sf::Color::Cyan);
+			mSllNodes[i]->setColor(sf::Color::Green);
 		}
 		tmpStep--;
 		if (tmpStep == 0) {
-			mSllNodes[i]->setColor(sf::Color::Green);
+			mPseudocode->resetColor();
+			mPseudocode->setColorText(2);
+			mPseudocode->setColorText(3);
+			if (mSllNodes[i]->getValue() == operation.second) mPseudocode->setColorText(4);
+			mPseudocode->setColorText(5);
+			mSllNodes[i]->setColor(sf::Color::Cyan);
 			break;
 		}
 	}
 	if (tmpStep == 0) return;
-	if (mSllNodes[mSllNodes.size() - 2]->getValue() == operation.second) {
-		mSllNodes[mSllNodes.size() - 2]->setColor(sf::Color::Cyan);
+	if (mSllNodes[mSllNodes.size() - 1]->getValue() == operation.second) {
+		mPseudocode->resetColor();
+		mPseudocode->setColorText(3);
+		mPseudocode->setColorText(4);
+		mSllNodes[mSllNodes.size() - 1]->setColor(sf::Color::Green);
 		tmpStep--;
 	}
 	if (tmpStep == 0) return;
@@ -280,12 +291,18 @@ void SllWorld::searchArray(int value) {
 	if (mSllNodes.empty()) return;
 	operationType = 4;
 	step = 0;
-	totalStep = int(mSllNodes.size()) - 2 + 1;
-	int tmpID = int(mSllNodes.size()) - 2;
+	totalStep = mSllNodes.size()+ 2;
+	int tmpID = mSllNodes.size() - 1;
 	if (mSllNodes[tmpID]->getValue() == value) {
 		totalStep += 1;
 	}
 	operation = { -1, value };
+
+	std::unique_ptr<Pseudocode> code(new Pseudocode(mFonts, 7));
+	code->setPosition(100.f, 400.f);
+	code->setVelocity(0.f, 0.f);
+	mPseudocode = code.get();
+	mSceneLayers[Air]->attachChild(std::move(code));
 }
 
 void SllWorld::reUpdate() {

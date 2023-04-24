@@ -31,7 +31,7 @@ void Pseudocode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) 
 	target.draw(mText1, states);
 	target.draw(mText2, states);
 	target.draw(mText3, states);
-	if (mNum == 2 || mNum == 4 || mNum == 5) {
+	if (mNum == 2 || mNum == 4 || mNum == 5 || mNum == 7) {
 		target.draw(mText4, states);
 		target.draw(mText5, states);
 	}
@@ -72,6 +72,13 @@ void Pseudocode::setStringInside() {
 		mText1.setString("Node* cur = pHead");
 		mText2.setString("for k: 0 -> position - 2 { cur = cur->pNext }");
 		mText3.setString("cur->value = value");
+	}
+	else if (mNum == 7) {
+		mText1.setString("Node* cur = pHead; result = createNewEmptyVector(); int counter = 0");
+		mText2.setString("for k: 0 -> sizeOfLinkedList - 2");
+		mText3.setString("	counter = counter + 1");
+		mText4.setString("	if (cur->value == value) result.push_back(counter)");
+		mText5.setString("	cur = cur->pNext");
 	}
 }
 
