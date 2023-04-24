@@ -220,10 +220,15 @@ void SllWorld::updateArrayStep() {
 	if (step == 0) return;
 	for (auto node : mSllNodes)
 		node->setColor(sf::Color::White);
-	if (step <= operation.first)
-		mSllNodes[step]->setColor(sf::Color::Cyan);
+	mPseudocode->resetColor();
+	if (step <= operation.first) {
+		mSllNodes[step-1]->setColor(sf::Color::Cyan);
+		if (step == 1) mPseudocode->setColorText(1);
+		else mPseudocode->setColorText(2);
+	}
 	else {
-		mSllNodes[operation.first]->setValue(operation.second);
+		mPseudocode->setColorText(3);
+		mSllNodes[operation.first - 1]->setValue(operation.second);
 	}
 }
 
@@ -234,8 +239,14 @@ void SllWorld::updateArray(int id, int value) {
 	}
 	operationType = 3;
 	step = 0;
-	totalStep = id + 1;
+	totalStep = id + 2;
 	operation = { id, value };
+	
+	std::unique_ptr<Pseudocode> code(new Pseudocode(mFonts, 6));
+	code->setPosition(100.f, 400.f);
+	code->setVelocity(0.f, 0.f);
+	mPseudocode = code.get();
+	mSceneLayers[Air]->attachChild(std::move(code));
 }
 
 void SllWorld::searchArrayStep() {
@@ -281,6 +292,7 @@ void SllWorld::reUpdate() {
 	isRunAtOnce = false;
 	if (mPseudocode != nullptr) {
 		mSceneLayers[Air]->detachChild(*mPseudocode);
+		mPseudocode = nullptr;
 	}
 	if (operationType == 3 || operationType == 4) {
 		operationType = 0;
