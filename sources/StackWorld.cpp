@@ -67,6 +67,7 @@ void StackWorld::setArray(std::vector<int> data) {
 		}
 		mStackNodes.clear();
 	}
+	if (data.size() == 0) return;
 	for (int i = 0; i < data.size(); ++i) {
 		std::unique_ptr<LLNode> node(new LLNode(data[i], mFonts, 1));
 		node->setPosition(100.f + i * 180.f, 100.f);
@@ -104,6 +105,12 @@ void StackWorld::addToStack(int x) {
 	totalStep = 3;
 	step = 0;
 	value = x;
+
+	std::unique_ptr<Pseudocode> code(new Pseudocode(mFonts, 10));
+	code->setPosition(100.f, 400.f);
+	code->setVelocity(0.f, 0.f);
+	mPseudocode = code.get();
+	mSceneLayers[Air]->attachChild(std::move(code));
 }
 
 void StackWorld::addToStackStep() {
@@ -113,6 +120,7 @@ void StackWorld::addToStackStep() {
 		}
 		tmpNodes.clear();
 	}
+	mPseudocode->resetColor();
 	mStackNodes[0]->setColorSquare(sf::Color::Red);
 
 	if (step == 0) return;
@@ -123,15 +131,17 @@ void StackWorld::addToStackStep() {
 	tmpNode->setVelocity(0.f, 0.f);
 	tmpNodes.push_back(tmpNode.get());
 	mSceneLayers[Air]->attachChild(std::move(tmpNode));
-	
+	mPseudocode->setColorText(1);
+	mPseudocode->setColorText(2);
 
 	if (--tmpStep == 0) return;
 	std::cout << "step2: " << tmpStep << std::endl;
 	mStackNodes[0]->setColorSquare(sf::Color::White);
 	tmpNodes[0]->setColorSquare(sf::Color::Red);
+	mPseudocode->resetColor();
+	mPseudocode->setColorText(3);
 
 	if (--tmpStep == 0) return;
-
 	std::unique_ptr<LLNode> node(new LLNode(value, mFonts, 1));
 	node->setVelocity(0.f, 0.f);
 	mStackNodes.insert(mStackNodes.begin(), node.get());
@@ -147,14 +157,23 @@ void StackWorld::addToStackStep() {
 void StackWorld::deleteFromStack() {
 	if (mStackNodes.empty()) return;
 	operationType = 2;
-	totalStep = 2;
+	totalStep = 3;
 	step = 0;
+
+	std::unique_ptr<Pseudocode> code(new Pseudocode(mFonts, 11));
+	code->setPosition(100.f, 400.f);
+	code->setVelocity(0.f, 0.f);
+	mPseudocode = code.get();
+	mSceneLayers[Air]->attachChild(std::move(code));
 }
 
 void StackWorld::deleteFromStackStep() {
+	mPseudocode->resetColor();
 	if (step == 1) {
 		mStackNodes[0]->setColorSquare(sf::Color::White);
 		mStackNodes[1]->setColorSquare(sf::Color::Red);
+		mPseudocode->setColorText(1);
+		mPseudocode->setColorText(2);
 	}
 	if (step == 2) {
 		mSceneLayers[Air]->detachChild(*mStackNodes[0]);
@@ -162,6 +181,11 @@ void StackWorld::deleteFromStackStep() {
 		for (int i = 0; i < mStackNodes.size(); ++i) {
 			mStackNodes[i]->setPosition(100.f + i * 180.f, 100.f);
 		}
+		if (mStackNodes.size() == 1) {
+			std::vector<int> v;
+			setArray(v);
+		}
+		mPseudocode->setColorText(3);
 	}
 }
 
@@ -192,6 +216,10 @@ void StackWorld::reUpdate() {
 			mSceneLayers[Air]->detachChild(*node);
 		}
 		tmpNodes.clear();
+	}
+	if (mPseudocode != nullptr) {
+		mSceneLayers[Air]->detachChild(*mPseudocode);
+		mPseudocode = nullptr;
 	}
 }
 

@@ -94,6 +94,21 @@ void Pseudocode::setStringInside() {
 		mText4.setString("pre->pNext = aft; aft->pPrev = pre");
 		mText5.setString("delete del");
 	}
+	else if (mNum == 10) {
+		mText1.setString("Node* newNode = createNewNode(value)");
+		mText2.setString("newNode->pNext = pHead");
+		mText3.setString("pHead = newNode");
+	}
+	else if (mNum == 11) {
+		mText1.setString("Node* del = pHead");
+		mText2.setString("pHead = pHead->pNext");
+		mText3.setString("delete del");
+	}
+	else if (mNum == 12) {
+		mText1.setString("Node* newNode = createNewNode(value)");
+		mText2.setString("pTail->pNext = newNode");
+		mText3.setString("pTail = newNode");
+	}
 }
 
 void Pseudocode::setPositionInside() {

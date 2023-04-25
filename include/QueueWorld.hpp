@@ -8,6 +8,7 @@
 #include <CommandQueue.hpp>
 #include <vector>
 #include <LLNode.hpp>
+#include <Pseudocode.hpp>
 
 class QueueWorld : private sf::NonCopyable {
 public:
@@ -46,6 +47,7 @@ private:
 	SceneNode mSceneGraph;
 	std::array<SceneNode*, LayerCount> mSceneLayers;
 
+	Pseudocode* mPseudocode;
 	std::vector <LLNode*> mQueueNodes, tmpNodes;
 
 	sf::FloatRect mWorldBounds;

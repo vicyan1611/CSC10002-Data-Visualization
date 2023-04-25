@@ -71,17 +71,29 @@ void QueueWorld::enqueue(int x) {
 		temp.push_back(x);
 		setArray(temp);
 	}
-	totalStep = 2;
+	totalStep = 3;
 	operationType = 1;
 	step = 0;
 	value = x;
+
+	std::unique_ptr<Pseudocode> code(new Pseudocode(mFonts, 12));
+	code->setPosition(100.f, 400.f);
+	code->setVelocity(0.f, 0.f);
+	mPseudocode = code.get();
+	mSceneLayers[Air]->attachChild(std::move(code));
 }
 
 void QueueWorld::dequeue() {
 	if (mQueueNodes.empty()) return;
-	totalStep = 2;
+	totalStep = 3;
 	operationType = 2;
 	step = 0;
+
+	std::unique_ptr<Pseudocode> code(new Pseudocode(mFonts, 11));
+	code->setPosition(100.f, 400.f);
+	code->setVelocity(0.f, 0.f);
+	mPseudocode = code.get();
+	mSceneLayers[Air]->attachChild(std::move(code));
 }
 
 void QueueWorld::searchQueue(int x) {
@@ -101,6 +113,7 @@ void QueueWorld::enqueStep() {
 		}
 		tmpNodes.clear();
 	}
+	mPseudocode->resetColor();
 	if (step == 0) return;
 	if (step == 1) {
 		std::unique_ptr<LLNode> tmpNode(new LLNode(value, mFonts, 0));
@@ -108,6 +121,7 @@ void QueueWorld::enqueStep() {
 		tmpNode->setVelocity(0.f, 0.f);
 		tmpNodes.push_back(tmpNode.get());
 		mSceneLayers[Air]->attachChild(std::move(tmpNode));
+		mPseudocode->setColorText(1);
 	}
 	else if (step == 2) {
 		std::unique_ptr<LLNode> tmpNode(new LLNode(value, mFonts, 0));
@@ -119,6 +133,7 @@ void QueueWorld::enqueStep() {
 		if (mQueueNodes.size() == 1) tmpNode->setColorSquare(sf::Color::Red);
 		mQueueNodes.push_back(tmpNode.get());
 		mSceneLayers[Air]->attachChild(std::move(tmpNode));
+		mPseudocode->setColorText(2); mPseudocode->setColorText(3);
 	}
 }
 
@@ -128,10 +143,13 @@ void QueueWorld::dequeueStep() {
 		else if (i == mQueueNodes.size() - 1) mQueueNodes[i]->setColorSquare(sf::Color::Green);
 		else mQueueNodes[i]->setColorSquare(sf::Color::White);
 	}
+	mPseudocode->resetColor();
 	if (step == 0) return;
 	if (step == 1) {
 		mQueueNodes[0]->setColorSquare(sf::Color::White);
 		if (mQueueNodes.size() > 1) mQueueNodes[1]->setColorSquare(sf::Color::Red);
+		mPseudocode->setColorText(1);
+		mPseudocode->setColorText(2);
 	}
 	else
 	{
@@ -148,6 +166,7 @@ void QueueWorld::dequeueStep() {
 		for (int i = 0; i < mQueueNodes.size(); ++i) {
 			mQueueNodes[i]->setPosition(100.f + i * 180.f, 100.f);
 		}
+		mPseudocode->setColorText(3);
 	}
 }
 
@@ -170,6 +189,10 @@ void QueueWorld::reUpdate() {
 			mSceneLayers[Air]->detachChild(*node);
 		}
 		tmpNodes.clear();
+	}
+	if (mPseudocode != nullptr) {
+		mSceneLayers[Air]->detachChild(*mPseudocode);
+		mPseudocode = nullptr;
 	}
 }
 
