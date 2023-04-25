@@ -8,6 +8,7 @@
 #include <CommandQueue.hpp>
 #include <vector>
 #include <LLNode.hpp>
+#include <Pseudocode.hpp>
 
 class CllWorld : private sf::NonCopyable {
 public:
@@ -51,6 +52,7 @@ private:
 
 	std::vector<LLNode*> mCllNodes, tmpCllNodes;
 	LLNode* tmp;
+	Pseudocode* mPseudocode;
 	sf::FloatRect mWorldBounds;
 	CommandQueue mCommandQueue;
 
