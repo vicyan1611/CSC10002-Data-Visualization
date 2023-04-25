@@ -172,6 +172,12 @@ void DllWorld::deleteFromArray(int id) {
 		mSceneLayers[Air]->detachChild(*mDllNodes[i]);
 	}
 	if (tmpDllNodes.size() == 1) mDllNodes[0]->setDirection(0);
+
+	std::unique_ptr<Pseudocode> code(new Pseudocode(mFonts, 9));
+	code->setPosition(100.f, 400.f);
+	code->setVelocity(0.f, 0.f);
+	mPseudocode = code.get();
+	mSceneLayers[Air]->attachChild(std::move(code));
 }
 
 void DllWorld::updateArray(int id, int value) {
@@ -256,28 +262,38 @@ void DllWorld::deleteFromArrayStep() {
 		}
 		tmpDllNodes.clear();
 	}
+	mPseudocode->resetColor();
 	int tmpStep = step;
 	for (int i = 0; i < mDllNodes.size(); ++i) {
-		int numEdges = 3;
-		if (i == 0 || i == mDllNodes.size() - 1) numEdges = 0;
-		std::unique_ptr<LLNode> node(new LLNode(1, mFonts, numEdges));
+		std::unique_ptr<LLNode> node(new LLNode(1, mFonts, 3));
 		node->setPosition(100.f + i * 180.f, 100.f);
 		node->setVelocity(0.f, 0.f);
-		if (i == 0 || i == mDllNodes.size() - 1) node->setString("nullptr");
-		else {
-			int tmpID = i - 1;
-			node->setValue(mValue[tmpID]);
+		if (i == 0) {
+			node->setColorSquare(sf::Color::Red);
+			node->setDirection(1);
 		}
-		if (i == 1) node->setColorSquare(sf::Color::Red);
+		if (i == mDllNodes.size() - 1) {
+			node->setColorSquare(sf::Color::Green);
+			node->setDirection(2);
+		}
+		node->setValue(mValue[i]);
 		tmpDllNodes.push_back(node.get());
 		mSceneLayers[Air]->attachChild(std::move(node));
 	}
+	if (tmpDllNodes.size() == 1) mDllNodes[0]->setDirection(0);
 	if (tmpStep <= operation.first) {
-		tmpDllNodes[tmpStep]->setColor(sf::Color::Cyan);
+		tmpDllNodes[tmpStep-1]->setColor(sf::Color::Cyan);
+		if (tmpStep == 1) mPseudocode->setColorText(1);
+		else if (tmpStep == operation.first) {
+			mPseudocode->setColorText(3);
+			mPseudocode->setColorText(4);
+			mPseudocode->setColorText(5);
+		}
+		else mPseudocode->setColorText(2);
 	}
 	else {
-		mSceneLayers[Air]->detachChild(*tmpDllNodes[operation.first]);
-		tmpDllNodes.erase(tmpDllNodes.begin() + operation.first);
+		mSceneLayers[Air]->detachChild(*tmpDllNodes[operation.first-1]);
+		tmpDllNodes.erase(tmpDllNodes.begin() + operation.first - 1);
 		for (int i = 0; i < tmpDllNodes.size(); ++i) {
 			tmpDllNodes[i]->setPosition(100.f + i * 180.f, 100.f);
 			tmpDllNodes[i]->setColor(sf::Color::White);
