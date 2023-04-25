@@ -186,19 +186,31 @@ void DllWorld::updateArray(int id, int value) {
 		return;
 	}
 	operationType = 3;
-	totalStep = id + 1;
+	totalStep = id + 2;
 	step = 0;
 	operation = { id, value };
+
+	std::unique_ptr<Pseudocode> code(new Pseudocode(mFonts, 6));
+	code->setPosition(100.f, 400.f);
+	code->setVelocity(0.f, 0.f);
+	mPseudocode = code.get();
+	mSceneLayers[Air]->attachChild(std::move(code));
 }
 
 void DllWorld::searchArray(int value) {
 	if (mDllNodes.empty()) return;
 	operationType = 4;
-	totalStep = int(mDllNodes.size()) - 1;
+	totalStep = mDllNodes.size() + 2;
 	step = 0;
 	operation = { 0, value };
-	int tmpID = int(mDllNodes.size()) - 2;
+	int tmpID = mDllNodes.size() - 1;
 	if (mDllNodes[tmpID]->getValue() == value) totalStep++;
+
+	std::unique_ptr<Pseudocode> code(new Pseudocode(mFonts, 7));
+	code->setPosition(100.f, 400.f);
+	code->setVelocity(0.f, 0.f);
+	mPseudocode = code.get();
+	mSceneLayers[Air]->attachChild(std::move(code));
 }
 
 void DllWorld::addToArrayStep() {
@@ -306,29 +318,49 @@ void DllWorld::updateArrayStep() {
 	for (auto node : mDllNodes) {
 		node->setColor(sf::Color::White);
 	}
-	if (step <= operation.first) 
-		mDllNodes[step]->setColor(sf::Color::Cyan);
-	else mDllNodes[operation.first]->setValue(operation.second);
+	mPseudocode->resetColor();
+	if (step <= operation.first)
+	{
+		mDllNodes[step-1]->setColor(sf::Color::Cyan);
+		if (step == 1) mPseudocode->setColorText(1);
+		else mPseudocode->setColorText(2);
+	}
+	else
+	{
+		mDllNodes[operation.first-1]->setValue(operation.second);
+		mPseudocode->setColorText(3);
+	}
 }
 
 void DllWorld::searchArrayStep() {
 	for (auto node : mDllNodes) 
 		node->setColor(sf::Color::White);
+	mPseudocode->resetColor();
 	if (step == 0) return;
 	int tmpStep = step;
-	for (int i = 1; i < mDllNodes.size() - 1; ++i) {
+	mPseudocode->setColorText(1);
+	if (--tmpStep == 0) return;
+	for (int i = 0; i < mDllNodes.size(); ++i) {
 		if (mDllNodes[i]->getValue() == operation.second) {
 			mDllNodes[i]->setColor(sf::Color::Green);
 		}
 		tmpStep--;
 		if (tmpStep == 0) {
+			mPseudocode->resetColor();
+			mPseudocode->setColorText(2);
+			mPseudocode->setColorText(3);
+			if (mDllNodes[i]->getValue() == operation.second) mPseudocode->setColorText(4);
+			mPseudocode->setColorText(5);
 			mDllNodes[i]->setColor(sf::Color::Cyan);
 			break;
 		}
 	}
 	if (tmpStep == 0) return;
-	if (mDllNodes[mDllNodes.size() - 2]->getValue() == operation.second) {
-		mDllNodes[mDllNodes.size() - 2]->setColor(sf::Color::Green);
+	if (mDllNodes[mDllNodes.size() - 1]->getValue() == operation.second) {
+		mPseudocode->resetColor();
+		mPseudocode->setColorText(3);
+		mPseudocode->setColorText(4);
+		mDllNodes[mDllNodes.size() - 1]->setColor(sf::Color::Green);
 		tmpStep--;
 	}
 	if (tmpStep == 0) return;
