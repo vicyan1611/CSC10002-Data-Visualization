@@ -67,6 +67,7 @@ void StaticArrayWorld::setArray(std::vector<int> data) {
 		std::unique_ptr<Aircraft> player(new Aircraft(data[i], mFonts));
 		player->setPosition(100.f + (i + 1) * 100.f, 100.f);
 		player->setVelocity(0.f, 0.f);
+		//mplayer..add(player.get());
 		mPlayerAircraftar.push_back(player.get());
 		mSceneLayers[Air]->attachChild(std::move(player));
 	}
@@ -83,6 +84,7 @@ void StaticArrayWorld::setRandomArray() {
 		std::unique_ptr<Aircraft> player(new Aircraft(value, mFonts));
 		player->setPosition(100.f + i * 100.f, 100.f);
 		player->setVelocity(0.f, 0.f);
+		//mplayer..add(player.get());
 		mPlayerAircraftar.push_back(player.get());
 		mSceneLayers[Air]->attachChild(std::move(player));
 	}
@@ -90,14 +92,17 @@ void StaticArrayWorld::setRandomArray() {
 
 void StaticArrayWorld::updateArray(int id, int value) {
 	id--;
+	//mplayerair..getsize();
 	if (id < 0 || id >= mPlayerAircraftar.size()) {
 		return;
 	}
+	//get location then change value
 	mPlayerAircraftar[id]->setValue(value);
 }
 
 void StaticArrayWorld::searchArray(int value) {
 	totalSearchStep = int (mPlayerAircraftar.size()) + 1;
+	//getlastoflinkedlist
 	if (mPlayerAircraftar[mPlayerAircraftar.size() - 1]->getValue() == value) {
 		totalSearchStep++;
 	}
@@ -116,6 +121,7 @@ void StaticArrayWorld::runAtOnce() {
 }
 
 void StaticArrayWorld::searchArrayStep() {
+	//reset update linked list
 	for (auto player : mPlayerAircraftar) {
 		player->setColor(sf::Color::White);
 	}

@@ -46,6 +46,7 @@
     <ClCompile Include="sources\QueueWorld.cpp" />
     <ClCompile Include="sources\SceneNode.cpp" />
     <ClCompile Include="sources\SettingsState.cpp" />
+    <ClCompile Include="sources\SLinkedList.cpp" />
     <ClCompile Include="sources\SllState.cpp" />
     <ClCompile Include="sources\SllWorld.cpp" />
     <ClCompile Include="sources\SpriteNode.cpp" />
@@ -87,6 +88,7 @@
     <ClInclude Include="include\ResourceHolder.hpp" />
     <ClInclude Include="include\SceneNode.hpp" />
     <ClInclude Include="include\SettingsState.hpp" />
+    <ClInclude Include="include\SLinkedList.hpp" />
     <ClInclude Include="include\SllState.hpp" />
     <ClInclude Include="include\SllWorld.hpp" />
     <ClInclude Include="include\SpriteNode.hpp" />
