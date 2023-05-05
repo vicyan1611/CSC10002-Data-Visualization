@@ -59,25 +59,38 @@ void StaticArrayWorld::loadFromFile() {
 }
 
 void StaticArrayWorld::setArray(std::vector<int> data) {
-	for (auto player : mPlayerAircraftar) {
+	/*for (auto player : mPlayerAircraftar) {
 		mSceneLayers[Air]->detachChild(*player);
 	}
-	mPlayerAircraftar.clear();
+	mPlayerAircraftar.clear();*/
+	//delete mPlayerAircraftar;
+	{
+		int n = mPlayerAircraftar.getSize();
+		for (int i = 1; i <= n; ++i) {
+			mSceneLayers[Air]->detachChild(*mPlayerAircraftar.getNode(i)->data);
+		}
+		mPlayerAircraftar.reset();
+	}
+
 	for (int i = 0; i < data.size(); i++) {
 		std::unique_ptr<Aircraft> player(new Aircraft(data[i], mFonts));
 		player->setPosition(100.f + (i + 1) * 100.f, 100.f);
 		player->setVelocity(0.f, 0.f);
 		//mplayer..add(player.get());
-		mPlayerAircraftar.push_back(player.get());
+		mPlayerAircraftar.addNode(player.get());
 		mSceneLayers[Air]->attachChild(std::move(player));
 	}
 }
 
 void StaticArrayWorld::setRandomArray() {
-	for (auto player : mPlayerAircraftar) {
-		mSceneLayers[Air]->detachChild(*player);
+	//delete mPlayerAircraftar;
+	{
+		int n = mPlayerAircraftar.getSize();
+		for (int i = 1; i <= n; ++i) {
+			mSceneLayers[Air]->detachChild(*mPlayerAircraftar.getNode(i)->data);
+		}
+		mPlayerAircraftar.reset();
 	}
-	mPlayerAircraftar.clear();
 	int size = rand() % 10 + 1;
 	for (int i = 1; i <= size; i++) {
 		int value = rand() % 100 + 1;
@@ -85,25 +98,24 @@ void StaticArrayWorld::setRandomArray() {
 		player->setPosition(100.f + i * 100.f, 100.f);
 		player->setVelocity(0.f, 0.f);
 		//mplayer..add(player.get());
-		mPlayerAircraftar.push_back(player.get());
+		mPlayerAircraftar.addNode(player.get());
 		mSceneLayers[Air]->attachChild(std::move(player));
 	}
 }
 
 void StaticArrayWorld::updateArray(int id, int value) {
-	id--;
 	//mplayerair..getsize();
-	if (id < 0 || id >= mPlayerAircraftar.size()) {
+	if (id < 1 || id > mPlayerAircraftar.getSize()) {
 		return;
 	}
 	//get location then change value
-	mPlayerAircraftar[id]->setValue(value);
+	mPlayerAircraftar.getNode(id)->data->setValue(value);
 }
 
 void StaticArrayWorld::searchArray(int value) {
-	totalSearchStep = int (mPlayerAircraftar.size()) + 1;
+	totalSearchStep = int (mPlayerAircraftar.getSize()) + 1;
 	//getlastoflinkedlist
-	if (mPlayerAircraftar[mPlayerAircraftar.size() - 1]->getValue() == value) {
+	if (mPlayerAircraftar.getNode(mPlayerAircraftar.getSize())->data->getValue() == value) {
 		totalSearchStep++;
 	}
 	searchValue = value;
@@ -121,28 +133,28 @@ void StaticArrayWorld::runAtOnce() {
 }
 
 void StaticArrayWorld::searchArrayStep() {
-	//reset update linked list
-	for (auto player : mPlayerAircraftar) {
-		player->setColor(sf::Color::White);
+	int n = mPlayerAircraftar.getSize();
+	for (int i = 1; i <= n; ++i) {
+		mPlayerAircraftar.getNode(i)->data->setColor(sf::Color::White);
 	}
 	mPseudocode->resetColor();
 	if (step == 0) return;
-	if (step <= mPlayerAircraftar.size()) {
-		for (int i = 0; i < step; ++i) {
-			if (mPlayerAircraftar[i]->getValue() == searchValue) {
-				mPlayerAircraftar[i]->setColor(sf::Color::Red);
+	if (step <= mPlayerAircraftar.getSize()) {
+		for (int i = 1; i <= step; ++i) {
+			if (mPlayerAircraftar.getNode(i)->data->getValue() == searchValue) {
+				mPlayerAircraftar.getNode(i)->data->setColor(sf::Color::Red);
 			}
 		}
-		int tmpID = step - 1;
-		mPlayerAircraftar[tmpID]->setColor(sf::Color::Green);
-		if (mPlayerAircraftar[tmpID]->getValue() == searchValue) mPseudocode->setColorText(2);
+		int tmpID = step;
+		mPlayerAircraftar.getNode(tmpID)->data->setColor(sf::Color::Green);
+		if (mPlayerAircraftar.getNode(tmpID)->data->getValue() == searchValue) mPseudocode->setColorText(2);
 		else mPseudocode->setColorText(1);
 		return;
 	}
-	if (step == mPlayerAircraftar.size() + 1 && totalSearchStep == mPlayerAircraftar.size() + 2) {
-		for (int i = 0; i < mPlayerAircraftar.size(); ++i) {
-			if (mPlayerAircraftar[i]->getValue() == searchValue) {
-				mPlayerAircraftar[i]->setColor(sf::Color::Red);
+	if (step == mPlayerAircraftar.getSize() + 1 && totalSearchStep == mPlayerAircraftar.getSize() + 2) {
+		for (int i = 1; i <= mPlayerAircraftar.getSize(); ++i) {
+			if (mPlayerAircraftar.getNode(i)->data->getValue() == searchValue) {
+				mPlayerAircraftar.getNode(i)->data->setColor(sf::Color::Red);
 			}
 		}
 		mPseudocode->setColorText(2);

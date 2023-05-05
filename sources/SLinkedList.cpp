@@ -5,7 +5,7 @@ Aircraft*& SLinkedListNode::getData()
 	return data;
 }
 
-SLinkedListNode* SlinkedList::getNode(int id)
+SLinkedListNode* SLinkedList::getNode(int id)
 {
 	if (pHead == nullptr) return nullptr;
 	SLinkedListNode* cur = pHead;
@@ -17,7 +17,7 @@ SLinkedListNode* SlinkedList::getNode(int id)
 	return cur;
 }
 
-int SlinkedList::getSize()
+int SLinkedList::getSize()
 {
 	if (pHead == nullptr) return 0;
 	SLinkedListNode* cur = pHead;
@@ -29,7 +29,7 @@ int SlinkedList::getSize()
 	return cnt;
 }
 
-void SlinkedList::addNode(Aircraft* data)
+void SLinkedList::addNode(Aircraft* data)
 {
 	SLinkedListNode* newNode(new SLinkedListNode);
 	newNode->data = data;
@@ -43,4 +43,15 @@ void SlinkedList::addNode(Aircraft* data)
 		cur = cur->next;
 	}
 	cur->next = newNode;
+}
+
+void SLinkedList::reset()
+{
+	SLinkedListNode* cur = pHead;
+	while (cur != nullptr) {
+		SLinkedListNode* tmp = cur;
+		cur = cur->next;
+		delete tmp;
+	}
+	pHead = nullptr;
 }

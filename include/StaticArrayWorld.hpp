@@ -9,6 +9,7 @@
 #include <CommandQueue.hpp>
 #include <vector>
 #include <Pseudocode.hpp>
+#include <SLinkedList.hpp>
 
 class StaticArrayWorld : private sf::NonCopyable {
 public:
@@ -43,7 +44,8 @@ private:
 	std::array<SceneNode*, LayerCount> mSceneLayers;
 
 	sf::FloatRect mWorldBounds;
-	std::vector<Aircraft*> mPlayerAircraftar;
+	//std::vector<Aircraft*> mPlayerAircraftar;
+	SLinkedList mPlayerAircraftar;
 	Pseudocode* mPseudocode;
 
 	CommandQueue mCommandQueue;

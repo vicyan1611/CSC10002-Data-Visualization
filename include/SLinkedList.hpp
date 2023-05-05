@@ -8,9 +8,10 @@ struct SLinkedListNode {
 	Aircraft* &getData();
 };
 
-struct SlinkedList {
+struct SLinkedList {
 	SLinkedListNode *pHead = nullptr;
 	SLinkedListNode *getNode(int id);
 	int getSize();
 	void addNode(Aircraft* data);
+	void reset();
 };
