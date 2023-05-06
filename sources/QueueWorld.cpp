@@ -45,6 +45,7 @@ void QueueWorld::setArray(std::vector<int> data) {
 		}
 		mQueueNodes.clear();
 	}
+	if (data.size() == 0) return;
 	for (int i = 0; i < data.size(); ++i) {
 		std::unique_ptr<LLNode> node(new LLNode(data[i], mFonts, (i == data.size() -1)? 0:1));
 		node->setPosition(100.f + i * 180.f, 100.f);
@@ -251,4 +252,10 @@ void QueueWorld::loadFromFile() {
 	}
 	setArray(data);
 	file.close();
+}
+
+void QueueWorld::clear() {
+	std::vector <int> v;
+	v.clear();
+	setArray(v);
 }

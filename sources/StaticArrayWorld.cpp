@@ -129,6 +129,7 @@ void StaticArrayWorld::searchArray(int value) {
 }
 
 void StaticArrayWorld::runAtOnce() {
+	if (operationType == 0) return;
 	isRunAtOnce = true;
 }
 

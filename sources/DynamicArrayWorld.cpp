@@ -66,7 +66,7 @@ void DynamicArrayWorld::setArray(std::vector<int> data) {
 }
 
 void DynamicArrayWorld::addToArray(int id, int value) {
-	if (id < 1|| id > mPlayerAircraftar.size()) {
+	if (id < 1|| id > mPlayerAircraftar.size() + 1) {
 		return;
 	}
 	operationType = 1;

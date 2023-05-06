@@ -28,6 +28,7 @@ public:
 	void searchStack(int x);
 	void runAtOnce();
 	void loadFromFile();
+	void clear();
 
 private:
 	void loadTextures(int id);

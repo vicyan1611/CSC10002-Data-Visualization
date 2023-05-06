@@ -22,8 +22,16 @@ StackState::StackState(StateStack& stack, Context context)
 		});
 	mGUIContainer.pack(mFileLoadButton);
 
+	mClearButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mClearButton->setPosition(500, 750);
+	mClearButton->setText("Clear");
+	mClearButton->setCallback([this]() {
+		mStackWorld.clear();
+		});
+	mGUIContainer.pack(mClearButton);
+
 	mDeleteButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	mDeleteButton->setPosition(500, 750);
+	mDeleteButton->setPosition(700, 750);
 	mDeleteButton->setText("Pop");
 	mDeleteButton->setCallback([this]() {
 		mStackWorld.deleteFromStack();

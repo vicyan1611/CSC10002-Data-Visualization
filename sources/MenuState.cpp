@@ -21,33 +21,25 @@ MenuState::MenuState(StateStack& stack, Context context)
 		});
 	mGUIContainer.pack(changeBackGroundButton);
 
-	auto playButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	/*auto playButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	playButton->setPosition(100, 250);
 	playButton->setText("Play");
 	playButton->setCallback([this]() {
 		requestStackPop();
 		requestStackPush(States::Game);
 		});
-	mGUIContainer.pack(playButton);
+	mGUIContainer.pack(playButton);*/
 
-	auto settingsButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	/*auto settingsButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	settingsButton->setPosition(100, 300);
 	settingsButton->setText("Settings");
 	settingsButton->setCallback([this]() {
 		requestStackPush(States::Settings);
 		});
-	mGUIContainer.pack(settingsButton);
-
-	auto exitButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	exitButton->setPosition(100, 350);
-	exitButton->setText("Exit");
-	exitButton->setCallback([this]() {
-		requestStackPop();
-		});
-	mGUIContainer.pack(exitButton);
+	mGUIContainer.pack(settingsButton);*/
 
 	auto saButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	saButton->setPosition(100, 400);
+	saButton->setPosition(100, 250);
 	saButton->setText("Static Array");
 	saButton->setCallback([this]() {
 		requestStackPush(States::StaticArray);
@@ -55,7 +47,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	mGUIContainer.pack(saButton);
 
 	auto daButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	daButton->setPosition(100, 450);
+	daButton->setPosition(100, 300);
 	daButton->setText("Dynamic Array");
 	daButton->setCallback([this]() {
 		requestStackPush(States::DynamicArray);
@@ -63,7 +55,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	mGUIContainer.pack(daButton);
 
 	auto sllButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	sllButton->setPosition(100, 500);
+	sllButton->setPosition(100, 350);
 	sllButton->setText("Singly Linked List");
 	sllButton->setCallback([this]() {
 		requestStackPush(States::Sll);
@@ -71,7 +63,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	mGUIContainer.pack(sllButton);
 
 	auto dllButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	dllButton->setPosition(100, 550);
+	dllButton->setPosition(100, 400);
 	dllButton->setText("Doubly Linked List");
 	dllButton->setCallback([this]() {
 		requestStackPush(States::Dll);
@@ -79,7 +71,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	mGUIContainer.pack(dllButton);
 
 	auto cllButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	cllButton->setPosition(100, 600);
+	cllButton->setPosition(100, 450);
 	cllButton->setText("Circular Linked List");
 	cllButton->setCallback([this]() {
 		requestStackPush(States::Cll);
@@ -87,7 +79,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	mGUIContainer.pack(cllButton);
 
 	auto stackButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	stackButton->setPosition(100, 650);
+	stackButton->setPosition(100, 500);
 	stackButton->setText("Stack");
 	stackButton->setCallback([this]() {
 		requestStackPush(States::Stackk);
@@ -95,12 +87,20 @@ MenuState::MenuState(StateStack& stack, Context context)
 	mGUIContainer.pack(stackButton);
 
 	auto queueButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	queueButton->setPosition(100, 700);
+	queueButton->setPosition(100, 550);
 	queueButton->setText("Queue");
 	queueButton->setCallback([this]() {
 		requestStackPush(States::Queuee);
 		});
 	mGUIContainer.pack(queueButton);
+
+	auto exitButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	exitButton->setPosition(100, 600);
+	exitButton->setText("Exit");
+	exitButton->setCallback([this]() {
+		requestStackPop();
+		});
+	mGUIContainer.pack(exitButton);
 
 	/*auto userInput = std::make_shared<GUI::InputBox>(*context.fonts);
 	userInput->setPosition(100, 450);

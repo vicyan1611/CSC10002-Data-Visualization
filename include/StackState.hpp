@@ -23,7 +23,7 @@ private:
 	StackWorld mStackWorld;
 	GUI::Container mGUIContainer;
 	GUI::InputBox::Ptr mInitBox, mAddBox, mUpdateBox, mSearchBox;
-	GUI::Button::Ptr mRandomButton, mNextButton, mPreviousButton, mDeleteButton, mRunAtOnceButton, mFileLoadButton;
+	GUI::Button::Ptr mRandomButton, mNextButton, mPreviousButton, mDeleteButton, mRunAtOnceButton, mFileLoadButton, mClearButton;
 
 	std::vector <int> mData;
 	int nData = 0, id = -1;

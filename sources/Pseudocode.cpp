@@ -109,6 +109,11 @@ void Pseudocode::setStringInside() {
 		mText2.setString("pTail->pNext = newNode");
 		mText3.setString("pTail = newNode");
 	}
+	else if (mNum == 13) {
+		mText1.setString("Node* newNode = createNewNode(value)");
+		mText2.setString("newNode->pNext = pHead");
+		mText3.setString("pHead = newNode");
+	}
 }
 
 void Pseudocode::setPositionInside() {

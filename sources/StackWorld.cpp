@@ -255,3 +255,9 @@ void StackWorld::loadFromFile() {
 	setArray(data);
 	file.close();
 }
+
+void StackWorld::clear() {
+	std::vector<int> v;
+	v.clear();
+	setArray(v);
+}

@@ -106,7 +106,7 @@ void CllWorld::setRandomArray() {
 }
 
 void CllWorld::addToArray(int id, int value) {
-	if (id < 1 || id > mCllNodes.size()) return;
+	if (id < 1 || id > mCllNodes.size() + 1) return;
 	if (mCllNodes.size() == 0) {
 		std::vector <int> data;
 		data.push_back(value);
@@ -142,13 +142,22 @@ void CllWorld::addToArrayStep() {
 		int tmpID = step - 1;
 		mCllNodes[tmpID]->setColor(sf::Color::Cyan);
 	} else if (step >= operation.first) {
-		int tmpID = operation.first - 1;
-		mCllNodes[tmpID]->setColor(sf::Color::Cyan);
-		std::unique_ptr<LLNode> node(new LLNode(operation.second, mFonts, 4));
-		node->setPosition(mCllNodes[tmpID]->getPosition() + sf::Vector2f(0.f, 200.f));
-		node->setVelocity(0.f, 0.f);
-		tmpCllNodes.push_back(node.get());
-		mSceneLayers[Air]->attachChild(std::move(node));
+		if (operation.first == mCllNodes.size() + 1) {
+			std::unique_ptr<LLNode> node(new LLNode(operation.second, mFonts, 0));
+			node->setPosition(mCllNodes[mCllNodes.size()-1]->getPosition() + sf::Vector2f(180.f, 0.f));
+			node->setVelocity(0.f, 0.f);
+			tmpCllNodes.push_back(node.get());
+			mSceneLayers[Air]->attachChild(std::move(node));
+		}
+		else {
+			int tmpID = operation.first - 1;
+			mCllNodes[tmpID]->setColor(sf::Color::Cyan);
+			std::unique_ptr<LLNode> node(new LLNode(operation.second, mFonts, 4));
+			node->setPosition(mCllNodes[tmpID]->getPosition() + sf::Vector2f(0.f, 200.f));
+			node->setVelocity(0.f, 0.f);
+			tmpCllNodes.push_back(node.get());
+			mSceneLayers[Air]->attachChild(std::move(node));
+		}
 		mPseudocode->setColorText(3);
 		mPseudocode->setColorText(4);
 	}
@@ -163,7 +172,13 @@ void CllWorld::addToArrayStep() {
 			mCllNodes[i]->setPosition(100.f + i * 180.f, 100.f);
 			mCllNodes[i]->setColor(sf::Color::White);
 			mCllNodes[i]->setColorSquare(sf::Color::White);
-			if (i == mCllNodes.size() - 1)	mCllNodes[i]->setCll(true);
+			mCllNodes[i]->setCll(false);
+			mCllNodes[i]->setDirection(1);
+			if (i == mCllNodes.size() - 1)
+			{
+				mCllNodes[i]->setCll(true);
+				mCllNodes[i]->setDirection(8);
+			}
 			if (i == 0) mCllNodes[i]->setColorSquare(sf::Color::Red); 
 		}
 	}

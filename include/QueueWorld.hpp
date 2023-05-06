@@ -27,6 +27,7 @@ public:
 	void searchQueue(int x);
 	void runAtOnce();
 	void loadFromFile();
+	void clear();
 private:
 	void loadTextures(int id);
 	void buildScene();
