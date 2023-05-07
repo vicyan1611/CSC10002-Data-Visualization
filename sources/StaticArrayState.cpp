@@ -43,7 +43,7 @@ StaticArrayState::StaticArrayState(StateStack& stack, Context context)
 	mSearchBox->setText("");
 	mGUIContainer.pack(mSearchBox);
 	GUI::Label::Ptr mSearchLabel = std::make_shared<GUI::Label>("Search Box", *context.fonts);
-	mSearchLabel->setPosition(600, 820);
+	mSearchLabel->setPosition(500, 820);
 	mGUIContainer.pack(mSearchLabel);
 
 	mRunAtOnceButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);

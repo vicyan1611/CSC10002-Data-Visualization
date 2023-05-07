@@ -12,7 +12,7 @@
 #include <QueueState.hpp>
 #include <CllState.hpp>
 Application::Application()
-	:mWindow(sf::VideoMode(1900, 1000), "Data Visualization - Test ver", sf::Style::Close)
+	:mWindow(sf::VideoMode(1900, 1000), "Data Visualization", sf::Style::Close)
 	,mPlayer()
 	,mTextures()
 	,mFonts()

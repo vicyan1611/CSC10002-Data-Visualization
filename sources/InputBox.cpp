@@ -52,6 +52,7 @@ void GUI::InputBox::handleEvent(const sf::Event& event) {
 				deactivate();
 				mFinalText.setString(mText.getString());
 				mText.setString("");
+				select();
 			}
 			else {
 				mText.setString(mText.getString() + static_cast<char>(event.text.unicode));
