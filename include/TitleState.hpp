@@ -10,8 +10,7 @@ public:
 
 private:
 	sf::Sprite mBackgroundSprite;
-	sf::Text mText;
-
+	sf::Text mText, author, title;
 	bool mShowText;
 	sf::Time mTextEffectTime;
 };
